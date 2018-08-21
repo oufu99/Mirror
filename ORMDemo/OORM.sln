@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2035
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ORMDemo", "ORMDemo\ORMDemo.csproj", "{3ED42749-2C71-4062-B235-9C0611C56911}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OORM", "ORMDemo\OORM.csproj", "{3ED42749-2C71-4062-B235-9C0611C56911}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csproj", "{6CAF9DE5-753E-4536-AE09-A315098B6694}"
 EndProject
