@@ -8,7 +8,21 @@ namespace Models
 {
     public class Person
     {
+
+        public Person()
+        {
+
+        }
+        public Person(string name, int age)
+        {
+            this.Name = name;
+            this.Age = age;
+        }
+
+       
+        public int Id { get; set; }
         public string Name { get; set; }
+
         public int Age { get; set; }
 
         public string Email { get; set; }
