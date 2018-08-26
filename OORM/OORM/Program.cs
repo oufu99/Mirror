@@ -32,6 +32,9 @@ namespace OORM
             string sql = "SELECT * FROM dbo.Person";
             // new System.Data.SqlClient.SqlParameter[] { }
             var dt = SqlHelper.ExcuteTable(sql);
+
+
+
             var list = dt.DataTable2List<Person>();
             Console.WriteLine(sql);
 
@@ -104,6 +107,24 @@ namespace OORM
             sql += " where Id=" + Id;
             return sql;
         }
+        private static string Delete(object obj)
+        {
+            Type t = obj.GetType();
+            var tbName = t.Name;
+            var propes = t.GetProperties();
+            var prop = propes.Where(c => c.Name == "Id").First();
+            var id = prop.GetValue(obj);
+            var sql = $"delete {tbName} where Id={id}";
+            return sql;
+        }
+
+        //查询以后根据Table转成T
+        private static IList<T> Select<T>(Func<string,bool> func)
+        {
+            func("111");
+            return null;
+        }
+
         #endregion
     }
 }
