@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace Models
 {
-    public class Person
+    public class User
     {
 
-        public Person()
+        public User()
         {
 
         }
-        public Person(string name, int age)
+        public User(string name, int age)
         {
             this.Name = name;
             this.Age = age;

@@ -10,13 +10,14 @@ namespace OORM
     using Models;
     using System.Configuration;
     using System.Data;
+    using System.Linq.Expressions;
     using System.Reflection;
 
     class Program
     {
-        static void Main(string[] args)
+        static void Main1(string[] args)
         {
-            #region 利用反射创建对象,可以根据构造函数传入
+            #region 利用反射创建对象,可以根据构造函数注入
             var nameSpace = ConfigurationManager.AppSettings["nameSpace"];
             var className = ConfigurationManager.AppSettings["className"];
             var classFullName = string.Format($"{nameSpace}.{className}");
@@ -25,7 +26,7 @@ namespace OORM
             Assembly assembly = Assembly.LoadFile(path); // 加载程序集（EXE 或 DLL） 
             var t = assembly.GetType(classFullName);
             var obj = Activator.CreateInstance(t, new object[] { "Aaron", 18 });
-            var p = obj as Person;
+            var p = obj as User;
             #endregion
             //var sql = Insert(p);
             //var sql = Update(p);
@@ -35,24 +36,33 @@ namespace OORM
 
 
 
-            var list = dt.DataTable2List<Person>();
+            var list = dt.DataTable2List<User>();
             Console.WriteLine(sql);
-
-
-
-
-
-
-
-
             //赋值
 
             //传入ORM方法,反射出对象的属性,基于约定ID为主字段 
 
             Console.ReadLine();
         }
+        static void Main(string[] args)
+        {
+            //构建一个自己的Lambda表达式再解析他
+            Console.ReadLine();
+        }
 
-        #region 增删改查
+        static void GetLambda()
+        {
+            ParameterExpression param = Expression.Parameter(typeof(User), "c");//构建 c=> 这个参数c
+
+
+        }
+
+
+
+
+        #region 总的
+
+        #region 添加 Insert
         private static string Insert(object obj)
         {
             string sql = string.Empty;
@@ -78,6 +88,9 @@ namespace OORM
             return sql;
         }
 
+        #endregion
+
+        #region 更新 Update
         private static string Update(object obj)
         {
             string sql = string.Empty;
@@ -107,6 +120,9 @@ namespace OORM
             sql += " where Id=" + Id;
             return sql;
         }
+        #endregion
+
+        #region 删除  Delete
         private static string Delete(object obj)
         {
             Type t = obj.GetType();
@@ -118,13 +134,21 @@ namespace OORM
             return sql;
         }
 
+        #endregion
+
+        #region 查询  Select
+
         //查询以后根据Table转成T
-        private static IList<T> Select<T>(Func<string,bool> func)
+        private static IList<T> Select<T>(Func<string, bool> func)
         {
+
+            //传入Lambda然后解析成sql
             func("111");
             return null;
         }
+        #endregion
 
         #endregion
+
     }
 }
