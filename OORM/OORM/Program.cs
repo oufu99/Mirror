@@ -47,14 +47,45 @@ namespace OORM
         static void Main(string[] args)
         {
             //构建一个自己的Lambda表达式再解析他
+            User u = new User();
+            u.Name = "aaron1";
+            u.IsDelete = true;
+            User u1 = new User();
+            u1.Name = "aaro";
+            u1.IsDelete = true;
+            List<User> list = new List<User>() { u, u1 };
+            var fun = GetLambda();
+            var resList = list.Where(fun).ToList();
+            Console.WriteLine(fun.ToString());
+            bool b = u.Name.Contains("aaron");
             Console.ReadLine();
         }
 
-        static void GetLambda()
+        static Func<User, bool> GetLambda()
         {
-            ParameterExpression param = Expression.Parameter(typeof(User), "c");//构建 c=> 这个参数c
+            string sname = "aaron";
+            ParameterExpression param = Expression.Parameter(typeof(User), "c");//c=>
+            //要传入的对象的IsDelete是false才删除
+            MemberExpression left1 = Expression.Property(param, typeof(User).GetProperty("IsDelete"));
+            ConstantExpression right1 = Expression.Constant(false);//构建一个常量 false
+            BinaryExpression be = Expression.Equal(left1, right1);
+
+            //UserName中包含了关键字才进行删除 cd,1
+            MemberExpression left2 = Expression.Property(param, typeof(User).GetProperty("Name"));
+            ConstantExpression right2 = Expression.Constant(sname);//这里构造sname这个常量表达式
+            MethodCallExpression where3 = Expression.Call(left2, typeof(string).GetMethod("Contains"), right2);
 
 
+            #region 如果只想要后面这一个表达式的话,就要把左边拼接成常量true
+            //ConstantExpression lefttrue = Expression.Constant(true);//构建一个常量 false
+            //ConstantExpression righttrue = Expression.Constant(true);//构建一个常量 false
+            //be = Expression.Equal(lefttrue, righttrue); 
+            #endregion
+
+            be = Expression.And(be, where3);
+            //compile成lambda表达式
+            var where = Expression.Lambda<Func<User, bool>>(be, param).Compile();
+            return where;
         }
 
 
