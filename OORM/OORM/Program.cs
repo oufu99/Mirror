@@ -51,16 +51,146 @@ namespace OORM
             u.Name = "aaron1";
             u.IsDelete = true;
             User u1 = new User();
+            var test = u1.GetType().GetRuntimeFields();
+
             u1.Name = "aaro";
             u1.IsDelete = true;
             List<User> list = new List<User>() { u, u1 };
             var fun = GetLambda();
-            var resList = list.Where(fun).ToList();
-            Console.WriteLine(fun.ToString());
-            bool b = u.Name.Contains("aaron");
+            //var resList = list.Where(fun).ToList();
+            //Console.WriteLine(fun.ToString());
+
+            //解析
+            //  AnalysisLambda();
+            //  DataAccess<User>.GetSingle(c => c.IsDelete == false);
+            AnalysisLambda<User>(c => c.Id == 2 && c.Name == "张三");
             Console.ReadLine();
         }
 
+        //目的就是根据传入的lambda表达式解析成Sql  第二步把自己的lambda传进来解析
+        static void AnalysisLambda<T>(Expression<Func<User, bool>> func)
+        {
+            //LambdaExpression 是Expression的子类 可以把父类传入子类的
+            var nType = func.NodeType;
+            //根据表达式类型进行不同的处理
+            var body = func.Body as BinaryExpression;
+            //c,x  这种传入参数,有可能有多个,所以取第一个
+            var par = func.Parameters[0];
+            string expString = body.ToString();
+
+            expString = expString.Replace("AndAlso", "and").Replace("OrElse", "or");
+            expString = expString.Replace("==", "=");
+            //根据他的类型进行改变
+            BuildVariableValue(expString, par, body);
+            
+
+        }
+
+        private static string BuildVariableValue(string expString, ParameterExpression paramExp, BinaryExpression expItem)
+        {
+
+
+            var expressionList = new List<Expression>();
+            //ExpItem是Binary表达式这个表达式里面可能会包含很多左边或者右边是由And Or 之类多个表达式组合而成 解析这个Binary成一个个的Expresion
+            SetExpressionChildList(expItem, ref expressionList);
+            MemberExpression memberExp = null;
+            ConstantExpression constantExp = null;
+            BinaryExpression bExp = null;
+            UnaryExpression uExp = null;
+            PropertyInfo prop = null;
+            FieldInfo field = null;
+            object value = null;
+            foreach (var item in expressionList)
+            {
+                bExp = item as BinaryExpression;
+                if (bExp == null) continue;
+                memberExp = bExp.Right as MemberExpression;
+                if (memberExp == null)
+                {
+                    uExp = bExp.Right as UnaryExpression;
+                    if (uExp != null)
+                        memberExp = uExp.Operand as MemberExpression;
+                }
+                if (memberExp == null) continue;
+                constantExp = memberExp.Expression as ConstantExpression;
+                if (constantExp == null)
+                {
+                    if ((memberExp.Expression as MemberExpression) == null)
+                        continue;
+
+                    if (((memberExp.Expression as MemberExpression).Expression as ConstantExpression) == null)
+                        continue;
+
+                    value = (((memberExp.Expression as MemberExpression) as MemberExpression).Member as FieldInfo).
+                        GetValue(((memberExp.Expression as MemberExpression).Expression as ConstantExpression).Value);
+                    //  field = memberExp.Member as FieldInfo;
+                    //获取编译时候的字段
+                    //field = value.GetType().GetRuntimeFields().Where(m => m.Name.Contains("<"+ memberExp.Member.Name+">")).FirstOrDefault();
+                    //if (field == null)
+                    //{
+                    //用反射反射出这个实体的值
+                    if (memberExp.Member.MemberType == MemberTypes.Field)
+                    {
+                        field = memberExp.Member as FieldInfo;
+                        value = (memberExp.Member as FieldInfo).GetValue(value);
+                    }
+                    else if (memberExp.Member.MemberType == MemberTypes.Property)
+                    {
+                        prop = memberExp.Member as PropertyInfo;
+                        value = (memberExp.Member as PropertyInfo).GetValue(value);
+                    }
+                    //}
+                }
+                else
+                {
+                    field = memberExp.Member as FieldInfo;
+                    value = field.GetValue(constantExp.Value);
+                }
+                if (field != null && field.FieldType == typeof(string)) value = $"'{value}'";
+                if (field != null && field.FieldType == typeof(DateTime))
+                    value = $"'{value.ToString().Replace('/', '-')}'";
+                if (prop != null && prop.PropertyType == typeof(string)) value = $"'{value}'";
+            }
+            return expString;
+        }
+
+
+
+        private static void SetExpressionChildList(Expression expression, ref List<Expression> expressionList)
+        {
+            if (expression == null)
+                return;
+
+            if (expression.NodeType != ExpressionType.AndAlso && expression.NodeType != ExpressionType.OrElse)
+                expressionList.Add(expression);
+            else
+            {
+                var leftExp = (expression as BinaryExpression).Left;
+                //这个表达式的左边如果是由两个表达式构成的就再递归这个方法,直到解析成一个个只有左右两个对象的方法
+                if (leftExp.NodeType != ExpressionType.AndAlso && leftExp.NodeType != ExpressionType.OrElse)
+                    expressionList.Add(leftExp);
+                else
+                    SetExpressionChildList(leftExp as BinaryExpression, ref expressionList);
+
+                var rightExp = (expression as BinaryExpression).Right;
+                if (rightExp.NodeType != ExpressionType.AndAlso && rightExp.NodeType != ExpressionType.OrElse)
+                    expressionList.Add(rightExp);
+                else
+                    SetExpressionChildList(rightExp as BinaryExpression, ref expressionList);
+            }
+
+        }
+
+
+
+
+
+
+
+        /// <summary>
+        /// 这个方法的目的就是不想多次拼接  c.IsDelete==false 这种重复动作而已 
+        /// </summary>
+        /// <returns></returns>
         static Func<User, bool> GetLambda()
         {
             string sname = "aaron";
@@ -87,9 +217,6 @@ namespace OORM
             var where = Expression.Lambda<Func<User, bool>>(be, param).Compile();
             return where;
         }
-
-
-
 
         #region 总的
 
