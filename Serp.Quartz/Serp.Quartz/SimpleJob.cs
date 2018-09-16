@@ -10,7 +10,7 @@ using Quartz;
 namespace Serp.Quartz
 {
     /// <summary>
-    /// 简单任务
+    /// 测试任务
     /// </summary>
     public class SimpleJob : IJob
     {
