@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This file contains job definitions in schema version 2.0 format -->
+
+<job-scheduling-data xmlns="http://quartznet.sourceforge.net/JobSchedulingData" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.0">
+
+  <processing-directives>
+    <overwrite-existing-data>true</overwrite-existing-data>
+  </processing-directives>
+
+  <schedule>
+    <!--定义示例任务1 Job-->
+    <job>
+      <name>Job1</name>
+      <group>JobGroup</group>
+      <description>Quartz示例任务1</description>
+      <job-type>Serp.Quartz.SimpleJob,Serp.Quartz</job-type>
+      <durable>true</durable>
+      <recover>false</recover>
+    </job>
+
+
+    <trigger>
+      <simple>
+        <name>sampleSimpleTrigger</name>
+        <group>sampleSimpleGroup</group>
+        <description>Simple trigger to simply fire sample job</description>
+        <job-name>Job1</job-name>
+        <job-group>JobGroup</job-group>
+        <misfire-instruction>SmartPolicy</misfire-instruction>
+        <repeat-count>-1</repeat-count>
+        <repeat-interval>2000</repeat-interval>
+      </simple>
+    </trigger>
+
+
+    <!--<job>
+      <name>Job2</name>
+      <group>JobGroup2</group>
+      <description>Quartz示例任务2</description>
+      <job-type>Serp.Quartz.SimpleJob2,Serp.Quartz</job-type>
+      <durable>true</durable>
+      <recover>false</recover>
+    </job>
+
+
+    <trigger>
+      <simple>
+        <name>sampleSimpleTrigger2</name>
+        <group>sampleSimpleGroup2</group>
+        <description>Simple trigger to simply fire sample job</description>
+        <job-name>Job2</job-name>
+        <job-group>JobGroup2</job-group>
+        <misfire-instruction>SmartPolicy2</misfire-instruction>
+        <repeat-count>-1</repeat-count>
+        <repeat-interval>1000</repeat-interval>
+      </simple>
+    </trigger>-->
+    <!--定义示例任务2 Job-->
+    <!--
+    <job>
+      <name>DemoJob2</name>
+      <group>JobGroup2</group>
+      <description>Quartz示例任务2</description>
+      <job-type>QuartTest.Job2,QuartzTest</job-type>
+      <durable>true</durable>
+      <recover>false</recover>
+    </job>
+
+    -->
+    <!--定义示例任务2 触发器 每5秒执行一次DemoJob2任务-->
+    <!--
+    <trigger>
+      <cron>
+        <name>Job2Trigger</name>
+        <group>JobTriggerGroup</group>
+        <job-name>DemoJob2</job-name>
+        <job-group>JobGroup2</job-group>
+        <cron-expression>0/5 * * * * ? </cron-expression>
+      </cron>
+    </trigger>-->
+
+  </schedule>
+
+</job-scheduling-data>
