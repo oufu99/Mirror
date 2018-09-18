@@ -12,9 +12,9 @@ namespace Serp.Quartz
     /// <summary>
     /// 测试任务
     /// </summary>
-    public class SimpleJob2 : QuartzServiceRunner
+    public class SimpleJob2 : IJob
     {
-        public override void Execute(IJobExecutionContext context)
+        public  void Execute(IJobExecutionContext context)
         {
             System.IO.File.AppendAllText(@"d:\test2.txt", "111111");
             //业务逻辑处理

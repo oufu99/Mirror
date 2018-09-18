@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -17,17 +18,25 @@ namespace Serp.Quartz
 
         static void Main(string[] args)
         {
-            //明天研究一下这个core时间定义  看一下多任务怎么生效  指定时间生效
-            QuartzServiceRunner run = new SimpleJob();
-            run.Start();
+            #region 直接调度
+            //把下面的调度服务region注释掉,把这个放出来 然后去xml中配置自己的执行时间直接执行就可以了
+           
+            QuartzServiceRunner run = new QuartzServiceRunner();
+            run.Start(); 
+
+            #endregion
 
 
-            #region 可以用的调度服务
+            #region 调度服务
+            //string path = "xx.dll";
+            //var ass= Assembly.LoadFile(path);
+            //Type type = ass.GetType("xx类");
+
             //HostFactory.Run(x =>
             //{
             //    x.Service<QuartzServiceRunner>(s =>
             //    {
-            //        s.ConstructUsing(name => new SimpleJob());
+            //        s.ConstructUsing(name => new QuartzServiceRunner());//用反射传进来
             //        s.WhenStarted(c => c.Start()); //启动时调用传入这个类的方法
             //        s.WhenStopped(c => c.Stop());
             //    });
@@ -39,33 +48,6 @@ namespace Serp.Quartz
             //});
 
             //Console.ReadLine(); 
-            #endregion
-
-
-        }
-
-
-        static void Main1(string[] args)
-        {
-
-            #region 网上的,试了下不行
-            ISchedulerFactory factory = new StdSchedulerFactory();
-            IScheduler scheduler = factory.GetScheduler();
-            scheduler.Start();//启动调度器
-
-            Console.WriteLine("IsStarted={0}", scheduler.IsStarted);
-            Console.WriteLine("SchedulerName={0}", scheduler.SchedulerName);
-            Console.WriteLine("The scheduler is running. Press any key to stop");
-            Console.ReadKey();
-            Console.WriteLine("Shutting down scheduler");
-            scheduler.Shutdown(false);
-            while (!scheduler.IsShutdown)
-            {
-                Console.WriteLine("Waiting for scheduler to shutdown.");
-                Thread.Sleep(1000);
-            }
-            Console.WriteLine("IsShutdown={0}", scheduler.IsShutdown);
-            Console.WriteLine("The scheduler has been shutdown.");
             #endregion
         }
     }

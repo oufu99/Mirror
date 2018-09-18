@@ -12,7 +12,7 @@
     <!--定义示例任务1 Job-->
     <job>
       <name>Job1</name>
-      <group>JobGroup</group>
+      <group>Job1Group</group>
       <description>Quartz示例任务1</description>
       <job-type>Serp.Quartz.SimpleJob,Serp.Quartz</job-type>
       <durable>true</durable>
@@ -21,18 +21,41 @@
 
 
     <trigger>
-      <simple>
-        <name>sampleSimpleTrigger</name>
-        <group>sampleSimpleGroup</group>
-        <description>Simple trigger to simply fire sample job</description>
-        <job-name>Job1</job-name>
-        <job-group>JobGroup</job-group>
-        <misfire-instruction>SmartPolicy</misfire-instruction>
-        <repeat-count>-1</repeat-count>
-        <repeat-interval>2000</repeat-interval>
-      </simple>
+      <cron>
+        <!--cron表达式可以在http://cron.qqe2.com 自动生成-->
+        <name>Job1Trigger</name>
+        <group>Job1Group</group>
+        <!--这里的job-name 和group要和上面配置的一样-->
+        <job-name>Job1</job-name>  
+        <job-group>Job1Group</job-group>
+        <!--每个月15号执行,3点钟执行-->
+        <cron-expression>0 0 3 15 1/1 ?</cron-expression>
+      </cron>
     </trigger>
 
+
+    <job>
+      <name>Job3</name>
+      <group>JobGroup3</group>
+      <description>Quartz示例任务3</description>
+      <job-type>TestJob.Job3,TestJob</job-type>
+      <durable>true</durable>
+      <recover>false</recover>
+    </job>
+
+
+    <trigger>
+      <simple>
+        <name>sampleSimpleTrigger3</name>
+        <group>sampleSimpleGroup3</group>
+        <description>Simple trigger to simply fire sample job</description>
+        <job-name>Job3</job-name>
+        <job-group>JobGroup3</job-group>
+        <misfire-instruction>SmartPolicy</misfire-instruction>
+        <repeat-count>-1</repeat-count>
+        <repeat-interval>1000</repeat-interval>
+      </simple>
+    </trigger>
 
     <!--<job>
       <name>Job2</name>
@@ -51,7 +74,7 @@
         <description>Simple trigger to simply fire sample job</description>
         <job-name>Job2</job-name>
         <job-group>JobGroup2</job-group>
-        <misfire-instruction>SmartPolicy2</misfire-instruction>
+        <misfire-instruction>SmartPolicy</misfire-instruction>
         <repeat-count>-1</repeat-count>
         <repeat-interval>1000</repeat-interval>
       </simple>
