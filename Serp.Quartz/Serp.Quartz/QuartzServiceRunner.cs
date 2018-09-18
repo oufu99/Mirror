@@ -10,9 +10,9 @@ namespace Serp.Quartz
 {
     public class QuartzServiceRunner
     {
-        //定义一个通用的调度对象
-        public static IScheduler CurrentSched = null;
-        static QuartzServiceRunner()
+        //定义一个通用的调度对象   这里不能做成static的,不然后面改了xml就不会再次加载了
+        public IScheduler CurrentSched = null;
+        public QuartzServiceRunner()
         {
             ISchedulerFactory schedf = new StdSchedulerFactory();
             //获取xml中定义的所有任务
