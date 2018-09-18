@@ -18,6 +18,7 @@ namespace Serp.Quartz
         {
             System.IO.File.AppendAllText(@"d:\test.txt", "111111");
             //业务逻辑处理
+            //throw new Exception("抛出错误");
             Console.WriteLine("逻辑处理中");
         }
     }

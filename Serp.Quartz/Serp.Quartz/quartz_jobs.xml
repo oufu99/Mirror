@@ -19,19 +19,30 @@
       <recover>false</recover>
     </job>
     <trigger>
-      <cron>
-        <!--cron表达式可以在http://cron.qqe2.com 自动生成-->
+      <!--<cron>
+        --><!--cron表达式可以在http://cron.qqe2.com 自动生成--><!--
         <name>Job1Trigger</name>
         <group>Job1Group</group>
-        <!--这里的job-name 和group要和上面配置的一样-->
+        --><!--这里的job-name 和group要和上面配置的一样--><!--
         <job-name>Job1</job-name>  
         <job-group>Job1Group</job-group>
-        <!--每个月15号执行,3点钟执行-->
+        --><!--每个月15号执行,3点钟执行--><!--
         <cron-expression>0 0 3 15 1/1 ?</cron-expression>
-      </cron>
+      </cron>-->
+      <simple>
+        <name>sampleSimpleTrigger1</name>
+        <group>sampleSimpleGroup1</group>
+        <description>Simple trigger to simply fire sample job</description>
+        <job-name>Job1</job-name>
+        <job-group>Job1Group</job-group>
+        <misfire-instruction>SmartPolicy</misfire-instruction>
+        <repeat-count>-1</repeat-count>
+        <repeat-interval>1000</repeat-interval>
+      </simple>
+      
     </trigger>
 
-    <job>
+    <!--<job>
       <name>Job3</name>
       <group>JobGroup3</group>
       <description>Quartz示例任务3</description>
@@ -50,7 +61,7 @@
         <repeat-count>-1</repeat-count>
         <repeat-interval>1000</repeat-interval>
       </simple>
-    </trigger>
+    </trigger>-->
 
     <!--<job>
       <name>Job2</name>
