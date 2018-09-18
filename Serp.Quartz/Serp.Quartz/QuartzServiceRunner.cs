@@ -8,8 +8,6 @@ using System.Threading.Tasks;
 
 namespace Serp.Quartz
 {
-
-
     public class QuartzServiceRunner
     {
         //定义一个通用的调度对象
@@ -19,7 +17,6 @@ namespace Serp.Quartz
             ISchedulerFactory schedf = new StdSchedulerFactory();
             //获取xml中定义的所有任务
             CurrentSched = schedf.GetScheduler();
-           
         }
 
         public virtual void Start()

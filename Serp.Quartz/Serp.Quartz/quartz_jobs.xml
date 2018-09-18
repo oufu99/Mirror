@@ -18,8 +18,6 @@
       <durable>true</durable>
       <recover>false</recover>
     </job>
-
-
     <trigger>
       <cron>
         <!--cron表达式可以在http://cron.qqe2.com 自动生成-->
@@ -33,7 +31,6 @@
       </cron>
     </trigger>
 
-
     <job>
       <name>Job3</name>
       <group>JobGroup3</group>
@@ -42,8 +39,6 @@
       <durable>true</durable>
       <recover>false</recover>
     </job>
-
-
     <trigger>
       <simple>
         <name>sampleSimpleTrigger3</name>
@@ -65,8 +60,6 @@
       <durable>true</durable>
       <recover>false</recover>
     </job>
-
-
     <trigger>
       <simple>
         <name>sampleSimpleTrigger2</name>

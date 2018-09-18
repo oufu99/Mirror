@@ -5,8 +5,6 @@ VisualStudioVersion = 15.0.27703.2035
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Serp.Quartz", "Serp.Quartz\Serp.Quartz.csproj", "{C9B74915-B959-4243-BA59-F6B031E80D51}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Serp.TopShelf", "Serp.TopShelf\Serp.TopShelf.csproj", "{421F7B31-708D-4D96-94E7-75022A69C87D}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestJob", "TestJob\TestJob.csproj", "{8DC39254-6184-4F9D-9C79-21E4F6FD7C9E}"
 EndProject
 Global
@@ -19,10 +17,6 @@ Global
 		{C9B74915-B959-4243-BA59-F6B031E80D51}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C9B74915-B959-4243-BA59-F6B031E80D51}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C9B74915-B959-4243-BA59-F6B031E80D51}.Release|Any CPU.Build.0 = Release|Any CPU
-		{421F7B31-708D-4D96-94E7-75022A69C87D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{421F7B31-708D-4D96-94E7-75022A69C87D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{421F7B31-708D-4D96-94E7-75022A69C87D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{421F7B31-708D-4D96-94E7-75022A69C87D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8DC39254-6184-4F9D-9C79-21E4F6FD7C9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8DC39254-6184-4F9D-9C79-21E4F6FD7C9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8DC39254-6184-4F9D-9C79-21E4F6FD7C9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
