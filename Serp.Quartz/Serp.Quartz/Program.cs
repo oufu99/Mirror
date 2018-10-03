@@ -15,7 +15,6 @@ namespace Serp.Quartz
 {
     class Program
     {
-
         static void Main(string[] args)
         {
 
@@ -25,11 +24,11 @@ namespace Serp.Quartz
             #region 直接调度
             //把下面的调度服务region注释掉,把这个放出来 然后去xml中配置自己的执行时间直接执行就可以了
 
-            //QuartzServiceRunner run = new QuartzServiceRunner();
-            //run.Start();
-
-
+            QuartzServiceRunner run = new QuartzServiceRunner();
+            run.Start();
             #endregion
+
+
             #region 调度服务
 
             HostFactory.Run(x =>

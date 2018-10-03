@@ -39,7 +39,6 @@
         <repeat-count>-1</repeat-count>
         <repeat-interval>1000</repeat-interval>
       </simple>
-      
     </trigger>
   </schedule>
 
