@@ -15,18 +15,31 @@ namespace EFAndVue.Controllers
             //using能及时释放资源,例如数据库连接异常，可以即使将上下文释放
             using (var db = new EFCodeFirstDbContext())
             {
-                //Student stu = new Student("0002", "cuiyanwei", 25);
+                //Student stu = new Student(10, "aaron", 25, 1);
                 //db.Students.Add(stu);
-                //db.SaveChanges();
-                //string name = db.Students.Select(p => p.Name).FirstOrDefault().ToString();
+                //stu = new Student(2, "张三", 25, 1);
+                //db.Students.Add(stu);
+
+                //Teachers t = new Teachers();
+                //t.Id = 1;
+                //t.Name = "杨中科";
+                //db.Teachers.Add(t);
 
 
-                Student stu1 = db.Students.Where(p => p.StuId == "0001").FirstOrDefault();
-                stu1.Name = "CYW";
-                db.SaveChanges();
+                //var model = db.Students.Join(db.Teachers, m => m.TeacherId, c => c.Id, (m, c) => new { m.TeacherId, Phone = c.Name });
 
-                string name = db.Students.Select(p => p.Name).FirstOrDefault().ToString();
 
+
+                //var model1 = db.Students.Join(model, m => m.TeacherId, c => c.TeacherId, (m, c) => new { m.TeacherId, c.Phone }).FirstOrDefault();
+                //var phone = model1.Phone;      // db.SaveChanges();a
+
+                var model = from c in db.Students
+                            join t in db.Teachers
+      on c.TeacherId equals t.Id
+                            group c by new { id = c.TeacherId } into g
+                            select new { g.Key, cnt = g.Count(), g.Key.id };
+                var count = model.Count();
+                var phone = model.FirstOrDefault();
             }
             return View();
         }

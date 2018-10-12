@@ -99,7 +99,6 @@ namespace OORM
             UnaryExpression uExp = null;
             PropertyInfo prop = null;
             FieldInfo field = null;
-            object value = null;
             foreach (var item in expressionList)
             {
                 bExp = item as BinaryExpression;
@@ -113,6 +112,7 @@ namespace OORM
                 }
                 if (memberExp == null) continue;
                 constantExp = memberExp.Expression as ConstantExpression;
+                object value = null;
                 if (constantExp == null)
                 {
                     if ((memberExp.Expression as MemberExpression) == null)

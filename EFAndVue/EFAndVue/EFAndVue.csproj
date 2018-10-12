@@ -158,12 +158,17 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201810110200279_InitialCreate.cs" />
-    <Compile Include="Migrations\201810110200279_InitialCreate.Designer.cs">
-      <DependentUpon>201810110200279_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201810110759189_InitialCreate.cs" />
+    <Compile Include="Migrations\201810110759189_InitialCreate.Designer.cs">
+      <DependentUpon>201810110759189_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810110804432_AddStudentUrl.cs" />
+    <Compile Include="Migrations\201810110804432_AddStudentUrl.Designer.cs">
+      <DependentUpon>201810110804432_AddStudentUrl.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Student.cs" />
+    <Compile Include="Models\Teachers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -172,7 +177,6 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
@@ -208,10 +212,6 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
@@ -221,8 +221,11 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201810110200279_InitialCreate.resx">
-      <DependentUpon>201810110200279_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201810110759189_InitialCreate.resx">
+      <DependentUpon>201810110759189_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810110804432_AddStudentUrl.resx">
+      <DependentUpon>201810110804432_AddStudentUrl.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

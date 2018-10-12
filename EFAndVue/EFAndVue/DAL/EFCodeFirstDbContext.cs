@@ -14,5 +14,7 @@ namespace EFAndVue.DAL
         {
         }
         public DbSet<Student> Students { get; set; }
+        public DbSet<Teachers> Teachers { get; set; }
+
     }
 }
