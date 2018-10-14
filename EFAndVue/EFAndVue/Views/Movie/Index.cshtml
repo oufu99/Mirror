@@ -1,0 +1,59 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="~/JS/vue-resource.js"></script>
+</head>
+<body>
+    <div id="app">
+        <table>
+            <tr>
+                <td>电影名</td>
+            </tr>
+            <tr>
+                <td>
+                    {{message}}
+                </td>
+            </tr>
+        </table>
+        <input type="button" name="name" value="加载" v-on:click="LoadData" />
+    </div>
+    <script>
+        var searchdata =  {
+            search: { PageIndex:1, PageSize:10 },
+            message:"Aaron!",
+            movieData:[]
+        };
+
+        var vm = new Vue({
+            el: '#app',
+            data: searchdata,
+            methods: {
+                LoadData: function () {
+                    //这个this 被vue接管了,而且data好像也要_data才行
+                    this.$http.post('/Movie/LoadMovies', { search: this._data.search }).
+                        then(function (res) {
+                            var resmessage = res.body;
+                            var obj = JSON.parse(resmessage);
+                            this.movieData = obj.Msg;
+                        }).catch(function (error) {
+                            console.log(error);
+                        });
+                }
+            }
+            //这个template如果使用,会把元素中的东西都替换掉 ,但是可以用来做模板绑定  用单独的一个js管理
+            //template: '<h1>Hello,Vue.js 2{{message}}</h1>'
+        })
+
+    </script>
+
+</body>
+</html>
