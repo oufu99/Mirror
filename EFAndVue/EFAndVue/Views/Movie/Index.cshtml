@@ -9,10 +9,26 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
+    <script src="~/JS/jquery-3.3.1.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="~/JS/vue-resource.js"></script>
+    <script src="~/JS/zui-dist/js/zui.js"></script>
+    <link href="~/JS/zui-dist/css/zui.css" rel="stylesheet" />
 </head>
 <body>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myLgModal">大对话框</button>
+
+    <div class="modal fade" id="myLgModal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                春花秋月何时了
+            </div>
+        </div>
+    </div>
+
+  
+
+
     <div id="app">
         <table>
             <tr>
@@ -28,18 +44,29 @@
     </div>
     <script>
         var searchdata =  {
-            search: { PageIndex:1, PageSize:10 },
-            message:"Aaron!",
-            movieData:[]
+            PageIndex: 1, PageSize: 10
         };
 
         var vm = new Vue({
             el: '#app',
-            data: searchdata,
+            data: {
+                searchdata: searchdata,
+                message: "Aaron!",
+                movieData: []
+            },
             methods: {
                 LoadData: function () {
+                    new $.zui.Messager("请选择代理商级别！", {
+                        type: 'warning',
+                        icon: 'bell', // 定义消息图标
+                        close: false, // 禁用关闭按钮
+                        time: 1000
+                    }).show();
+                    return;
+
+
                     //这个this 被vue接管了,而且data好像也要_data才行
-                    this.$http.post('/Movie/LoadMovies', { search: this._data.search }).
+                    this.$http.post('/Movie/LoadMovies', { search: this.searchdata }).
                         then(function (res) {
                             var resmessage = res.body;
                             var obj = JSON.parse(resmessage);
