@@ -15,28 +15,29 @@
     <link href="~/JS/dist/css/zui.css" rel="stylesheet" />
     <script src="~/JS/dist/js/zui.js"></script>
     <link href="~/JS/dist/lib/datagrid/zui.datagrid.css" rel="stylesheet" />
-    <script src="~/JS/dist/lib/datagrid/zui.datagrid.js"></script>
+    <script src="~/JS/zui.datagrid.min.js"></script>
 </head>
 <body>
-    @*<div id="myDataGrid" class="datagrid" data-ride="myDataGrid"></div>*@
-    <div id="myDataGrid" class="datagrid pager">
-        <div class="datagrid-container"></div>
-        <div class="row bottom-btn-group">
-            <div class="col-md-12">   @*这里的12是栅栏格列数,要宽点就调他*@
-                <div class="pager" data-max-nav-count="8" data-page="500" data-elements="first_icon,prev_icon,nav,next_icon,last_icon,page_of_total_text,total_text,goto"></div>
-                <div class="col-md-6 text-right">
+    @*<div id="myDataGrid" class="datagrid pager">
+            <div class="datagrid-container" style="background-color:red;"></div>
+            <div class="row bottom-btn-group">
+                <div class="col-md-12">   @*这里的12是栅栏格列数,要宽点就调他
+                    <div class="pager" data-max-nav-count="8" data-page="500" data-elements="first_icon,prev_icon,nav,next_icon,last_icon,page_of_total_text,total_text,goto"></div>
+                    <div class="col-md-6 text-right">
 
+                    </div>
+                    <div class="btn-group">
+                        <button type="button" class="btn"><i class="icon icon-upload-alt"></i> 导出数据</button>
+                    </div>
                 </div>
-                <div class="btn-group">
-                    <button type="button" class="btn"><i class="icon icon-upload-alt"></i> 导出数据</button>
-                </div>
+
             </div>
+        </div>*@
 
-        </div>
-    </div>
 
-    @*<div id="app">
-            <table>
+
+    <div id="app" class="datagrid">
+        @*<table>
                 <tr>
                     <td>电影名</td>
                 </tr>
@@ -45,43 +46,53 @@
                         {{message}}
                     </td>
                 </tr>
-            </table>
+            </table>*@
 
 
-        </div>*@
+    </div>
     <script>
 
-
         $(function () {
-            console.log("dfd");
-        });
-
-        $('#myDataGrid').datagrid({
-            dataSource: {
-                cols: [
-                    { name: 'time', label: '时间', width: 132 },
-                    { name: 'hera', label: '英雄', width: 134 },
-                    { name: 'action', label: '动作', width: 109 },
-                    { name: 'target', label: '目标', width: 109 },
-                    { name: 'desc', label: '描述', width: 287 }
-                ],
+            $('#app').datagrid({
+                dataSource: {
+                    cols: [
+                        {
+                            name: 'MovieId', label: '电影编号', width: 132
+                        },
+                        {
+                            name: 'MovieName', label: '电影名称', width: 132
+                        },
+                        {
+                            name: 'totalJiShu', label: '总集数', width: 132
+                        },
+                        //{
+                        //    name: 'Operation', label: '操作', width: 0.2
+                        //}
+                    ],
                     remote: function (param) {
-                    return {
-                        // 原创请求地址
-                        url: '/Movie/LoadMovies',
-                        // 请求类型
-                        type: 'POST',
-                        // 数据类型
-                        dataType: 'json',
-                        //查询条件
-                        data: {}
-                    }
-                },
-            },
-            // ... 其他初始化选项
-        });
+                        return {
+                            // 原创请求地址
+                            url: '/Movie/LoadMovies',
+                            // 请求类型
+                            type: 'POST',
+                            // 数据类型
+                            dataType: 'json',
+                            //查询条件
+                            data: {}
+                        }
+                    },
+                    //remoteConverter: function (responseData, textStatus, jqXHR, datagrid) {
+                    //    //$.each(responseData.Data, function (index, item) {
+                    //    //    item.Operation = '<a href="javascript:void(0)" onclick="Func(' + item.ID + ')" style="padding: 0 10px;"><i class="icon icon-pencil btnb" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="查看详情" style="display: inline-block;"></i></a>';
+                    //    //                           })
+                    //    // 转换格式
+                    //    return responseData.Data;
+                    //}
+                }
+            });
+        })
 
-     
+
 
         //var vm = new Vue({
         //    el: '#app',

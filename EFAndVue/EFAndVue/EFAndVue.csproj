@@ -301,6 +301,8 @@
     <Content Include="JS\vue-resource.es2015.js" />
     <Content Include="JS\vue-resource.js" />
     <Content Include="JS\vue-resource.min.js" />
+    <Content Include="JS\zui.datagrid.js" />
+    <Content Include="JS\zui.datagrid.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
