@@ -41,12 +41,17 @@ namespace EFAndVue.Controllers
 
             var pageInfo = new { page = 1, recTotal = 1, recPerPage = 10 };
 
-
+            //WsBg的外面是再封了一层Data,我们不需要
             var data = new List<dynamic>();
-            data.Add(new { ID = "99", MovieId = "1", MovieName = "军师联盟", totalJiShu = "40" });
+            data.Add(new { ID = "99", MovieId = "1", MovieName = "军师联盟", TotalJiShu = "40", Operation = "123" });
             var result = new { data = data, result = "success", message = "", pager = pageInfo };
             return JsonConvert.SerializeObject(result);
 
+        }
+
+        public ActionResult AddMovie()
+        {
+            return View();
         }
 
     }

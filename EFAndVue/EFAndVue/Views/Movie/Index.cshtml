@@ -10,12 +10,12 @@
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
     <script src="~/JS/jquery-3.3.1.js"></script>
-    @*<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-        <script src="~/JS/vue-resource.js"></script>*@
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="~/JS/vue-resource.js"></script>  @*ajax请求的插件*@
     <link href="~/JS/dist/css/zui.css" rel="stylesheet" />
     <script src="~/JS/dist/js/zui.js"></script>
+    <script src="~/JS/dist/lib/datagrid/zui.datagrid.js"></script>
     <link href="~/JS/dist/lib/datagrid/zui.datagrid.css" rel="stylesheet" />
-    <script src="~/JS/zui.datagrid.min.js"></script>
 </head>
 <body>
     @*<div id="myDataGrid" class="datagrid pager">
@@ -48,80 +48,84 @@
                 </tr>
             </table>*@
 
-
+        <input type="button" value="点我哟" name="name" v-on:click="ToDetail" />
     </div>
     <script>
+        //弄一个数据源,然后新增btn的时候向数据源中添加一个  就会有绑定事件了
 
-        $(function () {
-            $('#app').datagrid({
-                dataSource: {
-                    cols: [
-                        {
-                            name: 'MovieId', label: '电影编号', width: 132
+
+        var Search = { PageIndex:10, PageSize:10 };
+        var vueMethods = {
+            LoadMovies: function () {
+                $('#app').datagrid({
+                    dataSource: {
+                        cols: [
+                            {
+                                name: 'MovieId', label: '电影编号', width: 132
+                            },
+                            {
+                                name: 'MovieName', label: '电影名称', width: 132
+                            },
+                            {
+                                name: 'TotalJiShu', label: '总集数', width: 132
+                            }
+                            ,
+                            {
+                                name: 'Operation', label: '操作', width: 132
+                            }
+                        ],
+                        remote: function (param) {
+                            return {
+                                // 原创请求地址
+                                url: '/Movie/LoadMovies',
+                                // 请求类型
+                                type: 'POST',
+                                // 数据类型
+                                dataType: 'json',
+                                //查询条件
+                                data: this.Search
+                            }
                         },
-                        {
-                            name: 'MovieName', label: '电影名称', width: 132
-                        },
-                        {
-                            name: 'totalJiShu', label: '总集数', width: 132
-                        },
-                        //{
-                        //    name: 'Operation', label: '操作', width: 0.2
-                        //}
-                    ],
-                    remote: function (param) {
-                        return {
-                            // 原创请求地址
-                            url: '/Movie/LoadMovies',
-                            // 请求类型
-                            type: 'POST',
-                            // 数据类型
-                            dataType: 'json',
-                            //查询条件
-                            data: {}
+                        remoteConverter: function (responseData, textStatus, jqXHR, datagrid) {
+                            $.each(responseData.data, function (index, item) {
+                                item.Operation = '<a href="javascript:void(0)" v-on:click="ToDetail"  style="padding: 0 10px;"><i class="icon icon-pencil btnb" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="查看详情" style="display: inline-block;"></i>查看详情</a>';
+                            });
+                            // 转换格式
+                            return responseData;
                         }
                     },
-                    //remoteConverter: function (responseData, textStatus, jqXHR, datagrid) {
-                    //    //$.each(responseData.Data, function (index, item) {
-                    //    //    item.Operation = '<a href="javascript:void(0)" onclick="Func(' + item.ID + ')" style="padding: 0 10px;"><i class="icon icon-pencil btnb" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="查看详情" style="display: inline-block;"></i></a>';
-                    //    //                           })
-                    //    // 转换格式
-                    //    return responseData.Data;
-                    //}
-                }
-            });
+                    configs: {
+                        C4: {
+                            html: true
+                        }
+                    }
+                });
+            },
+            ToDetail: function (id) {
+                alert(this.message);
+                alert(id);
+
+            },
+            TestFun: function () {
+                alert(this.message);
+            }
+        }
+
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                Search: Search,
+                message: "Aaron!",
+            },
+            methods: vueMethods,
+            mounted: function () {
+                //加载快递列表
+                this.LoadMovies();
+
+            }
+            //这个template如果使用,会把元素中的东西都替换掉 ,但是可以用来做模板绑定  用单独的一个js管理
+            //template: '<h1>Hello,Vue.js 2{{message}}</h1>'
         })
-
-
-
-        //var vm = new Vue({
-        //    el: '#app',
-        //    data: {
-        //        searchdata: searchdata,
-        //        message: "Aaron!",
-        //        movieData: []
-        //    },
-        //    methods: {
-        //        FTest: function (ele) {
-        //            var $ele = $(ele.target);  //获取当前点击对象
-        //            var input = $ele.prev();
-        //            alert(input.val());
-        //        },
-        //        LoadData: function () {
-        //              //这个this 被vue接管了,而且data好像也要_data才行  如果this要用jq的  要写成 $event
-        //            this.$http.post('/Movie/LoadMovies', { search: this.searchdata }).
-        //                then(function (res) {
-        //                    var resmessage = res.body;
-        //                    var obj = JSON.parse(resmessage);
-        //                    this.movieData = obj.Msg;
-        //                }).catch(function (error) {
-        //                    console.log(error);
-        //                });
-        //        }
-        //    }
-        //    //这个template如果使用,会把元素中的东西都替换掉 ,但是可以用来做模板绑定  用单独的一个js管理
-        //    //template: '<h1>Hello,Vue.js 2{{message}}</h1>'
-        //})
 
     </script>
 

@@ -315,6 +315,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Video\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="JS\dist\fonts\zenicon.eot" />
@@ -325,6 +326,7 @@
     <Content Include="JS\dist\lib\uploader\Moxie.xap" />
     <None Include="packages.config" />
     <Content Include="Views\Movie\Index.cshtml" />
+    <Content Include="Views\Movie\AddMovie.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DAL\DAL.csproj">

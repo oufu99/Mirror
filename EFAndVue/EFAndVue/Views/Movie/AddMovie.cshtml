@@ -1,0 +1,55 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AddMovie</title>
+    <script src="~/JS/jquery-3.3.1.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="~/JS/vue-resource.js"></script>  @*ajax请求的插件*@
+</head>
+<body>
+    <div id="app">
+        @*<table border="1">
+            <tr>
+                <td>文本</td>
+                <td>实际内容哦</td>
+            </tr>
+            <tr v-for="item in list">
+                <td>{{item.label}}</td>
+                <td v-bind:data-name="item.label1">{{item.label1}}<input type="text" v-bind:value="item.label1" /></td>
+            </tr>
+        </table>
+        <input type="text" v-on:click="AddTd" value="点我" />*@
+        <video controls="controls">
+            <source src="~" type="video/mp4" />
+        </video>
+
+    </div>
+
+    <script>
+        var list = [];
+        list.push({ value1: "1", label: "木头人", label1: "木头人2" });
+        list.push({ value1: "2", label: "小白杨", label1: "小白杨2" });
+
+
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                list: list
+            },
+            methods: {
+                AddTd: function () {
+
+
+                }
+            }
+        });
+    </script>
+</body>
+</html>
