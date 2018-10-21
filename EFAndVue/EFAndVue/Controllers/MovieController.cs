@@ -49,7 +49,7 @@ namespace EFAndVue.Controllers
 
         }
 
-        public ActionResult AddMovie()
+        public ActionResult MovieDetail()
         {
             return View();
         }

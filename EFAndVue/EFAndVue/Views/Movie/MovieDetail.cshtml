@@ -8,10 +8,21 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>AddMovie</title>
+    <title>MovieDetail</title>
     <script src="~/JS/jquery-3.3.1.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="~/JS/vue-resource.js"></script>  @*ajax请求的插件*@
+
+    <style>
+        .wrapper {
+            max-width: 600px;
+        }
+
+            .wrapper video {
+                max-width: 100%;
+                display: blcok;
+            }
+    </style>
 </head>
 <body>
     <div id="app">
@@ -26,9 +37,9 @@
             </tr>
         </table>
         <input type="text" v-on:click="AddTd" value="点我" />*@
-        <video controls="controls">
+        <video controls="controls" class="wrapper">
             @*https://zhidao.baidu.com/question/1368028790248827179.html*@
-            <source src="~" type="video/mp4" />
+            <source src="~/Video/1.mp4" type="video/mp4" />
         </video>
 
     </div>

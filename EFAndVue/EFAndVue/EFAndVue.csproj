@@ -171,7 +171,6 @@
     <Content Include="JS\dist\css\zui.lite.css" />
     <Content Include="JS\dist\css\zui.lite.min.css" />
     <Content Include="JS\dist\css\zui.min.css" />
-    <Content Include="JS\dist\fonts\zenicon.svg" />
     <Content Include="JS\dist\js\zui.js" />
     <Content Include="JS\dist\js\zui.lite.js" />
     <Content Include="JS\dist\js\zui.lite.min.js" />
@@ -301,6 +300,7 @@
     <Content Include="JS\vue-resource.es2015.js" />
     <Content Include="JS\vue-resource.js" />
     <Content Include="JS\vue-resource.min.js" />
+    <Content Include="Video\1.mp4" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -315,18 +315,16 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Video\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="JS\dist\fonts\zenicon.eot" />
-    <Content Include="JS\dist\fonts\zenicon.ttf" />
     <Content Include="JS\dist\fonts\zenicon.woff" />
     <Content Include="JS\dist\lib\kindeditor\plugins.zip" />
     <Content Include="JS\dist\lib\kindeditor\README.md" />
     <Content Include="JS\dist\lib\uploader\Moxie.xap" />
     <None Include="packages.config" />
     <Content Include="Views\Movie\Index.cshtml" />
-    <Content Include="Views\Movie\AddMovie.cshtml" />
+    <Content Include="Views\Movie\MovieDetail.cshtml" />
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DAL\DAL.csproj">
