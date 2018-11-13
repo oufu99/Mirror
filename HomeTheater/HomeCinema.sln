@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2003
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFAndVue", "EFAndVue\EFAndVue.csproj", "{4EDE23D6-170B-496F-BCD8-CFCC04D44C5E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeCinema", "HomeCinema\HomeCinema.csproj", "{4EDE23D6-170B-496F-BCD8-CFCC04D44C5E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{2A28F91C-8D48-46B4-9BC9-1B6AEF125044}"
 EndProject

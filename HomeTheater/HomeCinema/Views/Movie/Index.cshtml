@@ -1,0 +1,57 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <script src="~/JS/jquery-3.3.1.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="~/JS/vue-resource.js"></script>  @*ajax请求的插件*@
+    <link href="~/JS/dist/css/zui.css" rel="stylesheet" />
+    <script src="~/JS/dist/js/zui.js"></script>
+    <script src="~/JS/dist/lib/datagrid/zui.datagrid.js"></script>
+    <link href="~/JS/dist/lib/datagrid/zui.datagrid.css" rel="stylesheet" />
+
+    <style>
+        .float {
+            float: left;
+            width: 300px;
+            height: 300px;
+            background-repeat: no-repeat;
+            margin: 30px;
+        }
+
+        .foot {
+            clear: both;
+            display: block;
+            text-align: center;
+            margin: 0px auto;
+            position: absolute;
+            bottom: 100px;
+            width: 100%;
+        }
+        .page {
+            cursor: pointer;
+            margin-left:10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="float" v-for="item in MovieList" v-bind:style="{'background-image': 'url('+item.ImgPath+')'}" v-on:click="ToDetail(item.ID)">
+        </div>
+    </div>
+    <div id="footDiv" class="foot">
+        <a class="page" href="javascript:void(0)" onclick="vuePageMethods.GoToPage(1)">首页</a>
+        <a  class="page"href="javascript:void(0)" onclick="vuePageMethods.GoToPage(1)">1</a>
+        <a  class="page"href="javascript:void(0)" onclick="vuePageMethods.GoToPage(1)">2</a>
+    </div>
+
+    <script src="~/JSPage/Movie/Index.js"></script>
+</body>
+</html>

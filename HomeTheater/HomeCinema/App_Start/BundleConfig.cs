@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Optimization;
 
-namespace EFAndVue
+namespace HomeCinema
 {
     public class BundleConfig
     {
