@@ -218,7 +218,7 @@ namespace OORM
             return where;
         }
 
-        #region 总的
+        #region 反射的增删改查
 
         #region 添加 Insert
         private static string Insert(object obj)
