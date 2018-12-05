@@ -68,7 +68,7 @@ namespace OORM
         }
 
         //目的就是根据传入的lambda表达式解析成Sql  第二步把自己的lambda传进来解析
-        static void AnalysisLambda<T>(Expression<Func<User, bool>> func)
+        static void AnalysisLambda<T>(Expression<Func<T, bool>> func)
         {
             //LambdaExpression 是Expression的子类 可以把父类传入子类的
             var nType = func.NodeType;
@@ -82,7 +82,7 @@ namespace OORM
             expString = expString.Replace("==", "=");
             //根据他的类型进行改变
             BuildVariableValue(expString, par, body);
-            
+
 
         }
 
