@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using JWT;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace MicroService.Controllers
 {
@@ -41,16 +42,21 @@ namespace MicroService.Controllers
         [HttpPost(nameof(CheckJWTStr))]
         public string CheckJWTStr(string content)
         {
+            System.IO.File.AppendAllText(@"d:\jialin.txt", "进来啦");
             var httpContext = HttpContext;
             // 检测是否包含'Authorization'请求头
             if (!httpContext.Request.Headers.ContainsKey("Authorization"))
             {
+                System.IO.File.AppendAllText(@"d:\jialin.txt", "进来啦22");
                 return "没有权限访问哦";
             }
+            System.IO.File.AppendAllText(@"d:\jialin.txt", "进来啦333");
             //var tokenHeader = httpContext.Request.Headers["Authorization"].ToString();
+            var tokenHeader1 = httpContext.Request.Headers["Authorization"].ToString();
+            System.IO.File.AppendAllText(@"d:\jialin.txt", "333" + tokenHeader1);
             var tokenHeader = httpContext.Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
             TokenModelJWT tm = JwtHelper.SerializeJWT(tokenHeader);
-
+            System.IO.File.AppendAllText(@"d:\jialin.txt", "进来啦444");
             // 授权
             //var claimList = new List<Claim>();
             //var claim = new Claim(ClaimTypes.Role, tm.Role);
@@ -59,7 +65,14 @@ namespace MicroService.Controllers
             //var identity = new ClaimsIdentity(claimList);
             //var principal = new ClaimsPrincipal(identity);
             //httpContext.User = principal;
+            System.IO.File.AppendAllText(@"d:\jialin.txt", "obj:" + JsonConvert.SerializeObject(tm));
             return $"您的账号是{tm.Username},密码是{tm.ManuId}";
+        }
+        [HttpPost(nameof(CheckTest))]
+        public string CheckTest()
+        {
+            HttpContext.Response.Headers.Add("Access-Control-Allow-Origin", "*");
+            return $"测试成功";
         }
     }
 }

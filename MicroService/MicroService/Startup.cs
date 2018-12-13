@@ -24,6 +24,8 @@ namespace MicroService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(option => option.AddPolicy("cors", policy => policy.AllowAnyHeader().AllowAnyMethod().AllowCredentials().AllowAnyOrigin()));
+            //services.AddCors(option => option.AddPolicy("cors", policy => policy.SetIsOriginAllowed(c => c == "Authorization")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
@@ -34,7 +36,7 @@ namespace MicroService
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseCors("cors");
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
