@@ -9,8 +9,24 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Index11</title>
-    SDFDSFSDF
+    
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script>
+        function myfunction() {
+            alert(123);
+        }
+
+        function myfunction2() {
+            alert(321);
+        }
+        $(function () {
+            $("#btn").click(myfunction);
+            $("#btn").click(myfunction2);
+        })
+
+    </script>
 </head>
 <body>
+    <input type="button"   id="btn" name="name" value="" />
 </body>
 </html>
