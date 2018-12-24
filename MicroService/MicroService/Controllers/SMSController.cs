@@ -14,14 +14,14 @@ namespace MicroService.Controllers
     public class SMSController : ControllerBase
     {
         [HttpGet(nameof(QQSend))]
-        public string QQSend(string msg)
+        public string QQSend(RequestModel model)
         {
-            return msg + "发送成功";
+            return model.Msg + "发送成功";
         }
         [HttpPost]
-        public string QQSend1(string msg)
+        public string QQSend1(RequestModel model)
         {
-            return msg + "发送成功";
+            return model.Msg + "发送成功";
         }
 
         [HttpGet(nameof(GetJWTStr))]
@@ -74,5 +74,10 @@ namespace MicroService.Controllers
             HttpContext.Response.Headers.Add("Access-Control-Allow-Origin", "*");
             return $"测试成功";
         }
+    }
+    public class RequestModel
+    {
+
+        public string Msg { get; set; }
     }
 }
