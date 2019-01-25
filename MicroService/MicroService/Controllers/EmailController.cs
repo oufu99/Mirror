@@ -20,9 +20,9 @@ namespace MicroService.Controllers
         }
 
         [HttpPost(nameof(Send_Test2))]
-        public string Send_Test2()
+        public string Send_Test2(string msg)
         {
-            return ($"通过QQ邮件接口向");
+            return ($"通过QQ邮件接口发送" + msg);
             Console.WriteLine($"通过QQ邮件接口向");
         }
         [HttpPost(nameof(Send_QQ))]

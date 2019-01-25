@@ -10,6 +10,10 @@ namespace CorePipleLine
     {
         public static List<Func<RequestDelegate, RequestDelegate>> _list = new List<Func<RequestDelegate, RequestDelegate>>();
 
+        public static Task Test1(Context context)
+        {
+            return null;
+        }
         public static void Use(Func<RequestDelegate, RequestDelegate> middleWare)
         {
             _list.Add(middleWare);
@@ -25,6 +29,19 @@ namespace CorePipleLine
                 };
 
             });
+
+            #region 我的理解
+            //入参Func<Delegate,Delegate>  外层返回void  但是Func入参Delegate,返回Delegate  然后Delegate的返回值是Task Task是Delegate.Invoke以后得到的数据
+            //Use(c =>
+            //{
+            //    return x =>
+            //    {
+            //        return c.Invoke(x);
+            //    };
+            //}
+            //); 
+            #endregion
+
             Use(next =>
             {
                 return context =>              //同上
@@ -44,8 +61,24 @@ namespace CorePipleLine
                 end = middleware.Invoke(end);     //把_list中的各个中间件“附加”到end委托上。
             }
             end.Invoke(new Context());           //调用end委托
+            //_list[1].Invoke(end).Invoke(new Context());
             Console.ReadLine();
 
         }
+
+        static void Main3(string[] args)
+        {
+            Task t = new Task(() =>
+            {
+                Console.WriteLine("123");
+            });
+            t = new Task(() =>
+            {
+                Console.WriteLine("432");
+            });
+            t.Start();
+            Console.ReadLine();
+        }
+
     }
 }
