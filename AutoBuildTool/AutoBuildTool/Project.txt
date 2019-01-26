@@ -1,9 +1,0 @@
-﻿DbModels/DbModels.csproj
-Common/Common.csproj
-ExpressQuery/ExpressQuery.csproj
-FreightCalculator/FreightCalculator.csproj
-PaymentHelper/PaymentHelper.csproj
-PersonalCenter/PersonalCenter.csproj
-SMS/SMS.csproj
-Weixin/Weixin.csproj
-AgentPolicyCommon/AgentPolicyCommon.csproj

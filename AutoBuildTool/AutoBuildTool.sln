@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoBuildTool", "AutoBuildTool\AutoBuildTool.csproj", "{9673C629-40C0-4C05-922D-D509379A8AF0}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tfs.Common", "Tfs.Common\Tfs.Common.csproj", "{1A937282-3216-4605-8BBB-E2879B46DC6F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoBuildTool", "AutoBuildTools\AutoBuildTool.csproj", "{F63D1BA6-65CA-41D1-B706-3C253B7DDAB0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9673C629-40C0-4C05-922D-D509379A8AF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9673C629-40C0-4C05-922D-D509379A8AF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9673C629-40C0-4C05-922D-D509379A8AF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9673C629-40C0-4C05-922D-D509379A8AF0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1A937282-3216-4605-8BBB-E2879B46DC6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1A937282-3216-4605-8BBB-E2879B46DC6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1A937282-3216-4605-8BBB-E2879B46DC6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1A937282-3216-4605-8BBB-E2879B46DC6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F63D1BA6-65CA-41D1-B706-3C253B7DDAB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F63D1BA6-65CA-41D1-B706-3C253B7DDAB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F63D1BA6-65CA-41D1-B706-3C253B7DDAB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F63D1BA6-65CA-41D1-B706-3C253B7DDAB0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

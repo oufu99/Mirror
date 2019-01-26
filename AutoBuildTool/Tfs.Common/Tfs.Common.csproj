@@ -56,12 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CmdHelper.cs" />
-    <Compile Include="ProcessHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Solution.cs" />
-    <Compile Include="SolutionConfiguration.cs" />
-    <Compile Include="SolutionProject.cs" />
-    <Compile Include="StringCompute.cs" />
     <Compile Include="TfHelper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
