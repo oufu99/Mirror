@@ -28,37 +28,37 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.suyaBtn = new System.Windows.Forms.Button();
+            this.wsBgBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // button1
+            // suyaBtn
             // 
-            this.button1.Location = new System.Drawing.Point(389, 111);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(144, 69);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "生成新版素雅";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.suyaBtn.Location = new System.Drawing.Point(389, 111);
+            this.suyaBtn.Name = "suyaBtn";
+            this.suyaBtn.Size = new System.Drawing.Size(144, 69);
+            this.suyaBtn.TabIndex = 0;
+            this.suyaBtn.Text = "生成新版素雅";
+            this.suyaBtn.UseVisualStyleBackColor = true;
+            this.suyaBtn.Click += new System.EventHandler(this.suyaBuild);
             // 
-            // button2
+            // wsBgBtn
             // 
-            this.button2.Location = new System.Drawing.Point(86, 111);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(144, 69);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "生成WsBg";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.wsBgBtn.Location = new System.Drawing.Point(86, 111);
+            this.wsBgBtn.Name = "wsBgBtn";
+            this.wsBgBtn.Size = new System.Drawing.Size(144, 69);
+            this.wsBgBtn.TabIndex = 1;
+            this.wsBgBtn.Text = "生成WsBg";
+            this.wsBgBtn.UseVisualStyleBackColor = true;
+            this.wsBgBtn.Click += new System.EventHandler(this.wsBgBuild);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(668, 531);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.ClientSize = new System.Drawing.Size(668, 357);
+            this.Controls.Add(this.wsBgBtn);
+            this.Controls.Add(this.suyaBtn);
             this.Name = "Form1";
             this.Text = "Form1";
             this.ResumeLayout(false);
@@ -67,8 +67,8 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button suyaBtn;
+        private System.Windows.Forms.Button wsBgBtn;
     }
 }
 

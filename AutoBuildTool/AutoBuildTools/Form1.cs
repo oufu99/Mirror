@@ -22,17 +22,6 @@ namespace AutoBuildTool
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            //单独编译点击的项目
-            var targetBasePath = @"E:\ZPCode\SuYa_V2\SuYa.Mobile";
-            var targetPath = targetBasePath + @"\SuYa.Mobile.csproj";
-            var targetOutPath = targetBasePath + @"\bin";
-            var targetBuildResultStr = TfHelper.Build(dirkPath, targetPath, targetOutPath);
-            MessageBox.Show("生成成功");
-            Console.WriteLine(targetBuildResultStr);
-        }
-
         public void BuildWsBg()
         {
             //要获取最新代码的项目路径
@@ -75,14 +64,34 @@ namespace AutoBuildTool
             }
         }
 
+
+        private void suyaBuild(object sender, EventArgs e)
+        {
+            //单独编译点击的项目
+            BuildWsBg();
+            var targetBasePath = @"E:\ZPCode\SuYa_V2\SuYa.Mobile";
+            var targetPath = targetBasePath + @"\SuYa.Mobile.csproj";
+            var targetOutPath = targetBasePath + @"\bin";
+            var targetBuildResultStr = TfHelper.Build(dirkPath, targetPath, targetOutPath);
+            Console.WriteLine("suya生成成功");
+            Console.WriteLine(targetBuildResultStr);
+        }
+
         /// <summary>
         /// 生成WsBg项目
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void button2_Click(object sender, EventArgs e)
+        private void wsBgBuild(object sender, EventArgs e)
         {
+            //单独编译点击的项目
             BuildWsBg();
+            var targetBasePath = @"E:\ZPCode\WsBg\WsBg.Web";
+            var targetPath = targetBasePath + @"\WsBg.Web.csproj";
+            var targetOutPath = targetBasePath + @"\bin";
+            var targetBuildResultStr = TfHelper.Build(dirkPath, targetPath, targetOutPath);
+            Console.WriteLine("WsBg生成成功");
+            Console.WriteLine(targetBuildResultStr);
         }
     }
 }
