@@ -26,7 +26,14 @@ namespace AutoBuildTool
         {
             //要获取最新代码的项目路径
             string workArea = ConfigurationManager.AppSettings["workArea"];
-            //获取最新操作
+            var dirPath = ProcessHelper.GetInstallDirName("devenv");//vs的安装路径
+            var disk = dirPath.Split(new char[] { '\\' })[0];//硬盘符
+                                                             //获取最新操作
+            Console.WriteLine("-----------------------------开始获取最新代码-------------------------------------------");
+            var str = TfHelper.GetOpt(disk, dirPath, workArea);
+            Console.WriteLine("-----------------------------获取最新完毕-------------------------------------------");
+
+
             Console.WriteLine("-----------------------------开始编译-------------------------------------------");
             //进行编译
             var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Project.txt");
@@ -64,7 +71,6 @@ namespace AutoBuildTool
             }
         }
 
-
         private void suyaBuild(object sender, EventArgs e)
         {
             //单独编译点击的项目
@@ -73,7 +79,7 @@ namespace AutoBuildTool
             var targetPath = targetBasePath + @"\SuYa.Mobile.csproj";
             var targetOutPath = targetBasePath + @"\bin";
             var targetBuildResultStr = TfHelper.Build(dirkPath, targetPath, targetOutPath);
-            Console.WriteLine("suya生成成功");
+            MessageBox.Show("suya生成成功");
             Console.WriteLine(targetBuildResultStr);
         }
 
@@ -90,7 +96,7 @@ namespace AutoBuildTool
             var targetPath = targetBasePath + @"\WsBg.Web.csproj";
             var targetOutPath = targetBasePath + @"\bin";
             var targetBuildResultStr = TfHelper.Build(dirkPath, targetPath, targetOutPath);
-            Console.WriteLine("WsBg生成成功");
+            MessageBox.Show("WsBg生成成功");
             Console.WriteLine(targetBuildResultStr);
         }
     }
