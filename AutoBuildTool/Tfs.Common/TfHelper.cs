@@ -8,7 +8,7 @@ namespace Tfs.Common
 {
 
     //通过cmd命令来操作,如果后面改成git 也是同样使用然后用一个工厂来生成对应的类就可以了
-   public class TfHelper
+    public class TfHelper
     {
         /// <summary>
         /// 获取最新操作
@@ -17,7 +17,7 @@ namespace Tfs.Common
         /// <param name="dirPath">vs的安装路径</param>
         /// <param name="workArea">工作区</param>
         /// <returns></returns>
-        public static string GetOpt(string disk,string dirPath,string workArea)
+        public static string GetOpt(string disk, string dirPath, string workArea)
         {
             var strCmdList = new List<string>()
             {
@@ -25,7 +25,7 @@ namespace Tfs.Common
                 string.Format(@"cd {0}\CommonExtensions\Microsoft\TeamFoundation\Team Explorer",dirPath),
                 string.Format(@"tf get {0} /recursive",workArea)
             };
-           return CmdHelper.Excute(strCmdList);
+            return CmdHelper.Excute(strCmdList);
         }
         /// <summary>
         /// 编译项目 都是调用cmd中的命令进行编译
@@ -42,12 +42,12 @@ namespace Tfs.Common
             {
                 strs[0]+":",
                 @"cd "+dirPath,
-                 string.Format(@"msbuild   {0} /p:OutputPath={1} /p:VisualStudioVersion=10.0  ", buildPah,outputPath)
-               // string.Format(@"msbuild   {0} /p:OutputPath={1}  /t:rebuild", buildPah,outputPath)
+                 string.Format(@"msbuild   {0} /p:OutputPath={1} /t:rebuild", buildPah,outputPath)
+                //string.Format(@"msbuild   {0} /p:OutputPath={1}  /t:rebuild", buildPah,outputPath)
             };
             return CmdHelper.Excute(strCmdList);
         }
 
-      
+
     }
 }

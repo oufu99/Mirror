@@ -16,7 +16,7 @@ namespace AutoBuildTool
 {
     public partial class Form1 : Form
     {
-        string dirkPath = @"C:\Windows\Microsoft.NET\Framework\v4.0.30319";
+        string dirkPath = ConfigurationManager.AppSettings["dirkPath"];
         public Form1()
         {
             InitializeComponent();
@@ -24,15 +24,9 @@ namespace AutoBuildTool
 
         public void BuildWsBg()
         {
-            //要获取最新代码的项目路径
+            //获取最新代码
             string workArea = ConfigurationManager.AppSettings["workArea"];
-            var dirPath = ProcessHelper.GetInstallDirName("devenv");//vs的安装路径
-            var disk = dirPath.Split(new char[] { '\\' })[0];//硬盘符
-                                                             //获取最新操作
-            Console.WriteLine("-----------------------------开始获取最新代码-------------------------------------------");
-            var str = TfHelper.GetOpt(disk, dirPath, workArea);
-            Console.WriteLine("-----------------------------获取最新完毕-------------------------------------------");
-
+            var str = GetNewCode(workArea);
 
             Console.WriteLine("-----------------------------开始编译-------------------------------------------");
             //进行编译
@@ -59,7 +53,7 @@ namespace AutoBuildTool
                     if (string.IsNullOrWhiteSpace(count) || Convert.ToInt32(count) > 0)
                     {
                         Console.WriteLine("**************编译失败！！*************************");
-                        Console.WriteLine("项目：" + projectPath + ",编译失败，编译结束，请检查，错误如下，看不懂就手动自己生成试试");
+                        Console.WriteLine("项目：" + projectPath + ",编译失败，编译结束，请检查，错误如下");
                         Console.WriteLine(buildRstStr);
                         Console.WriteLine("**************编译失败！！*************************");
                     }
@@ -71,11 +65,25 @@ namespace AutoBuildTool
             }
         }
 
+        private string GetNewCode(string workArea)
+        {
+            var dirPath = ProcessHelper.GetInstallDirName("devenv");//vs的安装路径
+            var disk = dirPath.Split(new char[] { '\\' })[0];//硬盘符
+            Console.WriteLine("-----------------------------开始获取最新代码-------------------------------------------");
+            var str = TfHelper.GetOpt(disk, dirPath, workArea);
+            Console.WriteLine("-----------------------------获取最新完毕-------------------------------------------");
+            return str;
+
+        }
         private void suyaBuild(object sender, EventArgs e)
         {
+            //获取最新代码
+            string workArea = ConfigurationManager.AppSettings["suyaWorkArea"];
+            var str = GetNewCode(workArea);
+
             //单独编译点击的项目
             BuildWsBg();
-            var targetBasePath = @"E:\ZPCode\SuYa_V2\SuYa.Mobile";
+            var targetBasePath = ConfigurationManager.AppSettings["suyaTargetPath"];
             var targetPath = targetBasePath + @"\SuYa.Mobile.csproj";
             var targetOutPath = targetBasePath + @"\bin";
             var targetBuildResultStr = TfHelper.Build(dirkPath, targetPath, targetOutPath);
@@ -91,8 +99,8 @@ namespace AutoBuildTool
         private void wsBgBuild(object sender, EventArgs e)
         {
             //单独编译点击的项目
-            BuildWsBg();
-            var targetBasePath = @"E:\ZPCode\WsBg\WsBg.Web";
+            //BuildWsBg();
+            var targetBasePath = ConfigurationManager.AppSettings["wsTargetPath"];
             var targetPath = targetBasePath + @"\WsBg.Web.csproj";
             var targetOutPath = targetBasePath + @"\bin";
             var targetBuildResultStr = TfHelper.Build(dirkPath, targetPath, targetOutPath);
