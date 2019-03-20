@@ -12,7 +12,7 @@ namespace Async
         static void Main(string[] args)
         {
             //string str = Test().Result;
-            string rs = Test().Result;
+            Test();
             Console.WriteLine("满天风沙中");
             Console.ReadLine();
         }

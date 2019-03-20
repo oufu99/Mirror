@@ -99,12 +99,28 @@ namespace AutoBuildTool
         private void wsBgBuild(object sender, EventArgs e)
         {
             //单独编译点击的项目
-            //BuildWsBg();
+            BuildWsBg();
             var targetBasePath = ConfigurationManager.AppSettings["wsTargetPath"];
             var targetPath = targetBasePath + @"\WsBg.Web.csproj";
             var targetOutPath = targetBasePath + @"\bin";
             var targetBuildResultStr = TfHelper.Build(dirkPath, targetPath, targetOutPath);
             MessageBox.Show("WsBg生成成功");
+            Console.WriteLine(targetBuildResultStr);
+        }
+
+        private void mifeiBuild(object sender, EventArgs e)
+        {
+            //获取最新代码
+            string workArea = ConfigurationManager.AppSettings["mifeiWorkArea"];
+            var str = GetNewCode(workArea);
+
+            //单独编译点击的项目
+            BuildWsBg();
+            var targetBasePath = ConfigurationManager.AppSettings["mifeiTargetPath"];
+            var targetPath = targetBasePath + @"\MiFei.Mobile.csproj";
+            var targetOutPath = targetBasePath + @"\bin";
+            var targetBuildResultStr = TfHelper.Build(dirkPath, targetPath, targetOutPath);
+            MessageBox.Show("mifei生成成功");
             Console.WriteLine(targetBuildResultStr);
         }
     }

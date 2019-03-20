@@ -9,11 +9,6 @@ namespace CoreMini
     public class Program
     {
 
-        //static void Main()
-        //{
-        //    Console.ReadLine();
-        //}
-
         public static async Task Main()
         {
             await new WebHostBuilder()
@@ -27,15 +22,13 @@ namespace CoreMini
         }
 
         public static RequestDelegate FooMiddleware(RequestDelegate next)
-        => async context =>
-        {
+        => async context => {
             await context.Response.WriteAsync("Foo=>");
             await next(context);
         };
 
         public static RequestDelegate BarMiddleware(RequestDelegate next)
-        => async context =>
-        {
+        => async context => {
             await context.Response.WriteAsync("Bar=>");
 
             await next(context);
