@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
+using System.Net.Security;
+using System.Net.Sockets;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -17,17 +21,20 @@ namespace ReportMH
         public Form1()
         {
             InitializeComponent();
-
-
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string toEmail = "41056409@qq.com";
+            string toEmail = "51758018@qq.com";
             string fromEmail = "51758018@qq.com";
             string subject = "测试邮件";
+
             string content = "hello world";
-            SendEmail(toEmail, fromEmail, subject, content);
+            List<string> list = new List<string>() { "大爷1", "请收人", "坑货" };
+            for (int i = 0; i < list.Count; i++)
+            {
+                SendEmail(toEmail, fromEmail, subject, list[i]);
+            }
         }
 
 
@@ -58,6 +65,11 @@ namespace ReportMH
             client.Credentials = new NetworkCredential(fromEmail, smtpCode);
             //发送
             client.Send(mailMessage);
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

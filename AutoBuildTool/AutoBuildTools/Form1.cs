@@ -17,12 +17,18 @@ namespace AutoBuildTool
     public partial class Form1 : Form
     {
         string dirkPath = ConfigurationManager.AppSettings["dirkPath"];
+        //是否简易生成,如果是就只生成dbModel
+        bool isSimple = true;
+        string myConfigFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "MyConfig.txt");
         public Form1()
         {
             InitializeComponent();
         }
 
-        public void BuildWsBg()
+        /// <summary>
+        /// 那些基本的dll 比如dbModel,common等
+        /// </summary>
+        public void CommonBuild()
         {
             //获取最新代码
             string workArea = ConfigurationManager.AppSettings["workArea"];
@@ -30,7 +36,7 @@ namespace AutoBuildTool
 
             Console.WriteLine("-----------------------------开始编译-------------------------------------------");
             //进行编译
-            var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Project.txt");
+            var filePath = isSimple ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "SimpleProject.txt") : Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Project.txt"); ;
             var fileStr = File.ReadAllLines(filePath);//要更新的项目
             var outPath = Path.Combine(workArea.Substring(0, workArea.LastIndexOf('\\')), @"lib");//工作区的上一级建立lib文件夹
             if (Directory.Exists(outPath))
@@ -63,6 +69,15 @@ namespace AutoBuildTool
                     }
                 }
             }
+            //保存简易生成的字段 如果选中就是简易生成
+            if (this.checkBox1.Checked)
+            {
+                UpdateConfigSetting("1");
+            }
+            else
+            {
+                UpdateConfigSetting("0");
+            }
         }
 
         private string GetNewCode(string workArea)
@@ -82,7 +97,7 @@ namespace AutoBuildTool
             var str = GetNewCode(workArea);
 
             //单独编译点击的项目
-            BuildWsBg();
+            CommonBuild();
             var targetBasePath = ConfigurationManager.AppSettings["suyaTargetPath"];
             var targetPath = targetBasePath + @"\SuYa.Mobile.csproj";
             var targetOutPath = targetBasePath + @"\bin";
@@ -98,8 +113,9 @@ namespace AutoBuildTool
         /// <param name="e"></param>
         private void wsBgBuild(object sender, EventArgs e)
         {
+            isSimple = this.checkBox1.Checked;
             //单独编译点击的项目
-            BuildWsBg();
+            CommonBuild();
             var targetBasePath = ConfigurationManager.AppSettings["wsTargetPath"];
             var targetPath = targetBasePath + @"\WsBg.Web.csproj";
             var targetOutPath = targetBasePath + @"\bin";
@@ -115,13 +131,36 @@ namespace AutoBuildTool
             var str = GetNewCode(workArea);
 
             //单独编译点击的项目
-            BuildWsBg();
+            CommonBuild();
             var targetBasePath = ConfigurationManager.AppSettings["mifeiTargetPath"];
             var targetPath = targetBasePath + @"\MiFei.Mobile.csproj";
             var targetOutPath = targetBasePath + @"\bin";
             var targetBuildResultStr = TfHelper.Build(dirkPath, targetPath, targetOutPath);
             MessageBox.Show("mifei生成成功");
             Console.WriteLine(targetBuildResultStr);
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            //加载选中框状态
+            isSimple = GetIsSimpleBuild();
+            if (isSimple)
+            {
+                this.checkBox1.Checked = true;
+            }
+        }
+
+
+        private bool GetIsSimpleBuild()
+        {
+
+            string text = System.IO.File.ReadAllText(myConfigFilePath);
+            return text == "1";
+        }
+
+        public void UpdateConfigSetting(string value)
+        {
+            System.IO.File.WriteAllText(myConfigFilePath, value);
         }
     }
 }

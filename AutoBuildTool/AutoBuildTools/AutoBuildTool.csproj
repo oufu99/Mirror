@@ -77,7 +77,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
@@ -89,6 +91,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="MyConfig.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SimpleProject.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Project.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
