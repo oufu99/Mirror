@@ -35,7 +35,7 @@ namespace ConsoleApp1
                 // Connect to the server, false means don't use ssl
                 client.Connect("pop.qq.com", 995, true);
                 // Authenticate ourselves towards the server by email account and password
-                client.Authenticate("51758018@qq.com", "ldbwpluuzhmsbjbj");
+                client.Authenticate("qq邮箱", "授权码");
                 var infos = client.GetMessageInfos();
                 //email count
                 int messageCount = client.GetMessageCount();
