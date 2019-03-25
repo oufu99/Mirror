@@ -25,11 +25,17 @@ namespace ReportMH
 
         private void button1_Click(object sender, EventArgs e)
         {
+            var content = this.txtName.Text;
+            if (string.IsNullOrEmpty(content))
+            {
+                MessageBox.Show("请输入要举报的名称再进行提交");
+                return;
+            }
             string toEmail = "chinaimba1314@163.com";
             //var toEmail = "51758018@qq.com";
             var fromEmail = "q51758018@163.com";
             var subject = "举报";
-            var content = this.txtName.Text;
+
             SendEmail(toEmail, fromEmail, subject, content);
             MessageBox.Show("发送成功");
         }
@@ -63,7 +69,7 @@ namespace ReportMH
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            this.txtName.TabIndex = 0;
         }
     }
 }
