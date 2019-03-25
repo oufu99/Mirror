@@ -25,24 +25,18 @@ namespace ReportMH
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string toEmail = "51758018@qq.com";
-            string fromEmail = "51758018@qq.com";
-            string subject = "测试邮件";
-
-            string content = "hello world";
-            List<string> list = new List<string>() { "大爷1", "请收人", "坑货" };
-            for (int i = 0; i < list.Count; i++)
-            {
-                SendEmail(toEmail, fromEmail, subject, list[i]);
-            }
+            string toEmail = "chinaimba1314@163.com";
+            //var toEmail = "51758018@qq.com";
+            var fromEmail = "q51758018@163.com";
+            var subject = "举报";
+            var content = this.txtName.Text;
+            SendEmail(toEmail, fromEmail, subject, content);
+            MessageBox.Show("发送成功");
         }
-
 
         private void SendEmail(string toEmail, string fromEmail, string subject, string content)
         {
-
-            string smtpCode = "ldbwpluuzhmsbjbj";
-
+            var smtpCode = "shouquan163";
             //实例化一个发送邮件类。
             MailMessage mailMessage = new MailMessage();
             //发件人邮箱地址，方法重载不同，可以根据需求自行选择。
@@ -56,7 +50,7 @@ namespace ReportMH
             //实例化一个SmtpClient类。
             SmtpClient client = new SmtpClient();
             //在这里我使用的是qq邮箱，所以是smtp.qq.com，如果你使用的是126邮箱，那么就是smtp.126.com。
-            client.Host = "smtp.qq.com";
+            client.Host = "smtp.163.com";
             //使用安全加密连接。
             client.EnableSsl = true;
             //不和请求一块发送。
