@@ -14,13 +14,21 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace ReportMH
 {
     public partial class Form1 : Form
     {
+        static string dicPath = @"E:\Mirror\ReportMH\";
+        string filePath = dicPath + "举报名单.txt";
         public Form1()
         {
             InitializeComponent();
+            //如果历史举报文件txt不存在 就把当前运行的目录赋值
+            if (Directory.Exists(dicPath) == false)
+            {
+                dicPath = System.AppDomain.CurrentDomain.BaseDirectory;
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -65,11 +73,41 @@ namespace ReportMH
             client.Credentials = new NetworkCredential(fromEmail, smtpCode);
             //发送
             client.Send(mailMessage);
+
+            //在本地生成一个文件,用来查看自己举报的
+            //检查文件夹是否存在
+            string text = File.ReadAllText(filePath);
+            if (string.IsNullOrEmpty(text))
+            {
+                File.AppendAllText(filePath, content);
+            }
+            else
+            {
+                File.AppendAllText(filePath, "\r\n" + content);
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             this.txtName.TabIndex = 0;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            string resultUrl = "https://www.5211game.com/newsCenter.shtml";
+            BrowserHelper.OpenDefaultBrowserUrl(resultUrl);
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+
+
+            if (File.Exists(filePath) == false)
+            {
+                MessageBox.Show("您还没有进行过举报");
+                return;
+            }
+            System.Diagnostics.Process.Start("NotePad.exe", filePath);
         }
     }
 }
