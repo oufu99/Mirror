@@ -64,8 +64,12 @@ namespace ReportMH
                 isFirst = true;
                 return;
             }
-
             //初始化举报名单
+            InitText();
+        }
+
+        private void InitText()
+        {
             string text = File.ReadAllText(filePath);
             myReportList = text.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries).ToList();
             for (int i = 0; i < myReportList.Count; i++)
@@ -74,8 +78,6 @@ namespace ReportMH
                 myReportList[i] = myReportList[i].Replace("   已封禁", "");
             }
         }
-
-
         private void Report(object sender, EventArgs e)
         {
             var content = this.txtName.Text.Trim();
@@ -158,12 +160,15 @@ namespace ReportMH
         {
             //记录本次开始的时间
             beginDate = DateTime.Now;
-            this.btnReport.Text = "查询中...";
             if (isFirst)
             {
                 MessageBox.Show("您还没有进行过举报");
                 return;
             }
+            //防止这次举报的名单丢失
+            InitText();
+            this.btnReport.Text = "查询中...";
+
             string text = File.ReadAllText(filePath);
             if (string.IsNullOrEmpty(text))
             {
