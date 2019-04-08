@@ -11,23 +11,29 @@ namespace Async
     {
         static void Main(string[] args)
         {
-            //string str = Test().Result;
-            Test();
             Console.WriteLine("满天风沙中");
+
+            Fun();
             Console.ReadLine();
+        }
+
+
+        static async void Fun()
+        {
+            var t = await Test();
         }
 
         static async Task<string> Test()
         {
             Console.WriteLine("111");
             //加了await就会变成同步 执行顺序111- 继续走起 -333 如果不加就是 111-333-等待5秒再打印-继续走起
-            await Task.Run(() =>
+            return await Task.Run(() =>
             {
                 Thread.Sleep(5000);
-                Console.WriteLine("继续走起");
+                Console.WriteLine("继续走");
+                return "完毕";
             });
-            Console.WriteLine("333");
-            return "你好吗";
+
         }
     }
 }

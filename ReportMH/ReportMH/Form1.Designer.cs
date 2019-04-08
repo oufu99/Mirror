@@ -30,59 +30,85 @@
         {
             this.button1 = new System.Windows.Forms.Button();
             this.txtName = new System.Windows.Forms.TextBox();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnReport = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(181, 212);
+            this.button1.Font = new System.Drawing.Font("宋体", 10F);
+            this.button1.Location = new System.Drawing.Point(131, 142);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(75, 36);
             this.button1.TabIndex = 0;
             this.button1.Text = "举报";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Click += new System.EventHandler(this.Report);
             // 
             // txtName
             // 
-            this.txtName.Location = new System.Drawing.Point(141, 153);
+            this.txtName.Location = new System.Drawing.Point(82, 96);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(176, 21);
             this.txtName.TabIndex = 1;
             // 
-            // button2
+            // btnReport
             // 
-            this.button2.Location = new System.Drawing.Point(387, 236);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(112, 34);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "查看最新结果";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.btnReport.Font = new System.Drawing.Font("宋体", 10F);
+            this.btnReport.Location = new System.Drawing.Point(332, 158);
+            this.btnReport.Name = "btnReport";
+            this.btnReport.Size = new System.Drawing.Size(131, 55);
+            this.btnReport.TabIndex = 2;
+            this.btnReport.Text = "查看举报结果";
+            this.btnReport.UseVisualStyleBackColor = true;
+            this.btnReport.Click += new System.EventHandler(this.CheckReportResult);
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(387, 172);
+            this.button3.Font = new System.Drawing.Font("宋体", 10F);
+            this.button3.Location = new System.Drawing.Point(332, 48);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(112, 34);
+            this.button3.Size = new System.Drawing.Size(131, 54);
             this.button3.TabIndex = 3;
             this.button3.Text = "查看我的历史举报";
             this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.button3.Click += new System.EventHandler(this.OpenTxtFile);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label2.Location = new System.Drawing.Point(105, 251);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(283, 25);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "如有疑问,请自行在官网进行比对";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label1.Location = new System.Drawing.Point(50, 276);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(443, 25);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "https://www.5211game.com/newsCenter.shtml";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(540, 410);
+            this.ClientSize = new System.Drawing.Size(525, 326);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.btnReport);
             this.Controls.Add(this.txtName);
             this.Controls.Add(this.button1);
             this.Name = "Form1";
-            this.Text = "举报";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Text = "Imba举报工具";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -92,8 +118,10 @@
 
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox txtName;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnReport;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
     }
 }
 

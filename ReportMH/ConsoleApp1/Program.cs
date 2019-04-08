@@ -18,7 +18,13 @@ namespace ConsoleApp1
         static void Main(string[] args)
         {
 
-            ReadPop3();
+            //ReadPop3();
+            List<string> list = new List<string>() { "123", "234", "234", "234" };
+           
+          
+            Console.ReadLine();
+
+
         }
 
 
