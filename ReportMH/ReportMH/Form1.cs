@@ -287,5 +287,11 @@ namespace ReportMH
             var json = JsonConvert.SerializeObject(configModel);
             File.WriteAllText(configFilePath, json);
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            var btn = (Button)sender;
+            BrowserHelper.OpenBrowserUrl(btn.Text);
+        }
     }
 }
