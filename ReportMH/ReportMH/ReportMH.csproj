@@ -33,6 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Aaron.Common">
+      <HintPath>..\..\lib\Aaron.Common.dll</HintPath>
+    </Reference>
     <Reference Include="HtmlAgilityPack">
       <HintPath>..\..\lib\HtmlAgilityPack.dll</HintPath>
     </Reference>
@@ -54,7 +57,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataConfig.cs" />
-    <Compile Include="BrowserHelper.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

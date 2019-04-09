@@ -6,13 +6,11 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
-namespace ReportMH
+namespace Aaron.Common
 {
     public class BrowserHelper
     {
-
         public static void OpenBrowserUrl(string url)
         {
             try
@@ -63,7 +61,6 @@ namespace ReportMH
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
                 // IE浏览器路径安装：C:\Program Files\Internet Explorer
                 // at System.Diagnostics.process.StartWithshellExecuteEx(ProcessStartInfo startInfo)注意这个错误
                 try
@@ -94,17 +91,13 @@ namespace ReportMH
                         }
                         else
                         {
-                            if (MessageBox.Show(@"系统未安装IE浏览器，是否下载安装？", null, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question) == DialogResult.Yes)
-                            {
-                                // 打开下载链接，从微软官网下载
-                                OpenDefaultBrowserUrl("http://windows.microsoft.com/zh-cn/internet-explorer/download-ie");
-                            }
+                            OpenDefaultBrowserUrl("http://windows.microsoft.com/zh-cn/internet-explorer/download-ie");
                         }
                     }
                 }
                 catch (Exception exception)
                 {
-                    MessageBox.Show(exception.Message);
+                    System.IO.File.AppendAllText(@"d:\jialin.txt", exception.Message);
                 }
             }
         }
