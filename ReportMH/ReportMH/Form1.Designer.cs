@@ -39,7 +39,7 @@
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("宋体", 10F);
-            this.button1.Location = new System.Drawing.Point(131, 142);
+            this.button1.Location = new System.Drawing.Point(134, 137);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 36);
             this.button1.TabIndex = 0;
@@ -95,7 +95,7 @@
             this.button2.TabIndex = 6;
             this.button2.Text = "https://www.5211game.com/newsCenter.shtml";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.button2.Click += new System.EventHandler(this.OpenUrl);
             // 
             // Form1
             // 

@@ -79,6 +79,7 @@ namespace ReportMH
                 myReportList[i] = myReportList[i].Replace("   已封禁", "");
             }
         }
+        //举报
         private void Report(object sender, EventArgs e)
         {
             var content = this.txtName.Text.Trim();
@@ -87,40 +88,11 @@ namespace ReportMH
                 MessageBox.Show("请输入要举报的名称再进行提交");
                 return;
             }
+            var smtpCode = "shouquan163";
             string toEmail = "chinaimba1314@163.com";
             var fromEmail = "q51758018@163.com";
             var subject = "举报";
-
-            SendEmail(toEmail, fromEmail, subject, content);
-            MessageBox.Show("发送成功");
-        }
-
-        private void SendEmail(string toEmail, string fromEmail, string subject, string content)
-        {
-            var smtpCode = "shouquan163";
-            //实例化一个发送邮件类。
-            MailMessage mailMessage = new MailMessage();
-            //发件人邮箱地址，方法重载不同，可以根据需求自行选择。
-            mailMessage.From = new MailAddress(fromEmail);
-            //收件人邮箱地址。
-            mailMessage.To.Add(new MailAddress(toEmail));
-            //邮件标题。
-            mailMessage.Subject = subject;
-            //邮件内容。
-            mailMessage.Body = content;
-            //实例化一个SmtpClient类。
-            SmtpClient client = new SmtpClient();
-            //在这里我使用的是qq邮箱，所以是smtp.qq.com，如果你使用的是126邮箱，那么就是smtp.126.com。
-            client.Host = "smtp.163.com";
-            //使用安全加密连接。
-            client.EnableSsl = true;
-            //不和请求一块发送。
-            client.UseDefaultCredentials = false;
-            //验证发件人身份(发件人的邮箱，邮箱里的生成授权码);
-            client.Credentials = new NetworkCredential(fromEmail, smtpCode);
-            //发送
-            client.Send(mailMessage);
-
+            EmailHelper.SendEmail(smtpCode, toEmail, fromEmail, subject, content);
             //在本地生成一个文件,用来查看自己举报的
             //检查文件夹是否存在
             if (isFirst)
@@ -140,6 +112,7 @@ namespace ReportMH
                     File.AppendAllText(filePath, "\r\n" + content);
                 }
             }
+            MessageBox.Show("发送成功");
         }
 
         private void OpenTxtFile(object sender, EventArgs e)
@@ -176,7 +149,8 @@ namespace ReportMH
                 MessageBox.Show("您还没有进行过举报");
                 return;
             }
-            CheckMHMain();
+            //开始请求
+            CheckNoticeMain();
             this.btnReport.Text = "查看举报结果";
             OpenText();
         }
@@ -184,24 +158,17 @@ namespace ReportMH
         /// <summary>
         /// 爬官方的举报信息   获取首页
         /// </summary>
-        private void CheckMHMain()
+        private void CheckNoticeMain()
         {
-            //从第一页开始访问 只要标题是这个就直接结束循环
-            //把结果存在电脑上   添加一个最后访问时间,如果时间小于这个就不用查了
-
-            //清空记录
+            //把结果存在电脑上   
             string mainUrl = "https://cmsapi.5211game.com/NewsService/YYService/YYNews.ashx?op=NewsListByPage&PageSize=10&PageIndex=1&CategoryIds=2&itemIds=4,12,71";
-            //记录时间遍历子项
-            WebClient wc = new WebClient();//创建WebClient对象
-            Stream s = wc.OpenRead(mainUrl);//访问网址并用一个流对象来接受返回的流
-            StreamReader sr = new StreamReader(s, Encoding.UTF8);
-            string htmlStr = sr.ReadToEnd();
-            //string htmlStr = File.ReadAllText(@"d:\jialin.txt");
+            string htmlStr = HttpHelper.GetHttpResponse(mainUrl);
             HtmlDocument doc = new HtmlDocument();
             doc.LoadHtml(htmlStr);
             List<string> urlList = new List<string>();
             JObject obj = JObject.Parse(htmlStr);
             var newsCount = int.Parse(obj["NewsCount"].ToString());
+            //每次会返回10条信息,遍历他
             for (int i = 1; (i < newsCount / 10) && !isEnd; i++)
             {
                 var pageUrl = "https://cmsapi.5211game.com/NewsService/YYService/YYNews.ashx?op=NewsListByPage&PageSize=10&PageIndex=" + i + "&CategoryIds=2&itemIds=4,12,71";
@@ -217,11 +184,8 @@ namespace ReportMH
         /// <param name="htmlStr"></param>
         private void GetPageData(string url)
         {
-            WebClient wc = new WebClient();//创建WebClient对象
-            Stream s = wc.OpenRead(url);//访问网址并用一个流对象来接受返回的流
-            StreamReader sr = new StreamReader(s, Encoding.UTF8);
+            string htmlStr = HttpHelper.GetHttpResponse(url);
             HtmlDocument doc = new HtmlDocument();
-            string htmlStr = sr.ReadToEnd();
             doc.LoadHtml(htmlStr);
             JObject obj = JObject.Parse(htmlStr);
             var t = obj["NewsList"];
@@ -237,6 +201,7 @@ namespace ReportMH
                             urlList.Add(mainItem.Value[i]["News_URL"].ToString());
                             string dateStr = mainItem.Value[i]["AddDate"].ToString();
                             var date = DateTime.Parse(dateStr);
+                            //添加一个最后访问时间,如果时间小于这个就不用查了
                             if (configModel.FinallyTime > date)
                             {
                                 isEnd = true;
@@ -289,7 +254,7 @@ namespace ReportMH
             File.WriteAllText(configFilePath, json);
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void OpenUrl(object sender, EventArgs e)
         {
             var btn = (Button)sender;
             BrowserHelper.OpenBrowserUrl(btn.Text);
