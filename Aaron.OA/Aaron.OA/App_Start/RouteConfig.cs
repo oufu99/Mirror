@@ -15,8 +15,8 @@ namespace Aaron.OA
 
             routes.MapRoute(
                 name: "Default",
-                url: "{controller}/{action}/{Pame}/{id}",
-                defaults: new { controller = "Login", action = "Index", Pame = UrlParameter.Optional, id = UrlParameter.Optional }
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
         }
     }

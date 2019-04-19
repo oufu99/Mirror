@@ -11,10 +11,8 @@ namespace UnitUser
     {
         static void Main(string[] args)
         {
-            //var stamp = TimeStampHelper.GetTimestamp();
-
-            string stamp = "1554781273";
-            var date = TimeStampHelper.StampToDateTime(stamp);
+            string token = JwtHelper.IssueJwt();
+            JwtHelper.SerializeJWT(token);
             Console.ReadLine();
         }
     }

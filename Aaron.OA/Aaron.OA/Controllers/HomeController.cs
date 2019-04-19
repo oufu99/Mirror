@@ -6,11 +6,10 @@ using System.Web.Mvc;
 
 namespace Aaron.OA.Controllers
 {
-    public class LoginController : Controller
+    public class HomeController : Controller
     {
-        public ActionResult Index(int Pame)
+        public ActionResult Index()
         {
-            var x = Request.RequestContext.RouteData.Values["id"];
             return View();
         }
     }
