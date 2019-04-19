@@ -50,7 +50,7 @@ namespace ReportMH
             //检查是否第一次举报
             if (File.Exists(configFilePath) == false)
             {
-                //之前无效
+                //从4月一号开始  之前无效
                 configModel = new DataConfig() { FinallyTime = DateTime.Parse("2019-04-01") };
                 File.AppendAllText(configFilePath, JsonConvert.SerializeObject(configModel));
             }
@@ -227,7 +227,7 @@ namespace ReportMH
                 doc.LoadHtml(htmlStr);
                 //这里是只要匹配到就都能得出来
                 var nodes = doc.DocumentNode.SelectNodes(@"//td");
-                if (nodes != null || nodes.Count >= 0)
+                if (nodes != null && nodes.Count >= 0)
                 {
                     //提取出a标签的值
                     foreach (var node in nodes)
