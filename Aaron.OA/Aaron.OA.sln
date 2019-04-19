@@ -9,6 +9,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aaron.Common", "..\Aaron.Co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitUser", "..\Aaron.Common\UnitUser\UnitUser.csproj", "{3E0B20B6-3954-496A-A04E-054254889922}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "总纲", "总纲", "{E9DA31FF-7620-4D49-8595-C0F5EE42F62E}"
+	ProjectSection(SolutionItems) = preProject
+		框架总纲.txt = 框架总纲.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
