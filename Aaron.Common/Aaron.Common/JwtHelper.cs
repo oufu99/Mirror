@@ -12,15 +12,14 @@ using System.Threading.Tasks;
 namespace Aaron.Common
 {
     public class JwtHelper
-
     {
-
-        public static string secret = "Aaron{5190}$345qwer";
+        public static string secret = "Aaron{520}$345qwer";
         public static string IssueJwt()
         {
             IDateTimeProvider provider = new UtcDateTimeProvider();
             var now = provider.GetNow();
-            var unixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc); // or use JwtValidator.UnixEpoch
+            //过期时间
+            var unixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
             var secondsSinceEpoch = Math.Round((now - unixEpoch).TotalSeconds);
 
             var payload = new Dictionary<string, object>

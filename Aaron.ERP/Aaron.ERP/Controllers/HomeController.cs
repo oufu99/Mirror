@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Aaron.OA.Controllers
+namespace Aaron.ERP.Controllers
 {
     public class HomeController : Controller
     {

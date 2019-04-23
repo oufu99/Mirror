@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2003
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aaron.OA", "Aaron.OA\Aaron.OA.csproj", "{1556C19C-2A4B-4105-A2D7-E6FF1515B2C2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aaron.ERP", "Aaron.ERP\Aaron.ERP.csproj", "{1556C19C-2A4B-4105-A2D7-E6FF1515B2C2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aaron.Common", "..\Aaron.Common\Aaron.Common\Aaron.Common.csproj", "{E69C1078-89C4-49D9-A64C-7BC8E9415A33}"
 EndProject
