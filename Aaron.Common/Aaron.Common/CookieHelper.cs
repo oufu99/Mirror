@@ -31,6 +31,23 @@ namespace Aaron.Common
         /// <param name="cookiename">cookie名</param>
         /// <param name="cookievalue">cookie值</param>
         /// <param name="expires">过期时间 DateTime</param>
+        public static void SetCookie(string cookieName, string cookieValue)
+        {
+
+            HttpCookie cookie = new HttpCookie(cookieName)
+            {
+                Value = cookieValue,
+                Expires = DateTime.Now.AddDays(7)
+            };
+            HttpContext.Current.Response.Cookies.Add(cookie);
+        }
+
+        /// <summary>
+        /// 添加一个Cookie,指定过期时间
+        /// </summary>
+        /// <param name="cookiename">cookie名</param>
+        /// <param name="cookievalue">cookie值</param>
+        /// <param name="expires">过期时间 DateTime</param>
         public static void SetCookie(string cookieName, string cookieValue, DateTime expires)
         {
             if (expires == null)

@@ -68,6 +68,12 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Aaron.Erp\Models\Models.csproj">
+      <Project>{373f7e9f-52a1-461a-b93e-7a62f45f3582}</Project>
+      <Name>Models</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>
