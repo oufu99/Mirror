@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Aaron.WebCommon;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -16,6 +17,9 @@ namespace Aaron.Erp
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            //模型绑定
+            //ModelBinderProviders.BinderProviders.Add(new CookieValueProviderFactory());
         }
     }
 }
