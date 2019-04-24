@@ -1,4 +1,5 @@
-﻿using Models;
+﻿using Aaron.Erp.App_Start.Filter;
+using Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +10,10 @@ namespace Aaron.Erp.Controllers
 {
     public class HomeController : Controller
     {
-
+        [LoginFilter]
         public ActionResult Index(BaseModel model)
         {
-            
+
             return View();
         }
     }

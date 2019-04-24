@@ -20,6 +20,7 @@ namespace Aaron.Erp
 
             //模型绑定
             //ModelBinderProviders.BinderProviders.Add(new CookieValueProviderFactory());
+
         }
     }
 }
