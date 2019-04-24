@@ -6,10 +6,8 @@ using System.Web.Mvc;
 
 namespace Aaron.Erp.Controllers
 {
-    public class HomeController : Controller
+    public class LoginController : Controller
     {
-
-
 
         public ActionResult Index()
         {

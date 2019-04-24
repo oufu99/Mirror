@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace Aaron.ERP
+namespace Aaron.Erp
 {
     public class RouteConfig
     {
@@ -17,6 +17,7 @@ namespace Aaron.ERP
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                //,namespaces: new string[] { "Aaron.Erp.Controllers" }
             );
         }
     }

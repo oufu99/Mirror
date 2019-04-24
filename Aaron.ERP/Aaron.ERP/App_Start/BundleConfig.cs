@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Optimization;
 
-namespace Aaron.ERP
+namespace Aaron.Erp
 {
     public class BundleConfig
     {
