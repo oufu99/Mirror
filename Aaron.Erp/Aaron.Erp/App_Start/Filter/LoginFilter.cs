@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
+using WebGrease.Css.Extensions;
 
 namespace Aaron.Erp.App_Start.Filter
 {
@@ -12,23 +13,35 @@ namespace Aaron.Erp.App_Start.Filter
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-
             var controllerName = (filterContext.RouteData.Values["controller"]).ToString();
-            var actionName = (filterContext.RouteData.Values["action"]).ToString();
+            var actionName = filterContext.RouteData.Values["action"].ToString();
             var areaName = (filterContext.RouteData.DataTokens["area"] == null ? "" : filterContext.RouteData.DataTokens["area"]).ToString();
 
+
+            #region 判断是否需要跳过登录验证
             //如果方法贴上IgnoreFilter
             Assembly assembly = null;
             if (string.IsNullOrEmpty(areaName))
             {
-                assembly = Assembly.GetExecutingAssembly(); // 获取当前程序集 
+                //获取当前程序集 
+                assembly = Assembly.GetExecutingAssembly(); 
             }
             else
             {
-                assembly = Assembly.LoadFrom(AppDomain.CurrentDomain.BaseDirectory + "\\bin\\" + "Aaron." + areaName + ".dll");
+                //把bin目录中对应的dll进行反射
+                string assPath = $@"{AppDomain.CurrentDomain.BaseDirectory}\bin\{ConfigHelper.GetAppConfig("baseNameSpace")}.{areaName}.dll";
+                assembly = Assembly.LoadFrom(assPath);
             }
-            var name = assembly.GetName().Name;
-            Type type = assembly.GetType($"{name}.Controllers.{controllerName}Controller");
+            //获取反射的程序集的名称  以后定制 也要符合 Aaron.Youzuan 这种标准
+            var nameSpace = assembly.GetName().Name;
+            Type type = assembly.GetType($"{nameSpace}.Controllers.{controllerName}Controller");
+            //判断这个类贴上了跳过标签没有 
+            var classAttr = type.GetCustomAttribute(typeof(IgnoreFilter));
+            if (classAttr != null)
+            {
+                return;
+            }
+
             var methods = type.GetMethods().Where(c => c.Name == actionName);
             //获取请求方式
             var isPost = HttpContext.Current.Request.RequestType == "POST";
@@ -38,6 +51,13 @@ namespace Aaron.Erp.App_Start.Filter
             foreach (var item in methods)
             {
                 var postAttrs = item.GetCustomAttributes(false);
+                var isOnly = postAttrs.Where(c => c is HttpPostAttribute || c is HttpGetAttribute);
+                //如果没有打Get和Post的标签就说明他通用,通用就不管了,直接把这个赋值给他
+                if (isOnly.Count() == 0)
+                {
+                    method = item;
+                    break;
+                }
                 foreach (var attr in postAttrs)
                 {
                     if (attr is HttpPostAttribute && isPost)
@@ -64,13 +84,18 @@ namespace Aaron.Erp.App_Start.Filter
                     }
                 }
             }
+            if (ignore)
+            {
+                return;
+            }
+            #endregion
 
             //通过IsLogin来判断是否登录  就算被伪造,进来没有jwt字符串也没用
             string isLogin = CookieHelper.GetCookie("IsLogin");
-            if (!ignore || string.IsNullOrEmpty(isLogin) || isLogin != "1")
+            if (string.IsNullOrEmpty(isLogin) || isLogin != "1")
             {
                 string loginPath = "/Login/Index";
-                //添加当路径
+                //添加当路径用来作为登录后跳转的位置
                 loginPath += string.Format("?returnUrl={0}", filterContext.HttpContext.Request.RawUrl.ToString());
                 filterContext.Result = new RedirectResult(loginPath);
             }

@@ -33,9 +33,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="OpenPop, Version=2.0.6.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\OpenPop.2.0.6.2\lib\net20\OpenPop.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />

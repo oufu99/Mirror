@@ -11,8 +11,8 @@ namespace UnitUser
     {
         static void Main(string[] args)
         {
-            string token = JwtHelper.IssueJwt();
-            JwtHelper.SerializeJWT(token);
+            var time2 = TimeStampHelper.GetTimestamp();
+            var tiem = TimeStampHelper.StampToDateTime("13189072126389654");
             Console.ReadLine();
         }
     }

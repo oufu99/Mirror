@@ -2,7 +2,7 @@
 
 
 
-.使用模型绑定来获取cookie中的jwt字符串中的值,为BaseModel自动赋值
+.使用模型绑定来获取cookie中的jwt字符串中的值,为BaseModel自动赋值  √
 
 .全局错误捕获,并记录日志
 
