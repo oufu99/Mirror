@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="CookieValueProviderFactory.cs" />
     <Compile Include="CookieBinder.cs" />
+    <Compile Include="WholeErrorAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -10,10 +10,9 @@ namespace Aaron.Erp.Controllers
 {
     public class HomeController : Controller
     {
-        [LoginFilter]
+        [IgnoreFilter]
         public ActionResult Index(BaseModel model)
         {
-
             return View();
         }
     }
