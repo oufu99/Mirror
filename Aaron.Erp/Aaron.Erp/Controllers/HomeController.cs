@@ -1,4 +1,5 @@
-﻿using Aaron.Erp.App_Start.Filter;
+﻿using Aaron.Common;
+using Aaron.Erp.App_Start.Filter;
 using Models;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,9 @@ namespace Aaron.Erp.Controllers
         [IgnoreFilter]
         public ActionResult Index(BaseModel model)
         {
+
+
+            Log4Helper.WriteErr("错误执行中...");
             return View();
         }
     }

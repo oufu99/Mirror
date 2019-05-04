@@ -98,9 +98,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <Content Include="Script\Common.js" />
-    <Content Include="Script\jquery-3.3.1.js" />
-    <Content Include="Script\vue.js" />
+    <Content Include="Js\AaronCommon.js" />
+    <Content Include="Js\jquery-3.3.1.js" />
+    <Content Include="Js\vue.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -122,6 +122,7 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Config\log4.config" />
     <None Include="packages.config" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
