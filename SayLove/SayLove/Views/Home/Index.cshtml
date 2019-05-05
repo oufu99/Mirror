@@ -1,0 +1,75 @@
+﻿
+@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div>
+        <input type="button" value="爱我还是他" id="btn" />
+    </div>
+</body>
+</html>
+<link href="Css/dialog.css" rel="stylesheet" />
+<script src="Js/jquery-3.3.1.js"></script>
+<script src="Js/dialog.js"></script>
+<script>
+    var firstMsg = "嫁给我好吗";
+    var arr = ["饭我来做", "卫生我全包", "我来生猴子"];
+    var arrResponse = ["果然只有厨艺才能打动你...", "不爱做家务...", "这你也信!"];
+    var index = -1;
+    function GiveQuestion(index) {
+        return new Promise(function (resolve, reject) {
+            var d = dialog({
+                title: '丘比特',
+                content: arr[index],
+                okValue: '我同意这门婚事',
+                ok: function () {
+                    resolve(true);
+                    return true;
+                },
+                cancelValue: '我不能同意',
+                cancel: function () {
+                    reject(false);
+                }
+            });
+            d.show();
+        }).catch(function (err) {
+            console.log(err);
+
+        });
+    }
+    function End() {
+        alert("今天就成亲!");
+        //播放音乐
+    }
+
+    async function f(index) {
+        var res = await GiveQuestion(++index);
+        console.log(index);
+        if (!res) {
+            //判断是否还有问题
+            if (index < arr.length - 1) {
+                f(index);
+            } else {
+
+            }
+        } else {
+            //点了同意
+            alert(arrResponse[index]);
+        }
+    }
+    window.onload = function () {
+        document.getElementById('btn').onclick = function () {
+            f(index);
+        };
+    }
+
+</script>
