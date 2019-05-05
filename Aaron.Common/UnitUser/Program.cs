@@ -11,8 +11,8 @@ namespace UnitUser
     {
         static void Main(string[] args)
         {
-            var time2 = TimeStampHelper.GetTimestamp();
-            var tiem = TimeStampHelper.StampToDateTime("13189072126389654");
+            IPerson p = new Person();
+            IPerson p2 = new Person2();
             Console.ReadLine();
         }
     }

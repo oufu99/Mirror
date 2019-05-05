@@ -16,7 +16,9 @@ namespace Aaron.Erp.Controllers
         {
 
 
-            Log4Helper.WriteErr("错误执行中...");
+            Log4Helper.InfoLog("执行中22...");
+            Log4Helper.ErrorInfo("错误执行中22...");
+
             return View();
         }
     }

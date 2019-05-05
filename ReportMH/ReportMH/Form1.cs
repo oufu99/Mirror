@@ -88,11 +88,22 @@ namespace ReportMH
                 MessageBox.Show("请输入要举报的名称再进行提交");
                 return;
             }
-            var smtpCode = "shouquan163";
+            var smtpCode = "shouquan163@123";
             string toEmail = "chinaimba1314@163.com";
             var fromEmail = "q51758018@163.com";
             var subject = "举报";
-            EmailHelper.SendEmail(smtpCode, toEmail, fromEmail, subject, content);
+            try
+            {
+                EmailHelper.SendEmail(smtpCode, toEmail, fromEmail, subject, content);
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message.Contains("authentication is required"))
+                {
+                    MessageBox.Show("版本有必要更新,请从获取此软件处获取更新,或者加入q群777098183交流");
+                    return;
+                }
+            }
             //在本地生成一个文件,用来查看自己举报的
             //检查文件夹是否存在
             if (isFirst)

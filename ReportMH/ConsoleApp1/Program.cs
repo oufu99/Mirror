@@ -37,18 +37,19 @@ namespace ConsoleApp1
                 aa.Columns.Add("MailBodyAsText");
 
                 DataRow dr = aa.NewRow();
-                dr["MailCount"] = pop.GetMailCount().ToString();
-                dr["SendMialAddress"] = pop.GetSendMialAddress(1).ToString();
-                dr["MailUID"] = pop.GetSendMialAddress(1).ToString();
-                dr["MailSubject"] = pop.GetSendMialAddress(1).ToString();
-                dr["MailBodyAsText"] = pop.GetSendMialAddress(1).ToString();
+                dr["MailCount"] = pop.GetMailCount();
+                dr["SendMialAddress"] = pop.GetSendMialAddress(1);
+                dr["MailUID"] = pop.GetSendMialAddress(1);
+                dr["MailSubject"] = pop.GetSendMialAddress(1);
+                dr["MailBodyAsText"] = pop.GetSendMialAddress(1);
+
                 aa.Rows.Add(dr);
 
-                //MessageBox.Show(pop.GetMailCount().ToString());
-                //MessageBox.Show(pop.GetSendMialAddress(1).ToString());
-                //MessageBox.Show(pop.GetMailUID(1).ToString());
-                //MessageBox.Show(pop.GetMailSubject(2).ToString());
-                //MessageBox.Show(pop.GetMailBodyAsText(1).ToString());
+                //MessageBox.Show(pop.GetMailCount().Tostring());
+                //MessageBox.Show(pop.GetSendMialAddress(1).Tostring());
+                //MessageBox.Show(pop.GetMailUID(1).Tostring());
+                //MessageBox.Show(pop.GetMailSubject(2).Tostring());
+                //MessageBox.Show(pop.GetMailBodyAsText(1).Tostring());
             }
             else
             {
@@ -130,158 +131,130 @@ namespace ConsoleApp1
 
     public abstract class Pop3
     {
-        #region 窗体变量
         /// <summary>
         /// 是否存在错误
         /// </summary>
-        public abstract Boolean ExitsError { get; set; }
+        public abstract bool ExitsError { get; set; }
         /// <summary>
         /// 错误信息
         /// </summary>
-        public abstract String ErrorMessage { get; set; }
+        public abstract string ErrorMessage { get; set; }
         /// <summary>
         /// POP3端口号
         /// </summary>
-        public abstract Int32 Pop3Port { set; get; }
+        public abstract int Pop3Port { set; get; }
         /// <summary>
         /// POP3地址
         /// </summary>
-        public abstract String Pop3Address { set; get; }
+        public abstract string Pop3Address { set; get; }
         /// <summary>
         /// 邮箱地址
         /// </summary>
-        public abstract String EmailAddress { set; get; }
+        public abstract string EmailAddress { set; get; }
         /// <summary>
         /// 邮箱密码
         /// </summary>
-        public abstract String EmailPassword { set; get; }
+        public abstract string EmailPassword { set; get; }
 
-        #endregion
-
-        #region 链接至服务器并读取邮件集合
         /// <summary>
         /// 链接至服务器并读取邮件集合
         /// </summary>
-        public abstract Boolean Authenticate();
+        public abstract bool Authenticate();
 
-        #endregion
-
-        #region 获取邮件数量
         /// <summary>
         /// 获取邮件数量
         /// </summary>
         /// <returns></returns>
-        public abstract Int32 GetMailCount();
+        public abstract int GetMailCount();
 
-        #endregion
-
-        #region 获取发件人
         /// <summary>
         /// 获取发件人
         /// </summary>
         /// <param name="mailIndex"></param>
         /// <returns></returns>
-        public abstract String GetSendMialAddress(Int32 mailIndex);
+        public abstract string GetSendMialAddress(int mailIndex);
 
-        #endregion
-
-        #region 获取邮件的主题
         /// <summary>
         /// 获取邮件的主题
         /// </summary>
         /// <param name="mailIndex"></param>
         /// <returns></returns>
-        public abstract String GetMailUID(Int32 mailIndex);
+        public abstract string GetMailUID(int mailIndex);
 
-        #endregion
+        /// <summary>
+        /// 获取邮件发送时间
+        /// </summary>
+        /// <param name="mailIndex"></param>
+        /// <returns></returns>
+        public abstract DateTime GetEmailDate(int mailIndex);
 
-        #region 取邮件的UID
         /// <summary>
         /// 获取邮件的UID
         /// </summary>
         /// <param name="mailIndex"></param>
         /// <returns></returns>
-        public abstract String GetMailSubject(Int32 mailIndex);
-        #endregion
+        public abstract string GetMailSubject(int mailIndex);
 
-        #region 获取邮件正文
         /// <summary>
         /// 获取邮件正文
         /// </summary>
         /// <param name="mailIndex">邮件顺序</param>
         /// <returns></returns>
-        public abstract String GetMailBodyAsText(Int32 mailIndex);
-        #endregion
+        public abstract string GetMailBodyAsText(int mailIndex);
 
-        #region 获取邮件的附件
-        public abstract Boolean GetMailAttachment(Int32 mailIndex, String receiveBackpath);
+        public abstract bool GetMailAttachment(int mailIndex, string receiveBackpath);
 
-        #endregion
 
-        #region 删除邮件
         /// <summary>
         /// 删除邮件
         /// </summary>
         /// <param name="mailIndex"></param>
-        public abstract void DeleteMail(Int32 mailIndex);
-        #endregion
+        public abstract void DeleteMail(int mailIndex);
 
-        #region 关闭邮件服务器
         public abstract void Pop3Close();
-        #endregion
     }
 
 
     /// <summary>
-    /// 自己多封装了一层  继承dll中的Pop3类
+    /// 用于多态,不同的邮箱可能需要不同实现 
     /// </summary>
     public class OpenPopPop3 : Pop3
     {
-
-        public OpenPopPop3() { }
-
-        #region 窗体变量
         /// <summary>
         /// 是否存在错误
         /// </summary>
-        public override Boolean ExitsError { get; set; }
+        public override bool ExitsError { get; set; }
         /// <summary>
         /// 错误信息
         /// </summary>
-        public override String ErrorMessage { get; set; }
+        public override string ErrorMessage { get; set; }
         /// <summary>
         /// POP3端口号
         /// </summary>
-        public override Int32 Pop3Port { set; get; }
+        public override int Pop3Port { set; get; }
         /// <summary>
         /// POP3地址
         /// </summary>
-        public override String Pop3Address { set; get; }
+        public override string Pop3Address { set; get; }
         /// <summary>
         /// 邮箱地址
         /// </summary>
-        public override String EmailAddress { set; get; }
+        public override string EmailAddress { set; get; }
         /// <summary>
         /// 邮箱密码
         /// </summary>
-        public override String EmailPassword { set; get; }
+        public override string EmailPassword { set; get; }
 
-        #endregion
 
-        #region 私有变量
         private Pop3Client pop3Client;
 
-        // private List<POP3_ClientMessage> pop3MessageList = new List<POP3_ClientMessage>();
-
-        private Int32 mailTotalCount;
-        #endregion
+        private int mailTotalCount;
 
 
-        #region 链接至服务器并读取邮件集合
         /// <summary>
         /// 链接至服务器并读取邮件集合
         /// </summary>
-        public override Boolean Authenticate()
+        public override bool Authenticate()
         {
             try
             {
@@ -296,73 +269,72 @@ namespace ConsoleApp1
             }
             catch (Exception ex) { ErrorMessage = ex.Message; return ExitsError = false; }
         }
-        #endregion
 
-        #region 获取邮件数量
         /// <summary>
         /// 获取邮件数量
         /// </summary>
         /// <returns></returns>
-        public override Int32 GetMailCount()
+        public override int GetMailCount()
         {
             return mailTotalCount;
         }
-        #endregion
 
-        #region 获取发件人
         /// <summary>
         /// 获取发件人
         /// </summary>
         /// <param name="mailIndex"></param>
         /// <returns></returns>
-        public override String GetSendMialAddress(Int32 mailIndex)
+        public override string GetSendMialAddress(int mailIndex)
         {
             RfcMailAddress address = pop3Client.GetMessageHeaders(mailIndex).From;
             return address.Address;
         }
-        #endregion
 
-        #region 获取邮件的主题
+        /// <summary>
+        /// 获取收到邮件的日期
+        /// </summary>
+        /// <param name="mailIndex"></param>
+        /// <returns></returns>
+        public override DateTime GetEmailDate(int mailIndex)
+        {
+            return pop3Client.GetMessageHeaders(mailIndex).DateSent;
+        }
+
+
         /// <summary>
         /// 获取邮件的主题
         /// </summary>
         /// <param name="mailIndex"></param>
         /// <returns></returns>
-        public override String GetMailUID(Int32 mailIndex)
+        public override string GetMailUID(int mailIndex)
         {
             return pop3Client.GetMessageUid(mailIndex);
 
         }
-        #endregion
 
-        #region 获取邮件的UID
         /// <summary>
         /// 获取邮件的UID
         /// </summary>
         /// <param name="mailIndex"></param>
         /// <returns></returns>
-        public override String GetMailSubject(Int32 mailIndex)
+        public override string GetMailSubject(int mailIndex)
         {
             return pop3Client.GetMessageHeaders(mailIndex).Subject;
         }
-        #endregion
 
-        #region 获取邮件正文
         /// <summary>
         /// 获取邮件正文
         /// </summary>
         /// <param name="mailIndex">邮件顺序</param>
         /// <returns></returns>
-        public override String GetMailBodyAsText(Int32 mailIndex)
+        public override string GetMailBodyAsText(int mailIndex)
         {
             Message message = pop3Client.GetMessage(mailIndex);
             MessagePart selectedMessagePart = message.MessagePart;
             return selectedMessagePart.GetBodyAsText();
         }
-        #endregion
 
-        #region 获取邮件的附件
-        public override Boolean GetMailAttachment(Int32 mailIndex, String receiveBackpath)
+        public override bool GetMailAttachment(int mailIndex, string receiveBackpath)
         {
             if (mailIndex == 0)
                 return false;
@@ -394,32 +366,26 @@ namespace ConsoleApp1
             }
             return true;
         }
-        #endregion
 
-        #region 删除邮件
         /// <summary>
         /// 删除邮件
         /// </summary>
         /// <param name="mailIndex"></param>
-        public override void DeleteMail(Int32 mailIndex)
+        public override void DeleteMail(int mailIndex)
         {
             pop3Client.DeleteMessage(mailIndex);
         }
-        #endregion
 
-        #region 关闭邮件服务器
         public override void Pop3Close()
         {
             pop3Client.Disconnect();
             pop3Client.Dispose();
         }
-        #endregion
-
     }
 
     public class FactoryPop3
     {
-        public String Pop3Type = "OpenPop";
+        public string Pop3Type = "OpenPop";
 
         public Pop3 CreatePop3()
         {
@@ -428,10 +394,6 @@ namespace ConsoleApp1
             {
                 return pop = new OpenPopPop3();
             }
-            //else if (Pop3Type == "LumiSoft")
-            //{
-            //    return pop = new LumiSoftPop3();
-            //}
             else
             {
                 return null;
