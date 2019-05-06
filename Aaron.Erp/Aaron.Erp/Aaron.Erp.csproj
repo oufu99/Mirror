@@ -130,7 +130,9 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Config\log4.config" />
+    <Content Include="Config\log4.config">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="packages.config" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
@@ -146,9 +148,9 @@
       <Project>{db70dedd-18da-4695-8ce1-1b248b124831}</Project>
       <Name>Aaron.WebCommon</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Models\Models.csproj">
+    <ProjectReference Include="..\Models\Aaron.Models.csproj">
       <Project>{373f7e9f-52a1-461a-b93e-7a62f45f3582}</Project>
-      <Name>Models</Name>
+      <Name>Aaron.Models</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

@@ -14,9 +14,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "总纲", "总纲", "{E9DA31
 		框架总纲.txt = 框架总纲.txt
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csproj", "{373F7E9F-52A1-461A-B93E-7A62F45F3582}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aaron.Models", "Models\Aaron.Models.csproj", "{373F7E9F-52A1-461A-B93E-7A62F45F3582}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aaron.WebCommon", "Aaron.WebCommon\Aaron.WebCommon.csproj", "{DB70DEDD-18DA-4695-8CE1-1B248B124831}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aaron.IService", "IService\Aaron.IService.csproj", "{B62DACBC-7B94-450D-A50C-B3E2CC94B344}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aaron.Service", "Service\Aaron.Service.csproj", "{D72F5488-C0A0-48DC-A95C-B6158461F556}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,6 +48,14 @@ Global
 		{DB70DEDD-18DA-4695-8CE1-1B248B124831}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB70DEDD-18DA-4695-8CE1-1B248B124831}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DB70DEDD-18DA-4695-8CE1-1B248B124831}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B62DACBC-7B94-450D-A50C-B3E2CC94B344}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B62DACBC-7B94-450D-A50C-B3E2CC94B344}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B62DACBC-7B94-450D-A50C-B3E2CC94B344}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B62DACBC-7B94-450D-A50C-B3E2CC94B344}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D72F5488-C0A0-48DC-A95C-B6158461F556}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D72F5488-C0A0-48DC-A95C-B6158461F556}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D72F5488-C0A0-48DC-A95C-B6158461F556}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D72F5488-C0A0-48DC-A95C-B6158461F556}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

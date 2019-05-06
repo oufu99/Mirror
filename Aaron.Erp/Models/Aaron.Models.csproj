@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{DB70DEDD-18DA-4695-8CE1-1B248B124831}</ProjectGuid>
+    <ProjectGuid>{373F7E9F-52A1-461A-B93E-7A62F45F3582}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Aaron.WebCommon</RootNamespace>
-    <AssemblyName>Aaron.WebCommon</AssemblyName>
+    <RootNamespace>Aaron.Models</RootNamespace>
+    <AssemblyName>Aaron.Models</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -31,16 +31,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Web.Mvc">
-      <HintPath>..\..\lib\System.Web.Mvc.dll</HintPath>
-    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -49,23 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CookieValueProviderFactory.cs" />
-    <Compile Include="CookieBinder.cs" />
-    <Compile Include="WholeErrorAttribute.cs" />
+    <Compile Include="BaseModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Aaron.Common\Aaron.Common\Aaron.Common.csproj">
-      <Project>{e69c1078-89c4-49d9-a64c-7bc8e9415a33}</Project>
-      <Name>Aaron.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Models\Aaron.Models.csproj">
-      <Project>{373f7e9f-52a1-461a-b93e-7a62f45f3582}</Project>
-      <Name>Aaron.Models</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
+    <Compile Include="ResponseModel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
