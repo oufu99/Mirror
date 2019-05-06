@@ -15,7 +15,7 @@ namespace Aaron.Service
         /// </summary>
         /// <param name="msg"></param>
         /// <param name="appenderName"></param>
-        public void InfoLog(string msg)
+        public void Info(string msg)
         {
             System.IO.File.AppendAllText(@"d:\jialin.txt", msg);
         }
@@ -26,7 +26,7 @@ namespace Aaron.Service
         /// <param name="msg"></param>
         /// <param name="appenderName"></param>
 
-        public void ErrorLog(string msg)
+        public void Error(string msg)
         {
             System.IO.File.AppendAllText(@"d:\jialin.txt", msg);
         }

@@ -12,13 +12,24 @@ namespace Aaron.Erp.Controllers
 {
     public class HomeController : Controller
     {
+        private ILogHelper logService;
+        public HomeController(ILogHelper serService)
+        {
+            this.logService = serService;
+        }
+
         [IgnoreFilter]
         public ActionResult Index(BaseModel model)
         {
             //通过IOC注入日志组件
-
+            logService.Info("Unity就是吊s2");
             return View();
         }
+
+
+
+
+
     }
 }
 

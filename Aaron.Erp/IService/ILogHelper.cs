@@ -8,8 +8,8 @@ namespace IService
 {
     public interface ILogHelper
     {
-        void InfoLog(string msg);
+        void Info(string msg);
 
-        void ErrorLog(string msg);
+        void Error(string msg);
     }
 }

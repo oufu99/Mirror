@@ -27,7 +27,7 @@ namespace Aaron.Service
         /// </summary>
         /// <param name="msg"></param>
         /// <param name="appenderName"></param>
-        public void InfoLog(string msg)
+        public void Info(string msg)
         {
             ILog logger = log("InfoLogger");
             logger.Info(msg);
@@ -39,7 +39,7 @@ namespace Aaron.Service
         /// <param name="msg"></param>
         /// <param name="appenderName"></param>
 
-        public void ErrorLog(string msg)
+        public void Error(string msg)
         {
             ILog logger = log("ErrorLogger");
             //if (logger.IsInfoEnabled)
