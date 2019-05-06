@@ -9,5 +9,7 @@ namespace IService
     public interface ILogHelper
     {
         void InfoLog(string msg);
+
+        void ErrorLog(string msg);
     }
 }

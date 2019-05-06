@@ -63,7 +63,6 @@
     <Compile Include="EmailHelper.cs" />
     <Compile Include="HttpHelper.cs" />
     <Compile Include="JwtHelper.cs" />
-    <Compile Include="Log4Helper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TimeStampHelper.cs" />
   </ItemGroup>

@@ -1,6 +1,7 @@
 ﻿using Aaron.Common;
 using Aaron.Erp.App_Start.Filter;
 using Aaron.Models;
+using IService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,10 +15,7 @@ namespace Aaron.Erp.Controllers
         [IgnoreFilter]
         public ActionResult Index(BaseModel model)
         {
-
-
-            Log4Helper.InfoLog("执行中22...");
-            Log4Helper.ErrorInfo("错误执行中22...");
+            //通过IOC注入日志组件
 
             return View();
         }

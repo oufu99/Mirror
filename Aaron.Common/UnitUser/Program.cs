@@ -11,8 +11,13 @@ namespace UnitUser
     {
         static void Main(string[] args)
         {
-            IPerson p = new Person();
-            IPerson p2 = new Person2();
+            //依赖注入
+
+
+
+
+
+
             Console.ReadLine();
         }
     }
