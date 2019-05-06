@@ -75,8 +75,8 @@ namespace ReportMH
             myReportList = text.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries).ToList();
             for (int i = 0; i < myReportList.Count; i++)
             {
-                //处理封禁符号  以免后面对不上
-                myReportList[i] = myReportList[i].Replace("   已封禁", "");
+                //去除前后空格 以免后面对不上
+                myReportList[i] = myReportList[i].Trim();
             }
         }
         //举报
