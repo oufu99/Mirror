@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IService
+namespace Aaron.IService
 {
     public interface ILogHelper
     {
