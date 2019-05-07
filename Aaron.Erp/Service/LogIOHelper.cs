@@ -9,7 +9,6 @@ namespace Aaron.Service
 {
     public class LogIOHelper : ILogHelper
     {
-
         /// <summary>
         /// 一般性日志
         /// </summary>

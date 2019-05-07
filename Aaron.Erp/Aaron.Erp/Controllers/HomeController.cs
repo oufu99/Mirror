@@ -13,21 +13,18 @@ namespace Aaron.Erp.Controllers
     public class HomeController : Controller
     {
         private ILogHelper logService;
-        public HomeController()
+        public HomeController(ILogHelper serService)
         {
+            this.logService = serService;
         }
 
         [IgnoreFilter]
         public ActionResult Index(BaseModel model)
         {
             //通过IOC注入日志组件
+            logService.Info("autofac就是吊s2");
             return View();
         }
-
-
-
-
-
     }
 }
 

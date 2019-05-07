@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 [assembly: log4net.Config.XmlConfigurator(ConfigFile = @"Config\log4.config", Watch = true)]
 namespace Aaron.Service
 {
-    public class Log4Helper : ILogHelper
+    public class Log4Helper : ILogHelper, IDependency
     {
 
         /// <summary>

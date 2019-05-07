@@ -6,10 +6,7 @@ using System.Threading.Tasks;
 
 namespace Aaron.IService
 {
-    public interface ILogHelper 
+    public interface IDependency
     {
-        void Info(string msg);
-
-        void Error(string msg);
     }
 }
