@@ -1,5 +1,4 @@
-﻿using Aaron.Erp.Models;
-using Aaron.Service;
+﻿using Aaron.Service;
 using Aaron.WebCommon;
 using Aaron.IService;
 using System;
@@ -9,8 +8,6 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using Unity;
-using Unity.Mvc5;
 
 namespace Aaron.Erp
 {
@@ -26,8 +23,7 @@ namespace Aaron.Erp
             //模型绑定
             //ModelBinderProviders.BinderProviders.Add(new CookieValueProviderFactory());
 
-            //Unity初始化
-            BootStrapper.Initialise();
+           
         }
     }
 }
