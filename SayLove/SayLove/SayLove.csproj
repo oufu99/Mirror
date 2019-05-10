@@ -168,6 +168,7 @@
     </Content>
     <Content Include="Js\dialog.js" />
     <Content Include="Js\jquery-3.3.1.js" />
+    <Content Include="Js\Vue-min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

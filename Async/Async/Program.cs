@@ -11,17 +11,24 @@ namespace Async
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("满天风沙中");
 
             Fun();
+            Fun1();
             Console.ReadLine();
         }
 
-
-        static async void Fun()
+        async static void Fun()
         {
-            var t = await Test();
+            await Task.Run(() => { Thread.Sleep(3000); Console.WriteLine("异步中.."); });
+            Console.WriteLine("哦豁");
         }
+
+        static void Fun1()
+        {
+            Console.WriteLine("完蛋");
+        }
+
+
 
         static async Task<string> Test()
         {
@@ -35,5 +42,15 @@ namespace Async
             });
 
         }
+
+        static string Say()
+        {
+
+            return "World";
+
+
+        }
+
     }
+
 }

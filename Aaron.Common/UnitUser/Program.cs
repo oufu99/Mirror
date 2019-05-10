@@ -11,13 +11,14 @@ namespace UnitUser
     {
         static void Main(string[] args)
         {
-            //依赖注入
 
+            RedisHelper redis = new RedisHelper();
+            var key = "aa";
+            redis.SetStringValue(key, "木头人");
 
+            var value = redis.GetStringValue(key);
 
-
-
-
+            Console.WriteLine(value);
             Console.ReadLine();
         }
     }

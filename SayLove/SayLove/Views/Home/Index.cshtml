@@ -14,12 +14,52 @@
 <body>
     <div>
         <input type="button" value="爱我还是他" id="btn" />
+
+        <input type="button" value="Promise" onclick="Fun()" />
     </div>
 </body>
 </html>
-<link href="Css/dialog.css" rel="stylesheet" />
-<script src="Js/jquery-3.3.1.js"></script>
-<script src="Js/dialog.js"></script>
+<link href="../Css/dialog.css" rel="stylesheet" />
+<script src="../Js/jquery-3.3.1.js"></script>
+<script src="../Js/dialog.js"></script>
+
+<script>
+    function Pro() {
+        return new Promise(function (reject, resolve) {
+            alert("000");
+            reject(true);
+        });
+    }
+
+    function F1() {
+        alert("111");
+    }
+    function F2() {
+        return new Promise(function (resolve, reject) {
+            alert("222");
+            setTimeout(function () { alert("haha "); resolve(true); }, 1000);
+            alert("555");
+
+        });
+    }
+    function F3() {
+        return new Promise(function (resolve, reject) {
+            alert("333");
+            return reject(true);
+        });
+    }
+
+    async function Fun() {
+        var res = await F2().catch(function () {
+            alert("我错了");
+        }).then(F3).catch(function () {
+            alert("我错了22");
+        });
+        //alert("haha");
+    }
+
+</script>
+
 <script>
     var firstMsg = "嫁给我好吗";
     var arr = ["饭我来做", "卫生我全包", "我来生猴子"];
