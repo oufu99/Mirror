@@ -34,7 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Aaron.Common">
-      <HintPath>..\..\lib\Aaron.Common.dll</HintPath>
+      <HintPath>..\..\Aaron.Common\Aaron.Common\bin\Debug\Aaron.Common.dll</HintPath>
     </Reference>
     <Reference Include="HtmlAgilityPack">
       <HintPath>..\..\lib\HtmlAgilityPack.dll</HintPath>

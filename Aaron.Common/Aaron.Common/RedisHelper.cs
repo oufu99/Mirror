@@ -23,48 +23,57 @@ namespace Aaron.Common
             db = redis.GetDatabase();
         }
 
-
         #region string类型操作
         /// <summary>
-        /// set or update the value for string key 
+        /// string 类型设置
         /// </summary>
         /// <param name="key"></param>
         /// <param name="value"></param>
         /// <returns></returns>
-        public bool SetStringValue(string key, string value)
-        {
-            return db.StringSet(key, value);
-        }
-        /// <summary>
-        /// 保存单个key value
-        /// </summary>
-        /// <param name="key">Redis Key</param>
-        /// <param name="value">保存的值</param>
-        /// <param name="expiry">过期时间</param>
-        /// <returns></returns>
-        public bool SetStringKey(string key, string value, TimeSpan? expiry = default(TimeSpan?))
+        public bool Set(string key, string value, TimeSpan? expiry = default(TimeSpan?))
         {
             return db.StringSet(key, value, expiry);
         }
+
         /// <summary>
-        /// 保存一个对象
+        /// 根据Key获取Value
         /// </summary>
-        /// <typeparam name="T"></typeparam>
         /// <param name="key"></param>
-        /// <param name="obj"></param>
         /// <returns></returns>
-        public bool SetStringKey<T>(string key, T obj, TimeSpan? expiry = default(TimeSpan?))
+        public string Get(string key)
+        {
+            return db.StringGet(key);
+        }
+
+        /// <summary>
+        /// 删除key
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public bool DeleteKey(string key)
+        {
+            return db.KeyDelete(key);
+        }
+
+
+        #endregion
+
+        #region 对象obj操作
+
+        //保存一个对象
+        public bool Set<T>(string key, T obj, TimeSpan? expiry = default(TimeSpan?))
         {
             string json = JsonHelper.SerializeObject(obj);
             return db.StringSet(key, json, expiry);
         }
+
         /// <summary>
         /// 获取一个key的对象
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="key"></param>
         /// <returns></returns>
-        public T GetStringKey<T>(string key) where T : class
+        public T Get<T>(string key) where T : class
         {
             var result = db.StringGet(key);
             if (string.IsNullOrEmpty(result))
@@ -73,52 +82,21 @@ namespace Aaron.Common
             }
             return JsonHelper.DeserializeObject<T>(result);
         }
-        /// <summary>
-        /// get the value for string key 
-        /// </summary>
-        /// <param name="key"></param>
-        /// <returns></returns>
-        public string GetStringValue(string key)
-        {
-            return db.StringGet(key);
-        }
 
-        /// <summary>
-        /// Delete the value for string key 
-        /// </summary>
-        /// <param name="key"></param>
-        /// <returns></returns>
-        public bool DeleteStringKey(string key)
-        {
-            return db.KeyDelete(key);
-        }
         #endregion
 
         #region 哈希类型操作
-        /// <summary>
-        /// set or update the HashValue for string key 
-        /// </summary>
-        /// <param name="key"></param>
-        /// <param name="hashkey"></param>
-        /// <param name="value"></param>
-        /// <returns></returns>
         public bool SetHashValue(string key, string hashkey, string value)
         {
             return db.HashSet(key, hashkey, value);
         }
-        /// <summary>
-        /// set or update the HashValue for string key 
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="key"></param>
-        /// <param name="hashkey"></param>
-        /// <param name="t">defined class</param>
-        /// <returns></returns>
-        public bool SetHashValue<T>(String key, string hashkey, T t) where T : class
+     
+        public bool SetHashValue<T>(string key, string hashkey, T t) where T : class
         {
             var json = JsonHelper.SerializeObject(t);
             return db.HashSet(key, hashkey, json);
         }
+
         /// <summary>
         /// 保存一个集合
         /// </summary>
@@ -136,6 +114,7 @@ namespace Aaron.Common
             }
             db.HashSet(key, listHashEntry.ToArray());
         }
+
         /// <summary>
         /// 获取hashkey所有的值
         /// </summary>
@@ -154,13 +133,12 @@ namespace Aaron.Common
                 }
             }
             return result;
-            //result =JsonHelper.DeserializeJsonToList<T>(arr.ToString());                        
-            //return result;
         }
+      
         /// <summary>
-        /// get the HashValue for string key  and hashkey
+        /// 获取哈希值
         /// </summary>
-        /// <param name="key">Represents a key that can be stored in redis</param>
+        /// <param name="key"></param>
         /// <param name="hashkey"></param>
         /// <returns></returns>
         public RedisValue GetHashValue(string key, string hashkey)
@@ -168,12 +146,8 @@ namespace Aaron.Common
             RedisValue result = db.HashGet(key, hashkey);
             return result;
         }
-        /// <summary>
-        /// get the HashValue for string key  and hashkey
-        /// </summary>
-        /// <param name="key">Represents a key that can be stored in redis</param>
-        /// <param name="hashkey"></param>
-        /// <returns></returns>
+     
+
         public T GetHashValue<T>(string key, string hashkey) where T : class
         {
             RedisValue result = db.HashGet(key, hashkey);
@@ -184,8 +158,9 @@ namespace Aaron.Common
 
             return JsonHelper.DeserializeObject<T>(result);
         }
+       
         /// <summary>
-        /// delete the HashValue for string key  and hashkey
+        /// 移除哈希的Key
         /// </summary>
         /// <param name="key"></param>
         /// <param name="hashkey"></param>
