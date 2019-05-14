@@ -93,6 +93,20 @@ namespace Aaron.Common
             var pictureDir = Path.Combine(baseDir, "每天听本书-图片");
             var audioDir = Path.Combine(baseDir, "每天听本书-音频");
             var textDir = Path.Combine(baseDir, "每天听本书-文本");
+            //判断文件夹是否存在
+            if (!Directory.Exists(pictureDir))
+            {
+                Directory.CreateDirectory(pictureDir);
+            }
+            if (!Directory.Exists(audioDir))
+            {
+                Directory.CreateDirectory(audioDir);
+            }
+            if (!Directory.Exists(textDir))
+            {
+                Directory.CreateDirectory(textDir);
+            }
+
 
             foreach (var item in pictureList)
             {
@@ -118,11 +132,13 @@ namespace Aaron.Common
                 File.Move(sourcPath, targetPath);
             }
         }
+        #region 验证文件类型
         public static bool CheckIsPicture(string fileName)
         {
             var sffix = GetFileSffix(fileName);
             return PictureSffix.Contains(sffix);
         }
+
         public static bool CheckIsAudio(string fileName)
         {
             var sffix = GetFileSffix(fileName);
@@ -133,7 +149,13 @@ namespace Aaron.Common
             var sffix = GetFileSffix(fileName);
             return TextSffix.Contains(sffix);
         }
+        #endregion
 
+        /// <summary>
+        /// 获取全路径的后缀名
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
         public static string GetFileSffix(string fileName)
         {
             var lastIndex = fileName.LastIndexOf(@".") + 1;
@@ -144,6 +166,11 @@ namespace Aaron.Common
             return fileName.Substring(lastIndex, fileName.Length - lastIndex);
         }
 
+        /// <summary>
+        /// 获取全路径中的文件名
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
         public static string GetFileName(string filePath)
         {
             var index = filePath.LastIndexOf(@"\") + 1;
