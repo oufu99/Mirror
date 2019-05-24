@@ -33,7 +33,14 @@ namespace Aaron.Common
             fInfo.MoveTo(Path.Combine(newName));
         }
 
-        public static void GetDirectorAllFile(string dirs, List<string> list)
+        public static void ReNameFileByNewPath(string oldFullPath, string newPath)
+        {
+            //传入Url,重命名   传入一个正则 一个文件根目录 然后替换里面所有的txt文件名
+            FileInfo fInfo = new FileInfo(oldFullPath);
+            fInfo.MoveTo(Path.Combine(newPath));
+        }
+
+        public static List<string> GetDirectorAllFile(string dirs, List<string> list)
         {
             //绑定到指定的文件夹目录
             DirectoryInfo dir = new DirectoryInfo(dirs);
@@ -55,6 +62,7 @@ namespace Aaron.Common
                     list.Add(fileInfo.FullName);
                 }
             }
+            return list;
         }
         /// <summary>
         /// 每日听本书专用
