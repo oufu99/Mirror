@@ -9,10 +9,11 @@ namespace UnitUser
 {
     class Program
     {
+
         static void Main(string[] args)
         {
 
-            IOHelper.EveryDayEveryBookSort(@"D:\测试文件夹\");
+
 
 
             Console.ReadLine();

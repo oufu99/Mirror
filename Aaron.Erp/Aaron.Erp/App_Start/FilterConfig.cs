@@ -10,7 +10,9 @@ namespace Aaron.Erp
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new WholeErrorAttribute());
-            filters.Add(new LoginFilter());
+
+            //全局登录验证
+            //filters.Add(new LoginFilter());
 
         }
     }

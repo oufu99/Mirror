@@ -16,7 +16,6 @@ namespace Aaron.Erp.App_Start.Filter
             var actionName = filterContext.RouteData.Values["action"].ToString();
             var areaName = (filterContext.RouteData.DataTokens["area"] == null ? "" : filterContext.RouteData.DataTokens["area"]).ToString();
 
-
             #region 判断是否需要跳过登录验证
             //如果方法贴上IgnoreFilter
             Assembly assembly = null;

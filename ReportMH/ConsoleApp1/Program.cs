@@ -38,13 +38,18 @@ namespace ConsoleApp1
 
                 DataRow dr = aa.NewRow();
                 dr["MailCount"] = pop.GetMailCount();
+
+                //获取第一行
                 dr["SendMialAddress"] = pop.GetSendMialAddress(1);
                 dr["MailUID"] = pop.GetSendMialAddress(1);
                 dr["MailSubject"] = pop.GetSendMialAddress(1);
                 dr["MailBodyAsText"] = pop.GetSendMialAddress(1);
 
                 aa.Rows.Add(dr);
+                //遍历所有的行数,然后记录下来
 
+
+                //备用的方法
                 //MessageBox.Show(pop.GetMailCount().Tostring());
                 //MessageBox.Show(pop.GetSendMialAddress(1).Tostring());
                 //MessageBox.Show(pop.GetMailUID(1).Tostring());

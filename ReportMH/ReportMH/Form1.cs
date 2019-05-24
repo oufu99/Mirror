@@ -88,7 +88,7 @@ namespace ReportMH
                 MessageBox.Show("请输入要举报的名称再进行提交");
                 return;
             }
-            var smtpCode = "shouquan163@123";
+            var smtpCode = "shouquan163";
             string toEmail = "chinaimba1314@163.com";
             var fromEmail = "q51758018@163.com";
             var subject = "举报";

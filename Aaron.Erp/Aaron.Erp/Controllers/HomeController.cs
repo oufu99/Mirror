@@ -13,17 +13,24 @@ namespace Aaron.Erp.Controllers
     public class HomeController : Controller
     {
         private ILogHelper logService;
+
+        public static int Age = 1;
         public HomeController(ILogHelper serService)
         {
-            this.logService = serService;
+            logService = serService;
         }
 
         [IgnoreFilter]
         public ActionResult Index(BaseModel model)
         {
-            //通过IOC注入日志组件
-            logService.Info("autofac就是吊s2");
+
             return View();
+        }
+
+        public int AddAge()
+        {
+            Age++;
+            return Age;
         }
     }
 }
