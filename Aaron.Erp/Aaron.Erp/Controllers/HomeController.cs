@@ -23,7 +23,7 @@ namespace Aaron.Erp.Controllers
         [IgnoreFilter]
         public ActionResult Index(BaseModel model)
         {
-
+            logService.Info("haha");
             return View();
         }
 

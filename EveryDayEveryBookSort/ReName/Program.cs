@@ -10,7 +10,7 @@ namespace ReName
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main1(string[] args)
         {
             //重命名
 
@@ -99,5 +99,38 @@ namespace ReName
             return index.ToString();
 
         }
+
+
+
+        static void Main(string[] args)
+        {
+            Person p1 = new Person() { Name = "张三", YuWen = 60, ShuXue = 66 };
+            Person p2 = new Person() { Name = "张三", YuWen = 60, ShuXue = 66 };
+            Person p3 = new Person() { Name = "张三", YuWen = 60, ShuXue = 66 };
+            Person p4 = new Person() { Name = "李四", YuWen = 60, ShuXue = 66 };
+            Person p5 = new Person() { Name = "李四", YuWen = 60, ShuXue = 66 };
+            Person p6 = new Person() { Name = "王五", YuWen = 60, ShuXue = 66 };
+
+            var list = new List<Person>() { p1, p2, p3, p4, p5, p6 };
+
+
+            var group = list.GroupBy(c => c.Name).ToList();
+            foreach (var item in group)
+            {
+                var li = item.ToList();
+                var sum = li.Sum(c => c.ShuXue + c.YuWen);
+            }
+            Console.ReadLine();
+
+        }
+    }
+
+
+    public class Person
+    {
+        public string Name { get; set; }
+        public int YuWen { get; set; }
+
+        public int ShuXue { get; set; }
     }
 }
