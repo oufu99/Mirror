@@ -4,42 +4,50 @@
 }
 
 <!DOCTYPE html>
-
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
     <title>Index</title>
 </head>
 <body>
-    <div>
-        <input type="button" value="点击登录" />
+    <div id="IndexModelApp">
+        <input type="text"  v-bind:value="dataSource.Name" />
+        {{dataSource.Name}}
+        123木头
     </div>
 
 </body>
 </html>
-
-<script src="~/Script/vue.js"></script>
-<script src="~/Script/Common.js"></script>
-<script src="https://unpkg.com/flyio/dist/fly.min.js"></script>
+<script src="~/Js/jquery-2.1.4.js"></script>
+<script src="~/Js/Vue-min.js"></script>
 
 <script>
-    function Login() {
-        fly.post('/Login/Login', {
-            account: 'Aaron',
-            pwd: "123木头人"
-        })
-            .then(function (res) {
-                //获取当前url的回调路径
-                var returnUrl = GetUrlParam("returnUrl");
-                if (returnUrl != "") {
-                    window.location.href = returnUrl;
-                }
-                window.location.href = "/Home/Index";
-            })
-            .catch(function (err) {
-                console.log(err);
-            });
-    }
-
+    //function Login() {
+    //    fly.post('/Login/Login', {
+    //        account: 'Aaron',
+    //        pwd: "123木头人"
+    //    })
+    //        .then(function (res) {
+    //            //获取当前url的回调路径
+    //            var returnUrl = GetUrlParam("returnUrl");
+    //            if (returnUrl != "") {
+    //                window.location.href = returnUrl;
+    //            }
+    //            window.location.href = "/Home/Index";
+    //        })
+    //        .catch(function (err) {
+    //            console.log(err);
+    //        });
+    //}
+    var dataSource = {
+        //活动数据
+        Name: "123Aa"
+    };
+    var app = new Vue({
+        el: '#IndexModelApp',
+        data: dataSource,
+        methods: {},
+        created: function () {
+        }
+    });
 </script>
 

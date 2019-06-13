@@ -131,8 +131,9 @@
   <ItemGroup>
     <Content Include="Global.asax" />
     <Content Include="Js\AaronCommon.js" />
+    <Content Include="Js\jquery-2.1.4.js" />
     <Content Include="Js\jquery-3.3.1.js" />
-    <Content Include="Js\vue.js" />
+    <Content Include="Js\Vue-min.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

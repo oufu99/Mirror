@@ -48,6 +48,25 @@ namespace Tfs.Common
             return CmdHelper.Excute(strCmdList);
         }
 
+        /// <summary>
+        /// 输出到bin目录
+        /// </summary>
+        /// <param name="dirPath"></param>
+        /// <param name="buildPah"></param>
+        /// <param name="outputPath"></param>
+        /// <returns></returns>
+        public static string Build(string dirPath, string buildPah)
+        {
+            // msbuild E:\zp4\Common\ZP.Common.DataModels\ZP.Common.DataModels.csproj
+            var strs = dirPath.Split(':');
 
+            var strCmdList = new List<string>()
+            {
+                strs[0]+":",
+                @"cd "+dirPath,
+                 string.Format(@"msbuild   {0} /t:rebuild", buildPah)
+            };
+            return CmdHelper.Excute(strCmdList);
+        }
     }
 }

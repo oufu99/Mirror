@@ -32,7 +32,7 @@ namespace AutoBuildTool
         {
             //获取最新代码
             string workArea = ConfigurationManager.AppSettings["workArea"];
-            var str = GetNewCode(workArea);
+            //var str = GetNewCode(workArea);
 
             Console.WriteLine("-----------------------------开始编译-------------------------------------------");
             //进行编译
@@ -94,10 +94,10 @@ namespace AutoBuildTool
         {
             //获取最新代码
             string workArea = ConfigurationManager.AppSettings["suyaWorkArea"];
-            var str = GetNewCode(workArea);
+            //var str = GetNewCode(workArea);
 
             //单独编译点击的项目
-            CommonBuild();
+            //CommonBuild();
             var targetBasePath = ConfigurationManager.AppSettings["suyaTargetPath"];
             var targetPath = targetBasePath + @"\SuYa.Mobile.csproj";
             var targetOutPath = targetBasePath + @"\bin";

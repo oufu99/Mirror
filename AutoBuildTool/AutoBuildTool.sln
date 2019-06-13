@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tfs.Common", "Tfs.Common\Tf
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoBuildTool", "AutoBuildTools\AutoBuildTool.csproj", "{F63D1BA6-65CA-41D1-B706-3C253B7DDAB0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildYmt", "BuildYmt\BuildYmt.csproj", "{B2322546-3DF7-4F0E-890D-BF4DD0D11543}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{F63D1BA6-65CA-41D1-B706-3C253B7DDAB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F63D1BA6-65CA-41D1-B706-3C253B7DDAB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F63D1BA6-65CA-41D1-B706-3C253B7DDAB0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2322546-3DF7-4F0E-890D-BF4DD0D11543}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2322546-3DF7-4F0E-890D-BF4DD0D11543}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2322546-3DF7-4F0E-890D-BF4DD0D11543}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2322546-3DF7-4F0E-890D-BF4DD0D11543}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
