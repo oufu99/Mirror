@@ -8,13 +8,18 @@
 <head>
     <title>Index</title>
 </head>
+
+
 <body>
     <div id="IndexModelApp">
-        <input type="text"  v-bind:value="dataSource.Name" />
+        <input type="text" v-model="dataSource.Name" />
         {{dataSource.Name}}
         123木头
     </div>
 
+    <div id="components-demo">
+        <button-counter></button-counter>
+    </div>
 </body>
 </html>
 <script src="~/Js/jquery-2.1.4.js"></script>
@@ -47,7 +52,23 @@
         data: dataSource,
         methods: {},
         created: function () {
+        },
+        watch: {
+            Name: function (old, newVal) {
+                this.$nextTick(function () {
+                    new Vue({ el: '#components-demo' });
+                })
+            }
         }
     });
-</script>
 
+
+    Vue.component('button-counter', {
+        data: function () {
+            return {
+                count: 0
+            }
+        },
+        template: '<button v-on:click="count++">You clicked me {{ count }} times.</button>'
+    })
+</script>
