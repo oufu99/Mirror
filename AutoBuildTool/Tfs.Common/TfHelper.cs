@@ -27,13 +27,28 @@ namespace Tfs.Common
             };
             return CmdHelper.Excute(strCmdList);
         }
-        /// <summary>
-        /// 编译项目 都是调用cmd中的命令进行编译
-        /// </summary>
-        /// <param name="buildPah">编译文件的路径</param>
-        /// <param name="outputPath">输出路径</param>
-        /// <returns></returns>
-        public static string Build(string dirPath, string buildPah, string outputPath)
+        ///// <summary>
+        ///// 编译项目 都是调用cmd中的命令进行编译
+        ///// </summary>
+        ///// <param name="buildPah">编译文件的路径</param>
+        ///// <param name="outputPath">输出路径</param>
+        ///// <returns></returns>
+        //public static string Build(string dirPath, string buildPah, string outputPath)
+        //{
+        //    // msbuild E:\zp4\Common\ZP.Common.DataModels\ZP.Common.DataModels.csproj
+        //    var strs = dirPath.Split(':');
+
+        //    var strCmdList = new List<string>()
+        //    {
+        //        strs[0]+":",
+        //        @"cd "+dirPath,
+        //         string.Format(@"msbuild   {0} /p:OutputPath={1} /t:rebuild", buildPah,outputPath)
+        //        //string.Format(@"msbuild   {0} /p:OutputPath={1}  /t:rebuild", buildPah,outputPath)
+        //    };
+        //    return CmdHelper.Excute(strCmdList);
+        //}
+
+        public async static Task<string> Build(string dirPath, string buildPah, string outputPath)
         {
             // msbuild E:\zp4\Common\ZP.Common.DataModels\ZP.Common.DataModels.csproj
             var strs = dirPath.Split(':');
@@ -42,11 +57,12 @@ namespace Tfs.Common
             {
                 strs[0]+":",
                 @"cd "+dirPath,
-                 string.Format(@"msbuild   {0} /p:OutputPath={1} /t:rebuild /p:DefineConstants="+"ZHEJIANGSZ,SILVERLIGHT,TRACE", buildPah,outputPath)
+                 string.Format(@"msbuild   {0} /p:OutputPath={1} /t:rebuild", buildPah,outputPath)
                 //string.Format(@"msbuild   {0} /p:OutputPath={1}  /t:rebuild", buildPah,outputPath)
             };
             return CmdHelper.Excute(strCmdList);
         }
+
 
         /// <summary>
         /// 输出到bin目录

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -11,20 +12,28 @@ namespace Async
     {
         static void Main(string[] args)
         {
+            Stopwatch watch = new Stopwatch();
+            watch.Start();
 
-            Fun();
-            Fun1();
+            List<string> list = new List<string>() { "111", "2222", "333" };
+            foreach (var item in list)
+            {
+                list.Remove(item);
+            }
+            Console.WriteLine("我要这铁棒有何用");
+            Console.WriteLine(watch.ElapsedMilliseconds);
             Console.ReadLine();
         }
 
         async static void Fun()
         {
-            await Task.Run(() => { Thread.Sleep(3000); Console.WriteLine("异步中.."); });
+            Thread.Sleep(3000);
             Console.WriteLine("哦豁");
         }
 
-        static void Fun1()
+        async static void Fun1()
         {
+            Thread.Sleep(2000);
             Console.WriteLine("完蛋");
         }
 

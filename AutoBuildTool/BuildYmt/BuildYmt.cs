@@ -86,20 +86,15 @@ namespace BuildYmt
                     checkList.Add(item.Text);
                 }
             }
-
+            List<Task> taskList = new List<Task>();
             foreach (var item in checkList)
             {
                 var projectFullPath = projectBasePath + item + @"\" + item + ".csproj";
                 //输出目录
                 var outPath = projectBasePath + item + @"\" + item + @"\bin\Debug\netcoreapp2.1\";
-
                 //编译
-                var buildRstStr = TfHelper.Build(dirkPath, projectFullPath, outPath);
-
-
+                TfHelper.Build(dirkPath, projectFullPath, outPath);
                 Regex reg = new Regex(@"[0-9]+ 个错误", RegexOptions.Multiline | RegexOptions.IgnoreCase);
-                var rst = reg.Match(buildRstStr);
-
             }
             MessageBox.Show("全部生成完毕");
         }
