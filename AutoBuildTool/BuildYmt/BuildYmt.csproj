@@ -87,6 +87,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="DefaultCheck.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Project.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

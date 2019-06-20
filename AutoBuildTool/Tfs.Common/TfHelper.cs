@@ -42,7 +42,7 @@ namespace Tfs.Common
             {
                 strs[0]+":",
                 @"cd "+dirPath,
-                 string.Format(@"msbuild   {0} /p:OutputPath={1} /t:rebuild", buildPah,outputPath)
+                 string.Format(@"msbuild   {0} /p:OutputPath={1} /t:rebuild /p:DefineConstants="+"ZHEJIANGSZ,SILVERLIGHT,TRACE", buildPah,outputPath)
                 //string.Format(@"msbuild   {0} /p:OutputPath={1}  /t:rebuild", buildPah,outputPath)
             };
             return CmdHelper.Excute(strCmdList);

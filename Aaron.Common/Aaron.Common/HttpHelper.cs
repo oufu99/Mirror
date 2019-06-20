@@ -11,84 +11,83 @@ using System.Threading.Tasks;
 
 namespace Aaron.Common
 {
-    public class HttpHelper
+    public static class HttpHelper
     {
-        public static string GetHttpResponse(string url, int timeout = 60000)
+        #region Http请求
+        /// <summary>
+        /// get请求（拼接请求参数）
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="param"></param>
+        /// <param name="timeout"></param>
+        /// <returns></returns>
+        public static string GetHttpResponse(string url, object paramData = null, int timeout = 60000)
         {
+            var param = GetQueryString(paramData);//拼get参数
+            if (!string.IsNullOrWhiteSpace(param))
+            {
+                url += "?" + param;
+            }
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "GET";
             request.ContentType = "text/html;charset=UTF-8";
             request.UserAgent = null;
             request.Timeout = timeout;
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-            Stream responseStream = response.GetResponseStream();
-            StreamReader streamReader = new StreamReader(responseStream, Encoding.GetEncoding("utf-8"));
-            string retString = streamReader.ReadToEnd();
-            streamReader.Close();
-            responseStream.Close();
+            Stream myResponseStream = response.GetResponseStream();
+            StreamReader myStreamReader = new StreamReader(myResponseStream, Encoding.GetEncoding("utf-8"));
+            string retString = myStreamReader.ReadToEnd();
+            myStreamReader.Close();
+            myResponseStream.Close();
             return retString;
-
         }
 
         /// <summary>
-        /// 使用键值对传值  可以兼容List<T>的情况
+        /// Get请求
         /// </summary>
+        /// <typeparam name="T"></typeparam>
         /// <param name="url"></param>
-        /// <param name="parameters"></param>
+        /// <param name="paramData"></param>
         /// <param name="timeout"></param>
         /// <returns></returns>
-        public static string PostHttpResponse(string url, IDictionary<string, string> parameters, int timeout = 60000)
+        public static T GetHttpResponse<T>(string url, object paramData = null, int timeout = 60000)
         {
-            HttpWebRequest request = null;
-            //HTTPSQ请求 
-            request = WebRequest.Create(url) as HttpWebRequest;
-            request.ProtocolVersion = HttpVersion.Version10;
-            request.Method = "POST";
-            request.ContentType = "application/x-www-form-urlencoded";
-            request.UserAgent = "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727)";
-            request.Timeout = timeout;
-
-            //如果需要POST数据     
-            if (!(parameters == null || parameters.Count == 0))
+            string retString = null;
+            try
             {
-                StringBuilder buffer = new StringBuilder();
-                int i = 0;
-                foreach (string key in parameters.Keys)
+                if (paramData == null)
                 {
-                    if (i > 0)
-                    {
-                        buffer.AppendFormat("&{0}={1}", key, parameters[key]);
-                    }
-                    else
-                    {
-                        buffer.AppendFormat("{0}={1}", key, parameters[key]);
-                    }
-                    i++;
+                    retString = GetHttpResponse(url, timeout);
                 }
-                byte[] data = Encoding.GetEncoding("utf-8").GetBytes(buffer.ToString());
-                using (Stream stream = request.GetRequestStream())
+                else
                 {
-                    stream.Write(data, 0, data.Length);
+                    retString = GetHttpResponse(url, paramData, timeout);
+                }
+                if (!string.IsNullOrWhiteSpace(retString))
+                {
+                    return JsonConvert.DeserializeObject<T>(retString);
+                }
+                else
+                {
+                    return default(T);
                 }
             }
-            var resultStream = (request.GetResponse() as HttpWebResponse);
-            string result = "";
-            //获取响应内容  
-            using (StreamReader reader = new StreamReader(resultStream.GetResponseStream(), Encoding.UTF8))
+            catch (Exception ex)
             {
-                result = reader.ReadToEnd();
+                System.IO.File.AppendAllText(@"d:\jialin.txt", ex.StackTrace + "=====" + ex.Message);
+                throw;
             }
-            return result;
         }
 
+
         /// <summary>
-        /// Post请求 传入json对象
+        /// post方法
         /// </summary>
-        /// <param name="url"></param>
-        /// <param name="PostData"></param>
-        /// <param name="timeout"></param>
+        /// <param name="url">地址</param>
+        /// <param name="PostData">post数据对象</param>
+        /// <param name="timeout">超时时间，默认为6000毫秒（1分钟）</param>        
         /// <returns></returns>
-        public static string PostHttpResponse(string url, object PostData, int timeout = 60000)
+        public static string PostHttpResponse(string url, Object PostData, int timeout = 60000)
         {
             HttpWebRequest request = null;
             //HTTPSQ请求 
@@ -116,5 +115,94 @@ namespace Aaron.Common
             }
             return result;
         }
+
+        /// <summary>
+        /// Post请求
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="url"></param>
+        /// <param name="paramData"></param>
+        /// <param name="timeout"></param>
+        /// <returns></returns>
+        public static T PostHttpResponse<T>(string url, object paramData, int timeout = 60000)
+        {
+            string retString = null;
+            try
+            {
+                retString = PostHttpResponse(url, paramData, timeout);
+                if (!string.IsNullOrWhiteSpace(retString))
+                {
+                    return JsonConvert.DeserializeObject<T>(retString);
+                }
+                else
+                {
+                    return default(T);
+                }
+            }
+            catch (Exception ex)
+            {
+                System.IO.File.AppendAllText(@"d:\jialin.txt", ex.StackTrace + "=====" + ex.Message);
+                throw;
+            }
+        }
+        #endregion
+
+
+        #region Http辅助方法
+        /// <summary>
+        /// 拼接请求参数
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        private static string GetQueryString(object obj)
+        {
+            if (obj == null) return string.Empty;
+            List<string> query = new List<string>();
+            PropertyInfo[] propertys = obj.GetType().GetProperties();
+            foreach (PropertyInfo p in propertys)
+            {
+                if (p.CanRead)
+                {
+                    var pName = p.Name;
+                    foreach (Attribute attr in p.GetCustomAttributes(true))
+                    {
+                        if (attr is Newtonsoft.Json.JsonPropertyAttribute)
+                        {
+                            if (((Newtonsoft.Json.JsonPropertyAttribute)attr).NullValueHandling.ToString() == "Ignore")
+                            {
+                                pName = null;
+                                break;
+                            }
+                            if (!string.IsNullOrWhiteSpace(((Newtonsoft.Json.JsonPropertyAttribute)attr).PropertyName))
+                            {
+                                pName = ((Newtonsoft.Json.JsonPropertyAttribute)attr).PropertyName;
+                            }
+                        }
+                    }
+                    if (!string.IsNullOrWhiteSpace(pName))
+                    {
+                        var value = p.GetValue(obj, null);
+                        var v = value != null ? value.ToString() : string.Empty;
+                        switch (p.PropertyType.Name)
+                        {
+                            case "String":
+                                v = WebUtility.UrlEncode(v);
+                                break;
+                        }
+                        query.Add($@"{pName}={v}");
+                    }
+                }
+            }
+            if (query.Count > 0)
+            {
+                return string.Join("&", query);
+            }
+            else
+            {
+                return string.Empty;
+            }
+        }
+        #endregion
+
     }
 }

@@ -21,11 +21,17 @@ namespace BuildYmt
         //编译工具MsBuild的路径
         string dirkPath = ConfigurationManager.AppSettings["dirkPath"];
 
-
+        List<CheckBox> checkBoxList = new List<CheckBox>();
 
         public BuildYmt()
         {
             InitializeComponent();
+
+
+        }
+        private void BuildYmt_Load(object sender, EventArgs e)
+        {
+            #region 生成CheckBox
             //生成checkBox
             var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Project.txt");
             //要更新的项目
@@ -47,49 +53,55 @@ namespace BuildYmt
                 }
                 else
                 {
+                    //这里只写了左边部分,所以不用家  X坐标
                     leftY = leftY + 40;
-                    rigthY = rigthY + 40;
                 }
                 CheckBox cBox = new CheckBox();
                 cBox.Text = leftList[i];
                 cBox.Location = new Point(leftX, leftY);
-                cBox.Width = this.postionBoxLeft.Width;
+                cBox.Width = this.postionBoxLeft.Width + 80;
                 this.Controls.Add(cBox);
+                checkBoxList.Add(cBox);
             }
-
-        }
-        private void BuildYmt_Load(object sender, EventArgs e)
-        {
             this.postionBoxLeft.Visible = false;
             this.postionBoxLeft.Checked = true;
+            #endregion
+
+
+            var defaultFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "DefaultCheck.txt");
+            //要更新的项目
+            var defaultList = File.ReadAllLines(defaultFilePath).ToList();
+            checkBoxList.Where(c => defaultList.Contains(c.Text)).ToList().ForEach(c => c.Checked = true);
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            //判断是否选中
+            List<string> checkList = new List<string>();
 
-            //foreach (var item in fileStr)
-            //{
-            //    var projectFullPath = projectBasePath + item + @"\" + item + ".csproj";
-            //    //输出目录
-            //    var outPath = projectBasePath + item + @"\" + item + @"\bin\Debug\netcoreapp2.1\";
-            //    var buildRstStr = TfHelper.Build(dirkPath, projectFullPath, outPath);
-            //    Regex reg = new Regex(@"[0-9]+ 个错误", RegexOptions.Multiline | RegexOptions.IgnoreCase);
-            //    var rst = reg.Match(buildRstStr);
+            foreach (var item in checkBoxList)
+            {
+                if (item.Checked)
+                {
+                    checkList.Add(item.Text);
+                }
+            }
 
-            //}
+            foreach (var item in checkList)
+            {
+                var projectFullPath = projectBasePath + item + @"\" + item + ".csproj";
+                //输出目录
+                var outPath = projectBasePath + item + @"\" + item + @"\bin\Debug\netcoreapp2.1\";
+
+                //编译
+                var buildRstStr = TfHelper.Build(dirkPath, projectFullPath, outPath);
 
 
+                Regex reg = new Regex(@"[0-9]+ 个错误", RegexOptions.Multiline | RegexOptions.IgnoreCase);
+                var rst = reg.Match(buildRstStr);
 
-            //var checkEd = checkBox1.Checked;
-            //if (checkEd)
-            //{
-            //    var outPath = @"E:\ZPCode\zp.ymt\ZP.YMT.ActivityAdmin.Basics\bin\Debug\netcoreapp2.1\";
-            //    var buildRstStr = TfHelper.Build(dirkPath, path, outPath);
-            //    Regex reg = new Regex(@"[0-9]+ 个错误", RegexOptions.Multiline | RegexOptions.IgnoreCase);
-            //    var rst = reg.Match(buildRstStr);
-            //}
+            }
+            MessageBox.Show("全部生成完毕");
         }
-
-
     }
 }
