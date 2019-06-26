@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Aaron.Common
 {
-    public class IOHelper
+    public class EveryDayBookAndZhiXuanCangShuHelper
     {
         static string ZhiXuanFlag = "校对版全本";
         static List<string> PictureSffix = new List<string> { "bmp", "jpg", "png", "tif", "gif", "psd" };
@@ -133,11 +133,23 @@ namespace Aaron.Common
             }
         }
 
-        public static void MoveFile(string sourcPath, string targetPath)
+        public static void MoveFile(string sourcPath, string targetPath, bool isForce = false)
         {
-            if (!File.Exists(targetPath))
+            //如果是强制覆盖
+            if (isForce)
             {
+                if (File.Exists(targetPath))
+                {
+                    File.Delete(targetPath);
+                }
                 File.Move(sourcPath, targetPath);
+            }
+            else
+            {
+                if (!File.Exists(targetPath))
+                {
+                    File.Move(sourcPath, targetPath);
+                }
             }
         }
         #region 验证文件类型

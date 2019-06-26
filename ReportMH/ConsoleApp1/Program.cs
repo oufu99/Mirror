@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
+
 using System.Net.Security;
 using System.Net.Sockets;
 using System.Security.Cryptography.X509Certificates;
@@ -18,48 +19,65 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            FactoryPop3 factory = new FactoryPop3();
-            Pop3 pop = factory.CreatePop3();
-            pop.Pop3Port = 110;
-            pop.Pop3Address = "pop3.163.com";
-            pop.EmailAddress = "q51758018@163.com";
-            //pop.EmailPassword = "ou7225822";
-            pop.EmailPassword = "shouquan163";
 
-            pop.Authenticate();
-            if (pop.ExitsError)
-            {
-                DataTable aa = new DataTable();
-                aa.Columns.Add("MailCount");
-                aa.Columns.Add("SendMialAddress");
-                aa.Columns.Add("MailUID");
-                aa.Columns.Add("MailSubject");
-                aa.Columns.Add("MailBodyAsText");
+            //SmtpClient client = new System.Net.Imap4.Imap4Client("ExampleHost", port, ssl);
+            //client.DefaultMailbox = "[Gmail]/Sent Mail";
+            //try
+            //{
+            //    client.Login("ExampleEmail", "ExamplePass", AuthMethod.Login);
+            //    IEnumerable<uint> units = client.Search(SearchCondition.Seen());
+            //    DataTable TempTaskTable = new DataTable();
+            //    TempTaskTable.Columns.Add("FromEmail", typeof(string));
+            //    TempTaskTable.Columns.Add("ToEmail", typeof(string));
+            //    TempTaskTable.Columns.Add("Subject", typeof(string));
+            //    foreach (var uid in units)
+            //    {
+            //        System.Net.Mail.MailMessage email = client.GetMessage(uid, true, "[Gmail]/Sent Mail");
+            //        DataRow TempTaskRow2 = TempTaskTable.NewRow();
+            //        TempTaskRow2["FromEmail"] = email.Sender;
+            //        TempTaskRow2["ToEmail"] = email.From;
+            //        TempTaskRow2["Subject"] = email.Subject;
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    string exceptionCheck = ex.Message;
+            //}
 
-                DataRow dr = aa.NewRow();
-                dr["MailCount"] = pop.GetMailCount();
+            #region 暂时注释
+            //FactoryPop3 factory = new FactoryPop3();
+            //Pop3 pop = factory.CreatePop3();
+            //pop.Pop3Port = 110;
+            //pop.Pop3Address = "pop3.163.com";
+            //pop.EmailAddress = "q51758018@163.com";
+            ////pop.EmailPassword = "ou7225822";
+            //pop.EmailPassword = "shouquan163";
 
-                //获取第一行
-                dr["SendMialAddress"] = pop.GetSendMialAddress(1);
-                dr["MailUID"] = pop.GetSendMialAddress(1);
-                dr["MailSubject"] = pop.GetSendMialAddress(1);
-                dr["MailBodyAsText"] = pop.GetSendMialAddress(1);
+            //pop.Authenticate();
+            //if (pop.ExitsError)
+            //{
+            //    List<string> nameList = new List<string>();
+            //    var emailCount = pop.GetMailCount();
 
-                aa.Rows.Add(dr);
-                //遍历所有的行数,然后记录下来
+            //    //获取第一行
+            //    for (int i = 1; i <= emailCount; i++)
+            //    {
+            //        var content = pop.GetMailBodyAsText(i);
+            //    }
 
 
-                //备用的方法
-                //MessageBox.Show(pop.GetMailCount().Tostring());
-                //MessageBox.Show(pop.GetSendMialAddress(1).Tostring());
-                //MessageBox.Show(pop.GetMailUID(1).Tostring());
-                //MessageBox.Show(pop.GetMailSubject(2).Tostring());
-                //MessageBox.Show(pop.GetMailBodyAsText(1).Tostring());
-            }
-            else
-            {
-                //MessageBox.Show(pop.ErrorMessage);
-            }
+            //    //备用的方法
+            //    //MessageBox.Show(pop.GetMailCount().Tostring());
+            //    //MessageBox.Show(pop.GetSendMialAddress(1).Tostring());
+            //    //MessageBox.Show(pop.GetMailUID(1).Tostring());
+            //    //MessageBox.Show(pop.GetMailSubject(2).Tostring());
+            //    //MessageBox.Show(pop.GetMailBodyAsText(1).Tostring());
+            //}
+            //else
+            //{
+            //    //MessageBox.Show(pop.ErrorMessage);
+            //} 
+            #endregion
 
             Console.ReadLine();
         }
@@ -336,7 +354,13 @@ namespace ConsoleApp1
         {
             Message message = pop3Client.GetMessage(mailIndex);
             MessagePart selectedMessagePart = message.MessagePart;
-            return selectedMessagePart.GetBodyAsText();
+            if (selectedMessagePart.Body != null)
+            {
+                return selectedMessagePart.GetBodyAsText();
+
+            }
+            //经过查看数据结构发现163的好像不一样,需要重写一下
+            return selectedMessagePart.MessageParts[0].GetBodyAsText();
         }
 
         public override bool GetMailAttachment(int mailIndex, string receiveBackpath)

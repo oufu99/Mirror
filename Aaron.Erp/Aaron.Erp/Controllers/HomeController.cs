@@ -27,10 +27,10 @@ namespace Aaron.Erp.Controllers
             return View();
         }
 
-        public int AddAge()
+        public string TestFunc(string name)
         {
-            Age++;
-            return Age;
+            
+            return name;
         }
     }
 }
