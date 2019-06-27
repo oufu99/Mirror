@@ -13,7 +13,8 @@ namespace UnitUser
         static void Main(string[] args)
         {
 
-
+            string path = @"D:\CopyGitItem";
+            FileHelper.DeleteDirectory(path);
 
 
             Console.ReadLine();

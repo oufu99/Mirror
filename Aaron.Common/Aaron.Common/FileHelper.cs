@@ -11,11 +11,7 @@ namespace Aaron.Common
 {
     public class FileHelper
     {
-        static string ZhiXuanFlag = "校对版全本";
-        static List<string> PictureSffix = new List<string> { "bmp", "jpg", "png", "tif", "gif", "psd" };
-        static List<string> AduioSffix = new List<string> { "wave", "mpeg", "mp3", "m4a" };
-        static List<string> TextSffix = new List<string> { "txt", "pdf", "doc", };
-
+        #region 文件相关
         /// <summary>
         /// 传入完整路径,和新文件名就可以了
         /// </summary>
@@ -36,6 +32,138 @@ namespace Aaron.Common
             var oldFileName = fullPath.Substring(index, lastIndex - index);
             newFileName = fullPath.Replace(oldFileName, newFileName);
             fInfo.MoveTo(Path.Combine(newFileName));
+        }
+
+        /// <summary>
+        /// 文件移动  传入全路径
+        /// </summary>
+        /// <param name="sourcPath"></param>
+        /// <param name="targetPath"></param>
+        /// <param name="isForce"></param>
+        public static void MoveFile(string sourcPath, string targetPath, bool isForce = false)
+        {
+            //如果是强制覆盖
+            if (isForce)
+            {
+                if (File.Exists(targetPath))
+                {
+                    File.Delete(targetPath);
+                }
+                File.Move(sourcPath, targetPath);
+            }
+            else
+            {
+                if (!File.Exists(targetPath))
+                {
+                    File.Move(sourcPath, targetPath);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 获取全路径的后缀名
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
+        public static string GetHouZhui(string fileName)
+        {
+            var lastIndex = fileName.LastIndexOf(@".") + 1;
+            if (lastIndex <= 0)
+            {
+                return "";
+            }
+            return fileName.Substring(lastIndex, fileName.Length - lastIndex);
+        }
+
+        /// <summary>
+        /// 根据全路径获取 文件名
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
+        public static string GetFileNameByFullPath(string filePath)
+        {
+            //替换所有/ 为\
+            filePath = filePath.Replace(@"/", @"\");
+            var lastIndex = filePath.LastIndexOf(@"\") + 1;
+            if (lastIndex <= 0)
+            {
+                return "";
+            }
+            return filePath.Substring(lastIndex, filePath.Length - lastIndex);
+        }
+        /// <summary>
+        /// 打开文件  
+        /// </summary>
+        public static void OpenFile(string fullPath)
+        {
+            //如果这个解决方案是重新拉取的  要先整个解决方案生成一遍
+            Process.Start(fullPath);
+        }
+        #endregion
+
+        #region 文件夹相关
+        public static void CopyDirectory(string srcPath, string targetPath)
+        {
+            //先判断一下目标文件夹是否存在
+            CreateDirectory(targetPath);
+            //循环子文件夹
+            DirectoryInfo dir = new DirectoryInfo(srcPath);
+            FileSystemInfo[] fileinfo = dir.GetFileSystemInfos();  //获取目录下（不包含子目录）的文件和子目录
+            foreach (FileSystemInfo file in fileinfo)
+            {
+                if (file is DirectoryInfo)   //判断是否文件夹
+                {
+                    CreateDirectory(targetPath + "\\" + file.Name);
+                    CopyDirectory(file.FullName, targetPath + "\\" + file.Name);    //递归调用复制子文件夹
+                }
+                else
+                {
+                    File.Copy(file.FullName, targetPath + "\\" + file.Name, true);      //不是文件夹即复制文件，true表示可以覆盖同名文件
+                }
+            }
+        }
+        public static void CreateDirectory(string dirPath)
+        {
+            if (!CheckIsDir(dirPath))
+            {
+                Directory.CreateDirectory(dirPath);   //目标目录下不存在此文件夹即创建子文件夹
+            }
+        }
+        public static void CleanDirectory(string dirPath)
+        {
+            if (!CheckIsDir(dirPath))
+            {
+                Directory.CreateDirectory(dirPath);   //目标目录下不存在此文件夹即创建子文件夹
+            }
+            else
+            {
+                DeleteDirectory(dirPath);
+                Directory.CreateDirectory(dirPath);
+            }
+        }
+        public static void DeleteDirectory(string dirPath)
+        {
+            DirectoryInfo dir = new DirectoryInfo(dirPath);
+            if (dir.GetDirectories().Length == 0 && dir.GetFiles().Length == 0)
+            {
+                //如果文件夹下没有文件和文件夹就删除
+                dir.Delete();
+                return;
+            }
+            foreach (DirectoryInfo d in dir.GetDirectories())
+            {
+                DeleteDirectory(d.FullName);
+            }
+            foreach (FileInfo fi in dir.GetFiles())
+            {
+                fi.Delete();
+            }
+            dir.Delete(true);
+        }
+
+        private static bool CheckIsDir(string dirPath)
+        {
+            return Directory.Exists(dirPath);
         }
 
         /// <summary>
@@ -69,46 +197,10 @@ namespace Aaron.Common
             return list;
         }
 
-        /// <summary>
-        /// 文件移动  传入全路径
-        /// </summary>
-        /// <param name="sourcPath"></param>
-        /// <param name="targetPath"></param>
-        /// <param name="isForce"></param>
-        public static void MoveFile(string sourcPath, string targetPath, bool isForce = false)
-        {
-            //如果是强制覆盖
-            if (isForce)
-            {
-                if (File.Exists(targetPath))
-                {
-                    File.Delete(targetPath);
-                }
-                File.Move(sourcPath, targetPath);
-            }
-            else
-            {
-                if (!File.Exists(targetPath))
-                {
-                    File.Move(sourcPath, targetPath);
-                }
-            }
-        }
-      
-        /// <summary>
-        /// 获取全路径的后缀名
-        /// </summary>
-        /// <param name="fileName"></param>
-        /// <returns></returns>
-        public static string GetFileSffix(string fileName)
-        {
-            var lastIndex = fileName.LastIndexOf(@".") + 1;
-            if (lastIndex <= 0)
-            {
-                return "";
-            }
-            return fileName.Substring(lastIndex, fileName.Length - lastIndex);
-        } 
 
-      }
+
+
+        #endregion
+
+    }
 }
