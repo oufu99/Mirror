@@ -36,9 +36,13 @@ namespace AutoBuildTool
 
             Console.WriteLine("-----------------------------开始编译-------------------------------------------");
             //进行编译
-            var filePath = isSimple ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "SimpleProject.txt") : Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Project.txt"); ;
-            var fileStr = File.ReadAllLines(filePath);//要更新的项目
-            var outPath = Path.Combine(workArea.Substring(0, workArea.LastIndexOf('\\')), @"lib");//工作区的上一级建立lib文件夹
+            var filePath = isSimple ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "SimpleProject.txt") : Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Project.txt");
+
+            //要更新的项目
+            var fileStr = File.ReadAllLines(filePath);
+
+            //工作区的上一级建立lib文件夹  就是输出到哪里去
+            var outPath = Path.Combine(workArea.Substring(0, workArea.LastIndexOf('\\')), @"lib");
             if (Directory.Exists(outPath))
             {
                 Directory.Delete(outPath, true);
@@ -85,7 +89,7 @@ namespace AutoBuildTool
             var dirPath = ProcessHelper.GetInstallDirName("devenv");//vs的安装路径
             var disk = dirPath.Split(new char[] { '\\' })[0];//硬盘符
             Console.WriteLine("-----------------------------开始获取最新代码-------------------------------------------");
-            var str = TfHelper.GetOpt(disk, dirPath, workArea);
+            var str = TfHelper.GetProjectNewCode(disk, dirPath, workArea);
             Console.WriteLine("-----------------------------获取最新完毕-------------------------------------------");
             return str;
 

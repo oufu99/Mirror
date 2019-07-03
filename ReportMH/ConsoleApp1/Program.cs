@@ -1,4 +1,5 @@
-﻿using OpenPop.Mime;
+﻿using Microsoft.Exchange.WebServices.Data;
+using OpenPop.Mime;
 using OpenPop.Mime.Header;
 using OpenPop.Pop3;
 using System;
@@ -6,7 +7,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
-
+using System.Net;
 using System.Net.Security;
 using System.Net.Sockets;
 using System.Security.Cryptography.X509Certificates;
@@ -78,6 +79,8 @@ namespace ConsoleApp1
             //    //MessageBox.Show(pop.ErrorMessage);
             //} 
             #endregion
+
+
 
             Console.ReadLine();
         }

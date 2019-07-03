@@ -18,9 +18,8 @@ namespace BuildYmt
     {
         //项目的根文件夹
         string projectBasePath = @"E:\ZPCode\zp.ymt\";
-        //编译工具MsBuild的路径
-        string dirkPath = ConfigurationManager.AppSettings["dirkPath"];
-
+        //编译工具MsBuild的路径  这里不写在配置文件中是因为后面会被引用
+        string dirkPath = @"C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\MSBuild\15.0\Bin";
         List<CheckBox> checkBoxList = new List<CheckBox>();
 
         public BuildYmt()

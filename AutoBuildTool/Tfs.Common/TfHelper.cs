@@ -17,7 +17,7 @@ namespace Tfs.Common
         /// <param name="dirPath">vs的安装路径</param>
         /// <param name="workArea">工作区</param>
         /// <returns></returns>
-        public static string GetOpt(string disk, string dirPath, string workArea)
+        public static string GetProjectNewCode(string disk, string dirPath, string workArea)
         {
             var strCmdList = new List<string>()
             {
@@ -48,7 +48,7 @@ namespace Tfs.Common
         //    return CmdHelper.Excute(strCmdList);
         //}
 
-        public async static Task<string> Build(string dirPath, string buildPah, string outputPath)
+        public static string Build(string dirPath, string buildPah, string outputPath)
         {
             // msbuild E:\zp4\Common\ZP.Common.DataModels\ZP.Common.DataModels.csproj
             var strs = dirPath.Split(':');
@@ -71,7 +71,7 @@ namespace Tfs.Common
         /// <param name="buildPah"></param>
         /// <param name="outputPath"></param>
         /// <returns></returns>
-        public static string Build(string dirPath, string buildPah)
+        public static string BuildOutBin(string dirPath, string buildPah)
         {
             // msbuild E:\zp4\Common\ZP.Common.DataModels\ZP.Common.DataModels.csproj
             var strs = dirPath.Split(':');

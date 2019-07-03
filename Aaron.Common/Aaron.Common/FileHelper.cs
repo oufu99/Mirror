@@ -102,7 +102,7 @@ namespace Aaron.Common
         #endregion
 
         #region 文件夹相关
-        public static void CopyDirectory(string srcPath, string targetPath)
+        public static void CopyDirectory(string srcPath, string targetPath, bool isCover = true)
         {
             //先判断一下目标文件夹是否存在
             CreateDirectory(targetPath);
@@ -118,10 +118,16 @@ namespace Aaron.Common
                 }
                 else
                 {
-                    File.Copy(file.FullName, targetPath + "\\" + file.Name, true);      //不是文件夹即复制文件，true表示可以覆盖同名文件
+                    File.Copy(file.FullName, targetPath + "\\" + file.Name, isCover);      //不是文件夹即复制文件，true表示可以覆盖同名文件
                 }
             }
         }
+        public static void CopyFile(string srcPath, string targetPath, bool isCover = true)
+        {
+            File.Copy(srcPath, targetPath, isCover);
+            //不是文件夹即复制文件，true表示可以覆盖同名文件
+        }
+
         public static void CreateDirectory(string dirPath)
         {
             if (!CheckIsDir(dirPath))
@@ -197,6 +203,38 @@ namespace Aaron.Common
             return list;
         }
 
+        /// <summary>
+        /// 根据传入的路径 获取向前几层
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="dirCount"></param>
+        /// <returns></returns>
+        public static string GetParentPath(string path, int dirCount, bool isContainFileName = false)
+        {
+            if (string.IsNullOrEmpty(path))
+            {
+                return "";
+            }
+            var temp = path.Replace(@"/", @"\");
+            var list = new List<int>();
+            var index = 0;
+            while (index != -1)
+            {
+                var tempIndex = index + 1;
+                index = temp.IndexOf(@"\", tempIndex);
+                if (index > 0)
+                {
+                    list.Add(index);
+                }
+            }
+            var res = temp.Substring(0, list[list.Count - dirCount]);
+            if (isContainFileName)
+            {
+                var fileName = GetFileNameByFullPath(path);
+                return Path.Combine(res, fileName);
+            }
+            return res;
+        }
 
 
 
