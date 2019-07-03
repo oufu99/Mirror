@@ -16,23 +16,7 @@ namespace Aaron.Common
     {
         static string dirPath = @"C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\MSBuild\15.0\Bin";
 
-        /// <summary>
-        /// 获取最新操作
-        /// </summary>
-        /// <param name="disk">硬盘符</param>
-        /// <param name="dirPath">vs的安装路径</param>
-        /// <param name="workArea">工作区</param>
-        /// <returns></returns>
-        public static string GetProjectNewCode(string disk, string dirPath, string workArea)
-        {
-            var strCmdList = new List<string>()
-            {
-                disk,
-                string.Format(@"cd {0}\CommonExtensions\Microsoft\TeamFoundation\Team Explorer",dirPath),
-                string.Format(@"tf get {0} /recursive",workArea)
-            };
-            return CMDHelper.Excute(strCmdList);
-        }
+      
 
         /// <summary>
         /// 传入需要编译的项目地址和输出地址,用于自定义

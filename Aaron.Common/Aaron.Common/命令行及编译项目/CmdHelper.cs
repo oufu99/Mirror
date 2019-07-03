@@ -46,7 +46,24 @@ namespace Aaron.Common
             p.WaitForExit();
             p.Close();
             return strOuput;
+        }
 
+        /// <summary>
+        /// 根据传入的地址去获取最新代码
+        /// </summary>
+        /// <param name="disk">硬盘符</param>
+        /// <param name="dirPath">vs的安装路径</param>
+        /// <param name="workArea">工作区</param>
+        /// <returns></returns>
+        public static string GetProjectNewCode(string disk, string dirPath, string workArea)
+        {
+            var strCmdList = new List<string>()
+            {
+                disk,
+                string.Format(@"cd {0}\CommonExtensions\Microsoft\TeamFoundation\Team Explorer",dirPath),
+                string.Format(@"tf get {0} /recursive",workArea)
+            };
+            return CMDHelper.Excute(strCmdList);
         }
     }
 }
