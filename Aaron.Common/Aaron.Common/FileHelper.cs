@@ -91,13 +91,37 @@ namespace Aaron.Common
             }
             return filePath.Substring(lastIndex, filePath.Length - lastIndex);
         }
+
+        public static bool CheckFileIsExist(string path)
+        {
+            return File.Exists(path);
+        }
+
         /// <summary>
         /// 打开文件  
         /// </summary>
-        public static void OpenFile(string fullPath)
+        /// <param name="fullPath"></param>
+        /// <param name="arg">如果需要传递多个参数 以空格隔开  "arg1 arg2"</param>
+        public static void OpenSoft(string fullPath, string arg = "")
         {
-            //如果这个解决方案是重新拉取的  要先整个解决方案生成一遍
-            Process.Start(fullPath);
+            Process.Start(fullPath, arg);
+        }
+
+        /// <summary>
+        /// 启动参数这里一般都是项目名称 如OpenMyTools 如果需要传递多个参数 以空格隔开  "arg1 arg2"
+        /// </summary>
+        /// <param name="projectName"></param>
+        public static void ReloadSoft(string projectName)
+        {
+            //那个加载项目的地址  这里直接写地址,后面就能直接用
+            string reloadProjectPath = @"D:\Tools\ReLoadProject\bin\Debug\ReLoadProject.exe";
+            string buildPath = @"D:\Tools\ReLoadProject\ReLoadProject.csproj";
+            if (CheckFileIsExist(reloadProjectPath))
+            {
+                AutoBuildHelper.BuildOutBin(buildPath);
+            }
+            //判断一下目录是否存在,如果不存在就重新编译一下再打开
+            Process.Start(reloadProjectPath, projectName);
         }
         #endregion
 
