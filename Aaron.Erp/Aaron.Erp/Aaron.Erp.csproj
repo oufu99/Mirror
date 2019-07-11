@@ -130,6 +130,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="Js\vue-component.js" />
     <Content Include="Js\AaronCommon.js" />
     <Content Include="Js\jquery-2.1.4.js" />
     <Content Include="Js\jquery-3.3.1.js" />

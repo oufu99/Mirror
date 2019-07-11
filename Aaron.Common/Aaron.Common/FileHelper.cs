@@ -123,6 +123,20 @@ namespace Aaron.Common
             //判断一下目录是否存在,如果不存在就重新编译一下再打开
             Process.Start(reloadProjectPath, projectName);
         }
+
+        public static byte[] GetFileData(string filePath)
+        {
+            using (FileStream fs = new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.ReadWrite))
+            {
+                byte[] buffur = new byte[fs.Length];
+                using (BinaryWriter bw = new BinaryWriter(fs))
+                {
+                    bw.Write(buffur);
+                    bw.Close();
+                }
+                return buffur;
+            }
+        }
         #endregion
 
         #region 文件夹相关
@@ -154,14 +168,14 @@ namespace Aaron.Common
 
         public static void CreateDirectory(string dirPath)
         {
-            if (!CheckIsDir(dirPath))
+            if (!CheckDirIsExist(dirPath))
             {
                 Directory.CreateDirectory(dirPath);   //目标目录下不存在此文件夹即创建子文件夹
             }
         }
         public static void CleanDirectory(string dirPath)
         {
-            if (!CheckIsDir(dirPath))
+            if (!CheckDirIsExist(dirPath))
             {
                 Directory.CreateDirectory(dirPath);   //目标目录下不存在此文件夹即创建子文件夹
             }
@@ -191,7 +205,7 @@ namespace Aaron.Common
             dir.Delete(true);
         }
 
-        private static bool CheckIsDir(string dirPath)
+        private static bool CheckDirIsExist(string dirPath)
         {
             return Directory.Exists(dirPath);
         }

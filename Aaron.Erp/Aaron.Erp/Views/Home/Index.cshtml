@@ -11,16 +11,44 @@
     <title>Index</title>
 </head>
 <body>
-    <div>
-        Hello world!
+    <div id="app">
+        123
+        <button-counter></button-counter>
+        <button-counter></button-counter>
+        <button-counter></button-counter>
+        <button-counter></button-counter>
+        <button-counter></button-counter>
     </div>
-    <input id="show" type="text" value="0" />
-    <input type="button" value="+1" onclick="func()" />
+    
 </body>
 </html>
 <script src="~/Js/jquery-3.3.1.js"></script>
+<script src="~/Js/Vue-min.js"></script>
+<script src="~/Js/vue-component.js"></script>
+
 <script>
 
+    Vue.component('button-counter', {
+        data: function () {
+            return {
+                count: 0
+            }
+        },
+        template: '<button v-on:click="count++">You clicked me {{ count }} times.</button>'
+    })
 
-//vue 组件
+    //vue 组件
+
+    var vue = new Vue({
+        el: '#app',
+        data: {},
+        mounted: function () {
+
+        }
+    });
+
+     
+  
+
 </script>
+

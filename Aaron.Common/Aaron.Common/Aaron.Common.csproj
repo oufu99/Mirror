@@ -125,6 +125,9 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="taglib-sharp">
+      <HintPath>..\..\lib\taglib-sharp.dll</HintPath>
+    </Reference>
     <Reference Include="WebMatrix.Data, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\Aaron.Erp\packages\Microsoft.AspNet.WebPages.Data.3.2.6\lib\net45\WebMatrix.Data.dll</HintPath>
     </Reference>
@@ -133,6 +136,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AudioHelper.cs" />
+    <Compile Include="ConvertHelper.cs" />
     <Compile Include="命令行及编译项目\AutoBuildHelper.cs" />
     <Compile Include="FileHelper.cs" />
     <Compile Include="EveryDayBookAndZhiXuanCangShuHelper.cs" />

@@ -41,6 +41,9 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="taglib-sharp">
+      <HintPath>..\..\lib\taglib-sharp.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
@@ -50,10 +53,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Aaron.Erp\IService\Aaron.IService.csproj">
-      <Project>{b62dacbc-7b94-450d-a50c-b3e2cc94b344}</Project>
-      <Name>Aaron.IService</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Aaron.Common\Aaron.Common.csproj">
       <Project>{e69c1078-89c4-49d9-a64c-7bc8e9415a33}</Project>
       <Name>Aaron.Common</Name>

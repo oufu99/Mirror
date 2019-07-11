@@ -15,16 +15,15 @@ namespace RedpacketSDK
             model.AppId = "wx64f8d4739ddd0818";
             model.ActivityName = "测试活动";
             model.MchId = "1497305122";
-            model.Money = 1;
-            model.OrderNum = "125745887120";
+            model.Money = 0.34M;
+            model.OrderNum = "121458820";
             model.OpenID = "oVmZN1l7536LZ8WaBcDXHNr07keM";
             model.Secret = "wx64f8d4739ddd0818wx64f8d4739ddd";
             model.SenderName = "正品科技";
             model.Wishing = "恭喜你发财";
             model.Remark = "活动备注";
-
-            var res = PaySDK.SendRedPackage(Redpacket.Redpacket, model);
-
+            model.CertCustId = "200063";
+            var res = PaySDK.SendBussinessRedPackage(Redpacket.Redpacket, model);
 
             Console.ReadLine();
         }
