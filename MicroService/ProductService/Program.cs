@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace MicroService
+namespace ProductService
 {
     public class Program
     {
@@ -16,23 +16,16 @@ namespace MicroService
         {
             CreateWebHostBuilder(args).Build().Run();
         }
-
-        //public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-        //    WebHost.CreateDefaultBuilder(args)
-        //        .UseStartup<Startup>();
-
-
         public static IWebHostBuilder CreateWebHostBuilder(string[] args)
         {
             var config = new ConfigurationBuilder()
-              .AddCommandLine(args)
-              .Build();
+   .AddCommandLine(args)
+   .Build();
             String ip = config["ip"];
             String port = config["port"];
-            Console.WriteLine($"ip={ip},port={port}");
+
             return WebHost.CreateDefaultBuilder(args)
-            .UseStartup<Startup>()
-            .UseUrls($"http://{ip}:{port}");
+                .UseStartup<Startup>().UseUrls($"http://{ip}:{port}");
         }
     }
 }

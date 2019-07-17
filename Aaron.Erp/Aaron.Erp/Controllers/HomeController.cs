@@ -29,8 +29,23 @@ namespace Aaron.Erp.Controllers
 
         public string TestFunc(string name)
         {
-            
+
             return name;
+        }
+
+        //该Index的Action加缓存
+        [OutputCache(CacheProfile = "TestConfigCache")]
+        public ActionResult Test()
+        {
+            ViewBag.CurrentTime = System.DateTime.Now;
+            return View();
+        }
+
+        //该Action不加缓存
+        public ActionResult Index1()
+        {
+            ViewBag.CurrentTime = System.DateTime.Now;
+            return View();
         }
     }
 }

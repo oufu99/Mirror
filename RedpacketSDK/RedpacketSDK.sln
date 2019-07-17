@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28010.2003
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedpacketSDK", "RedpacketSDK\RedpacketSDK.csproj", "{7CB65218-F4CB-4EFE-AAB6-2368649314F9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreSDK", "CoreSDK\CoreSDK.csproj", "{1D8908C3-C3EE-4D21-AC68-6F626065F013}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{7CB65218-F4CB-4EFE-AAB6-2368649314F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7CB65218-F4CB-4EFE-AAB6-2368649314F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7CB65218-F4CB-4EFE-AAB6-2368649314F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D8908C3-C3EE-4D21-AC68-6F626065F013}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D8908C3-C3EE-4D21-AC68-6F626065F013}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D8908C3-C3EE-4D21-AC68-6F626065F013}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D8908C3-C3EE-4D21-AC68-6F626065F013}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

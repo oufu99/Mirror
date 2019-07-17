@@ -14,7 +14,7 @@ namespace MicroService.Controllers
     public class SMSController : ControllerBase
     {
         [HttpGet(nameof(QQSend))]
-        public string QQSend(RequestModel model)
+        public string QQSend([FromQuery]RequestModel model)
         {
             return model.Msg + "发送成功";
         }
@@ -42,21 +42,16 @@ namespace MicroService.Controllers
         [HttpPost(nameof(CheckJWTStr))]
         public string CheckJWTStr(string content)
         {
-            System.IO.File.AppendAllText(@"d:\jialin.txt", "进来啦");
             var httpContext = HttpContext;
             // 检测是否包含'Authorization'请求头
             if (!httpContext.Request.Headers.ContainsKey("Authorization"))
             {
-                System.IO.File.AppendAllText(@"d:\jialin.txt", "进来啦22");
                 return "没有权限访问哦";
             }
-            System.IO.File.AppendAllText(@"d:\jialin.txt", "进来啦333");
             //var tokenHeader = httpContext.Request.Headers["Authorization"].ToString();
             var tokenHeader1 = httpContext.Request.Headers["Authorization"].ToString();
-            System.IO.File.AppendAllText(@"d:\jialin.txt", "333" + tokenHeader1);
             var tokenHeader = httpContext.Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
             TokenModelJWT tm = JwtHelper.SerializeJWT(tokenHeader);
-            System.IO.File.AppendAllText(@"d:\jialin.txt", "进来啦444");
             // 授权
             //var claimList = new List<Claim>();
             //var claim = new Claim(ClaimTypes.Role, tm.Role);

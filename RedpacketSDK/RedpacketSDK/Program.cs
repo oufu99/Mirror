@@ -23,7 +23,7 @@ namespace RedpacketSDK
             model.Wishing = "恭喜你发财";
             model.Remark = "活动备注";
             model.CertCustId = "200063";
-            var res = PaySDK.SendBussinessRedPackage(Redpacket.Redpacket, model);
+            var res = PaySDK.SendRedPackage(model);
 
             Console.ReadLine();
         }

@@ -1,0 +1,70 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Autofac">
+      <HintPath>E:\ZP4.0\ZP.Framework\ZP.Framework.PaySDK\bin\Debug\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="DnsClient">
+      <HintPath>E:\ZP4.0\ZP.Framework\ZP.Framework.PaySDK\bin\Debug\DnsClient.dll</HintPath>
+    </Reference>
+    <Reference Include="EmitMapper">
+      <HintPath>E:\ZP4.0\ZP.Framework\ZP.Framework.PaySDK\bin\Debug\EmitMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="Log4Mongo">
+      <HintPath>E:\ZP4.0\ZP.Framework\ZP.Framework.PaySDK\bin\Debug\Log4Mongo.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>E:\ZP4.0\ZP.Framework\ZP.Framework.PaySDK\bin\Debug\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Bson">
+      <HintPath>E:\ZP4.0\ZP.Framework\ZP.Framework.PaySDK\bin\Debug\MongoDB.Bson.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver">
+      <HintPath>E:\ZP4.0\ZP.Framework\ZP.Framework.PaySDK\bin\Debug\MongoDB.Driver.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver.Core">
+      <HintPath>E:\ZP4.0\ZP.Framework\ZP.Framework.PaySDK\bin\Debug\MongoDB.Driver.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>E:\ZP4.0\ZP.Framework\ZP.Framework.PaySDK\bin\Debug\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp">
+      <HintPath>E:\ZP4.0\ZP.Framework\ZP.Framework.PaySDK\bin\Debug\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Buffers">
+      <HintPath>E:\ZP4.0\ZP.Framework\ZP.Framework.PaySDK\bin\Debug\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation">
+      <HintPath>E:\ZP4.0\ZP.Framework\ZP.Framework.PaySDK\bin\Debug\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+    </Reference>
+    <Reference Include="ZP.Framework.EntityAnalysis">
+      <HintPath>E:\ZP4.0\ZP.Framework\ZP.Framework.PaySDK\bin\Debug\ZP.Framework.EntityAnalysis.dll</HintPath>
+    </Reference>
+    <Reference Include="ZP.Framework.Extension">
+      <HintPath>E:\ZP4.0\ZP.Framework\ZP.Framework.PaySDK\bin\Debug\ZP.Framework.Extension.dll</HintPath>
+    </Reference>
+    <Reference Include="ZP.Framework.Helper">
+      <HintPath>E:\ZP4.0\ZP.Framework\ZP.Framework.PaySDK\bin\Debug\ZP.Framework.Helper.dll</HintPath>
+    </Reference>
+    <Reference Include="ZP.Framework.PaySDK">
+      <HintPath>E:\ZP4.0\ZP.Framework\ZP.Framework.PaySDK\bin\Debug\ZP.Framework.PaySDK.dll</HintPath>
+    </Reference>
+    <Reference Include="ZP.Framework.Security.HttpRequestHelper">
+      <HintPath>E:\ZP4.0\ZP.Framework\ZP.Framework.PaySDK\bin\Debug\ZP.Framework.Security.HttpRequestHelper.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
