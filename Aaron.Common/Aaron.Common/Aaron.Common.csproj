@@ -136,6 +136,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="StringHelper.cs" />
     <Compile Include="AudioHelper.cs" />
     <Compile Include="ConvertHelper.cs" />
     <Compile Include="命令行及编译项目\AutoBuildHelper.cs" />

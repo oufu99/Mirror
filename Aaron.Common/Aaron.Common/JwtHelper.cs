@@ -1,7 +1,6 @@
 ﻿using JWT;
 using JWT.Algorithms;
 using JWT.Serializers;
-using Aaron.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -64,5 +63,13 @@ namespace Aaron.Common
     {
         public string Name { get; set; }
         public int Age { get; set; }
+    }
+
+    public class BaseModel
+    {
+        public int UserId { get; set; }
+        public string Name { get; set; }
+        public int ManuId { get; set; }
+
     }
 }
