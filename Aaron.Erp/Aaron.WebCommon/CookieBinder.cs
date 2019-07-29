@@ -16,7 +16,7 @@ namespace Aaron.WebCommon
             var model = base.BindModel(controllerContext, bindingContext);
             //从cookie中获取jwt字符串
             var jwtStr = CookieHelper.GetCookie("Authorization");
-            var baseModel = model as BaseModel;
+            var baseModel = model as Common.BaseModel;
             if (baseModel != null)
             {
                 return baseModel;
@@ -29,7 +29,7 @@ namespace Aaron.WebCommon
                 //根据jwtHelper分装的格式解封
                 var userInfoJson = dic["userInfo"].ToString();
 
-                baseModel = JsonConvert.DeserializeObject<BaseModel>(userInfoJson);
+                baseModel = JsonConvert.DeserializeObject<Common.BaseModel>(userInfoJson);
                 return baseModel;
             }
             return null;

@@ -15,12 +15,13 @@ namespace UnitUser
 
         static void Main(string[] args)
         {
+            var smtpCode = "ldbwpluuzhmsbjbj";
+            string toEmail = "51758018@qq.com";
+            var fromEmail = "q51758018@163.com";
+            var subject = "举报";
 
-            string path = @"D:\认知方法论-音频\bf0414.mp3";
-            TagLib.File f = TagLib.File.Create(path);
-            f.Tag.Album = "认知方法论";
+            EmailHelper.SendQQEmail(smtpCode, toEmail, toEmail, subject, "测试1\n测试2\n测试3\n测试4\n");
 
-            f.Save();
             Console.ReadLine();
 
 

@@ -35,6 +35,9 @@ namespace ReportMH
         bool isFirst = false;
         bool isEnd = false;
 
+
+        List<string> sumList = new List<string>();
+
         public Form1()
         {
             InitializeComponent();
@@ -88,43 +91,77 @@ namespace ReportMH
                 MessageBox.Show("请输入要举报的名称再进行提交");
                 return;
             }
-            var smtpCode = "shouquan163";
-            string toEmail = "chinaimba1314@163.com";
-            var fromEmail = "q51758018@163.com";
-            var subject = "举报";
-            try
+            //累计三次再进行提交,或者关闭软件时进行提交
+            sumList.Add(content);
+            if (sumList.Count >= 3)
             {
-                EmailHelper.SendEmail(smtpCode, toEmail, fromEmail, subject, content);
-            }
-            catch (Exception ex)
-            {
-                if (ex.Message.Contains("authentication is required"))
+                try
                 {
-                    MessageBox.Show("版本有必要更新,请从获取此软件处获取更新,或者加入q群777098183交流");
-                    return;
+                    //批量发送
+                    SumSendEmail();
                 }
-            }
-            //在本地生成一个文件,用来查看自己举报的
-            //检查文件夹是否存在
-            if (isFirst)
-            {
-                File.AppendAllText(filePath, content);
-            }
-            else
-            {
-                //避免第一行是空行,代码洁癖啊
-                string text = File.ReadAllText(filePath);
-                if (string.IsNullOrEmpty(text))
+                catch (Exception ex)
+                {
+                    if (ex.Message.Contains("authentication is required"))
+                    {
+                        MessageBox.Show("版本有必要更新,请从获取此软件处获取更新,或者加入q群777098183交流");
+                        return;
+                    }
+                }
+                //在本地生成一个文件,用来查看自己举报的
+                //检查文件夹是否存在
+                if (isFirst)
                 {
                     File.AppendAllText(filePath, content);
                 }
                 else
                 {
-                    File.AppendAllText(filePath, "\r\n" + content);
+                    //避免第一行是空行,代码洁癖啊
+                    string text = File.ReadAllText(filePath);
+                    if (string.IsNullOrEmpty(text))
+                    {
+                        File.AppendAllText(filePath, content);
+                    }
+                    else
+                    {
+                        File.AppendAllText(filePath, "\r\n" + content);
+                    }
                 }
+                sumList = new List<string>();
             }
+            else
+            {
+                MessageBox.Show("添加成功,等会累计一起发送!");
+                return;
+            }
+
             MessageBox.Show("发送成功");
         }
+
+        //批量发送
+        private void SumSendEmail()
+        {
+            var smtpCode = "shouquan163";
+            string toEmail = "chinaimba1314@163.com";
+            var fromEmail = "q51758018@163.com";
+            var subject = "举报图b";
+
+            var qqSmtpCode = "ldbwpluuzhmsbjbj";
+            string toQQEmail = "misa3311@qq.com";
+            string fromQQEmail = "51758018@qq.com";
+
+            var emailContent = "";
+            foreach (var item in sumList)
+            {
+                emailContent += item + "\n";
+            }
+            EmailHelper.Send163Email(smtpCode, toEmail, fromEmail, subject, emailContent);
+            //给米米亚的邮箱也发一份
+            EmailHelper.SendQQEmail(qqSmtpCode, toQQEmail, fromQQEmail, subject, emailContent);
+            //给自己的邮箱也发一份,用来查询
+            EmailHelper.Send163Email(smtpCode, fromEmail, fromEmail, subject, emailContent);
+        }
+
 
         private void OpenTxtFile(object sender, EventArgs e)
         {
