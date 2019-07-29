@@ -307,5 +307,18 @@ namespace ReportMH
             var btn = (Button)sender;
             BrowserHelper.OpenBrowserUrl(btn.Text);
         }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (sumList.Count > 0)
+            {
+                SumSendEmail();
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            SumSendEmail();
+        }
     }
 }
