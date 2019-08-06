@@ -11,6 +11,9 @@ using System.Threading.Tasks;
 
 namespace Aaron.Common
 {
+    /// <summary>
+    /// 基于  StackExchange.Redis
+    /// </summary>
     public class RedisHelper
     {
         private ConnectionMultiplexer redis { get; set; }

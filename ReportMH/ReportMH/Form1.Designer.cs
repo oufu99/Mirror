@@ -40,17 +40,17 @@
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("宋体", 10F);
-            this.button1.Location = new System.Drawing.Point(122, 134);
+            this.button1.Location = new System.Drawing.Point(22, 96);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 36);
+            this.button1.Size = new System.Drawing.Size(321, 36);
             this.button1.TabIndex = 0;
-            this.button1.Text = "举报";
+            this.button1.Text = "举报(累计3个一起举报免得他们要一个个打开看)";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.Report);
             // 
             // txtName
             // 
-            this.txtName.Location = new System.Drawing.Point(82, 96);
+            this.txtName.Location = new System.Drawing.Point(82, 57);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(176, 21);
             this.txtName.TabIndex = 1;
@@ -58,7 +58,7 @@
             // btnReport
             // 
             this.btnReport.Font = new System.Drawing.Font("宋体", 10F);
-            this.btnReport.Location = new System.Drawing.Point(332, 158);
+            this.btnReport.Location = new System.Drawing.Point(363, 158);
             this.btnReport.Name = "btnReport";
             this.btnReport.Size = new System.Drawing.Size(131, 55);
             this.btnReport.TabIndex = 2;
@@ -69,7 +69,7 @@
             // button3
             // 
             this.button3.Font = new System.Drawing.Font("宋体", 10F);
-            this.button3.Location = new System.Drawing.Point(332, 48);
+            this.button3.Location = new System.Drawing.Point(354, 51);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(131, 54);
             this.button3.TabIndex = 3;
@@ -81,7 +81,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label2.Location = new System.Drawing.Point(105, 251);
+            this.label2.Location = new System.Drawing.Point(105, 233);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(283, 25);
             this.label2.TabIndex = 5;
@@ -90,7 +90,7 @@
             // button2
             // 
             this.button2.Font = new System.Drawing.Font("宋体", 10F);
-            this.button2.Location = new System.Drawing.Point(71, 280);
+            this.button2.Location = new System.Drawing.Point(71, 262);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(392, 34);
             this.button2.TabIndex = 6;
@@ -101,11 +101,11 @@
             // button4
             // 
             this.button4.Font = new System.Drawing.Font("宋体", 10F);
-            this.button4.Location = new System.Drawing.Point(92, 177);
+            this.button4.Location = new System.Drawing.Point(71, 148);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(153, 36);
+            this.button4.Size = new System.Drawing.Size(216, 36);
             this.button4.TabIndex = 7;
-            this.button4.Text = "直接提交";
+            this.button4.Text = "直接举报(一个也可以提交)";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
@@ -113,7 +113,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(525, 326);
+            this.ClientSize = new System.Drawing.Size(525, 313);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.label2);
