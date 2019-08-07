@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WebCore.Model;
+using WebCore.Services;
 
 namespace WebCore
 {
@@ -31,6 +32,7 @@ namespace WebCore
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
             services.AddSingleton(typeof(Person));
+            services.AddSingleton(typeof(Service));
 
             services.AddMvc();
         }

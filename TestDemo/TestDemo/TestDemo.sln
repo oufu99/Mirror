@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2003
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core初体验", "Core初体验\Core初体验.csproj", "{565281F3-D4F1-4225-8585-E070BD46BA10}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebCore", "WebCore\WebCore.csproj", "{22E3C81F-18AD-4B8D-A119-83629B20E1E8}"
 EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Moudle", "Moudle\", "{00564ADC-2DC6-4763-A946-B6714E2C62CA}"
@@ -45,10 +43,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{565281F3-D4F1-4225-8585-E070BD46BA10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{565281F3-D4F1-4225-8585-E070BD46BA10}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{565281F3-D4F1-4225-8585-E070BD46BA10}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{565281F3-D4F1-4225-8585-E070BD46BA10}.Release|Any CPU.Build.0 = Release|Any CPU
 		{22E3C81F-18AD-4B8D-A119-83629B20E1E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{22E3C81F-18AD-4B8D-A119-83629B20E1E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{22E3C81F-18AD-4B8D-A119-83629B20E1E8}.Release|Any CPU.ActiveCfg = Release|Any CPU

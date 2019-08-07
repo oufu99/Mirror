@@ -33,6 +33,13 @@ namespace MsgService.Controllers
         {
             Console.WriteLine($"通过Sohu邮件接口向{model.Email}发送邮件，标题{model.Title}，内容：{model.Body}");
         }
+
+        [HttpGet(nameof(Health))]
+        public string Health()
+        {
+            return "ok";
+        }
+
     }
 
     public class SendEmailRequest

@@ -7,12 +7,18 @@ namespace UnitTest
         static void Main(string[] args)
         {
 
-
-            var x = int.Parse("_str".Split('_')[0]);
-
-            Console.WriteLine("Hello World!");
+            Test1<object>();
+            Console.ReadLine();
         }
 
+        public static void Test1<T>()
+        {
+            Console.WriteLine(111);
+        }
 
+        public static void Test1()
+        {
+            Console.WriteLine(222);
+        }
     }
 }

@@ -72,8 +72,10 @@ namespace RemoteDesktop
 
         private void Server_Load(object sender, EventArgs e)
         {
-            this.MaximizedBounds = Screen.PrimaryScreen.WorkingArea; //设置最大化的大小为工作区域
-            this.WindowState = FormWindowState.Maximized;
+            //this.MaximizedBounds = Screen.PrimaryScreen.WorkingArea;
+            //必加，不加也不会实现
+            //this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            //this.Height = this.Height - 30;
         }
     }
 }
