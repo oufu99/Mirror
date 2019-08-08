@@ -2,31 +2,31 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using IService;
 using Microsoft.AspNetCore.Mvc;
 using WebCore.Model;
-using WebCore.Services;
 
 namespace WebCore.Controllers
 {
     public class TestController : Controller
     {
-        public Person _p;
-        public TestController(Person p, Service ser)
+        public IProductService _service;
+        public TestController(IProductService service)
         {
-            _p = p;
-            _p.Age = 19;
+            _service = service;
 
         }
         public IActionResult Index()
         {
-            _p.Age = 19;
-            return Content(_p.SayHi());
+           
+            return Content("哈哈哈");
         }
 
 
-        public IActionResult Index1(Service ser)
+        public IActionResult Index1()
         {
-            return Content(_p.GetAge().ToString());
+            _service.Test();
+            return Content("123木头人");
 
         }
     }

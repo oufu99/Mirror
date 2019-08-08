@@ -4615,6 +4615,16 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XPath.XDocument.dll": {}
         }
+      },
+      "IServices/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.1",
+        "compile": {
+          "bin/placeholder/IServices.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/IServices.dll": {}
+        }
       }
     }
   },
@@ -12503,10 +12513,16 @@
         "system.xml.xpath.xdocument.4.3.0.nupkg.sha512",
         "system.xml.xpath.xdocument.nuspec"
       ]
+    },
+    "IServices/1.0.0": {
+      "type": "project",
+      "path": "../IService/IServices.csproj",
+      "msbuildProject": "../IService/IServices.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.1": [
+      "IServices >= 1.0.0",
       "Microsoft.AspNetCore.App >= 2.1.1",
       "Microsoft.AspNetCore.Razor.Design >= 2.1.2",
       "Microsoft.NETCore.App >= 2.1.0",
@@ -12543,7 +12559,11 @@
       },
       "frameworks": {
         "netcoreapp2.1": {
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\Mirror\\TestDemo\\TestDemo\\IService\\IServices.csproj": {
+              "projectPath": "D:\\Mirror\\TestDemo\\TestDemo\\IService\\IServices.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
