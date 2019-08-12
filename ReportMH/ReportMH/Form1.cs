@@ -36,6 +36,7 @@ namespace ReportMH
         bool isEnd = false;
 
 
+
         List<string> sumList = new List<string>();
 
         public Form1()
@@ -127,7 +128,6 @@ namespace ReportMH
                         File.AppendAllText(filePath, "\r\n" + content);
                     }
                 }
-                sumList = new List<string>();
             }
             else
             {
@@ -155,11 +155,14 @@ namespace ReportMH
             {
                 emailContent += item + "\n";
             }
+            MessageBox.Show(emailContent);
             EmailHelper.Send163Email(smtpCode, toEmail, fromEmail, subject, emailContent);
             //给米米亚的邮箱也发一份
             EmailHelper.SendQQEmail(qqSmtpCode, toQQEmail, fromQQEmail, subject, emailContent);
             //给自己的邮箱也发一份,用来查询
             EmailHelper.Send163Email(smtpCode, fromEmail, fromEmail, subject, emailContent);
+            sumList = new List<string>();
+            this.txtName.Text = "";
         }
 
 
@@ -318,6 +321,11 @@ namespace ReportMH
 
         private void button4_Click(object sender, EventArgs e)
         {
+            var lastName = this.txtName.Text;
+            if (!sumList.Contains(lastName))
+            {
+                sumList.Add(lastName);
+            }
             SumSendEmail();
         }
     }

@@ -18,8 +18,7 @@ namespace WebCore.Controllers
         }
         public IActionResult Index()
         {
-           
-            return Content("哈哈哈");
+            return View();
         }
 
 

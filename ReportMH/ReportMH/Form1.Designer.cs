@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.button1 = new System.Windows.Forms.Button();
-            this.txtName = new System.Windows.Forms.TextBox();
             this.btnReport = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
+            this.txtName = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // button1
@@ -47,13 +47,6 @@
             this.button1.Text = "举报(累计3个一起举报免得他们要一个个打开看)";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.Report);
-            // 
-            // txtName
-            // 
-            this.txtName.Location = new System.Drawing.Point(82, 57);
-            this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(176, 21);
-            this.txtName.TabIndex = 1;
             // 
             // btnReport
             // 
@@ -109,6 +102,13 @@
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
+            // txtName
+            // 
+            this.txtName.Location = new System.Drawing.Point(82, 57);
+            this.txtName.Name = "txtName";
+            this.txtName.Size = new System.Drawing.Size(176, 21);
+            this.txtName.TabIndex = 1;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -132,12 +132,12 @@
         #endregion
 
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.Button btnReport;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.TextBox txtName;
     }
 }
 
