@@ -49,12 +49,15 @@ namespace ConsoleApp1
 
         static void Main(string[] args)
         {
-            Async3();
-            for (int i = 0; i < 10; i++)
-            {
-                Console.WriteLine("主线程");
-            }
-            Console.WriteLine("同步完成");
+            //Async3();
+            //for (int i = 0; i < 10; i++)
+            //{
+            //    Console.WriteLine("主线程");
+            //}
+            //Console.WriteLine("同步完成");
+
+            
+            Console.WriteLine((int)EnumTest.No);
             Console.ReadLine();
         }
         static async void Async3()
@@ -69,6 +72,13 @@ namespace ConsoleApp1
             });
             Console.WriteLine("异步完成");
         }
-       
+
+    }
+
+    enum EnumTest
+    {
+        Yes = 1,
+        No = 2
+
     }
 }

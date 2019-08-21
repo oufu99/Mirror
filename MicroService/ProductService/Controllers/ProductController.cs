@@ -25,13 +25,6 @@ namespace ProductService.Controllers
         [HttpGet]
         public IEnumerable<Product> Get()
         {
-            string name = this.User.Identity.Name;//读取的就是"Name"这个特殊的Claims的值
-            string userId = this.User.FindFirst("UserId").Value;
-            string realName = this.User.FindFirst("RealName").Value;
-            string email = this.User.FindFirst("Email").Value;
-            Console.WriteLine($"name={name},userId={userId},realName={realName},email={email}");
-
-            System.Console.WriteLine("Get请求过来了" + DateTime.Now);
             return products;
         }
 
