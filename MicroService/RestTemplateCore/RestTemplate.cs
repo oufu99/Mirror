@@ -295,5 +295,12 @@ SendForEntityAsync<T>(requestMsg);
             response.Headers = result.Headers;
             return response;
         }
+
+        //public async Task<string> GetResponseBody(HttpRequestMessage requestMsg)
+        //{
+        //    var result = await httpClient.SendAsync(requestMsg);
+        //    RestResponse response = new RestResponse();
+        //    return result.Content.ReadAsStringAsync();
+        //}
     }
 }
