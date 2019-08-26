@@ -52,10 +52,10 @@ namespace ReportMH
             txtName.TabIndex = 0;
 
             //检查是否第一次举报
-            if (File.Exists(configFilePath) == false)
+            if (File.Exists(configFilePath) == false || string.IsNullOrEmpty(File.ReadAllText(configFilePath)))
             {
-                //从4月一号开始  之前无效
-                configModel = new DataConfig() { FinallyTime = DateTime.Parse("2019-04-01") };
+                //从7月一号开始  之前无效
+                configModel = new DataConfig() { FinallyTime = DateTime.Parse("2019-07-01") };
                 File.AppendAllText(configFilePath, JsonConvert.SerializeObject(configModel));
             }
             else
@@ -109,25 +109,6 @@ namespace ReportMH
                         return;
                     }
                 }
-                //在本地生成一个文件,用来查看自己举报的
-                //检查文件夹是否存在
-                if (isFirst)
-                {
-                    File.AppendAllText(filePath, content);
-                }
-                else
-                {
-                    //避免第一行是空行,代码洁癖啊
-                    string text = File.ReadAllText(filePath);
-                    if (string.IsNullOrEmpty(text))
-                    {
-                        File.AppendAllText(filePath, content);
-                    }
-                    else
-                    {
-                        File.AppendAllText(filePath, "\r\n" + content);
-                    }
-                }
             }
             else
             {
@@ -142,27 +123,56 @@ namespace ReportMH
         private void SumSendEmail()
         {
             var smtpCode = "shouquan163";
-            string toEmail = "chinaimba1314@163.com";
+            //string toEmail = "chinaimba1314@163.com";
             var fromEmail = "q51758018@163.com";
             var subject = "举报图b";
+            var toEmail = "a543935284@163.com";
+
+            //var smtpCode = "qweasd123";
+            //string toEmail = "q51758018@163.com";
+            //var fromEmail = "a543935284@163.com";
+            //var subject = "举报图b";
+
+
+
 
             var qqSmtpCode = "ldbwpluuzhmsbjbj";
-            string toQQEmail = "misa3311@qq.com";
+            //string toQQEmail = "misa3311@qq.com";
+            string toQQEmail = "410567409@qq.com";
+
             string fromQQEmail = "51758018@qq.com";
 
             var emailContent = "";
             foreach (var item in sumList)
             {
                 emailContent += item + "\n";
+                //追加文本文件
+                if (isFirst)
+                {
+                    File.AppendAllText(filePath, item);
+                }
+                else
+                {
+                    //避免第一行是空行,代码洁癖啊
+                    string text = File.ReadAllText(filePath);
+                    if (string.IsNullOrEmpty(text))
+                    {
+                        File.AppendAllText(filePath, item);
+                    }
+                    else
+                    {
+                        File.AppendAllText(filePath, "\r\n" + item);
+                    }
+                }
             }
-            MessageBox.Show(emailContent);
-            EmailHelper.Send163Email(smtpCode, toEmail, fromEmail, subject, emailContent);
+            //EmailHelper.Send163Email(smtpCode, toEmail, fromEmail, subject, emailContent);
             //给米米亚的邮箱也发一份
             EmailHelper.SendQQEmail(qqSmtpCode, toQQEmail, fromQQEmail, subject, emailContent);
             //给自己的邮箱也发一份,用来查询
-            EmailHelper.Send163Email(smtpCode, fromEmail, fromEmail, subject, emailContent);
+            EmailHelper.Send163Email(smtpCode, toEmail, fromEmail, subject, emailContent);
             sumList = new List<string>();
             this.txtName.Text = "";
+            isFirst = false;
         }
 
 
@@ -262,7 +272,6 @@ namespace ReportMH
                     }
                 }
             }
-
         }
 
         private void GetFinallyData()
@@ -327,6 +336,7 @@ namespace ReportMH
                 sumList.Add(lastName);
             }
             SumSendEmail();
+            MessageBox.Show("发送成功");
         }
     }
 }
