@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -51,6 +52,53 @@ namespace Admin.Controllers
             _HotUpdateActionDescriptorChangeProvider.TokenSource.Cancel();
 
             return Content("haha");
+        }
+
+        /// <summary>
+        /// 热更新dll 如Service等
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public string UpdateDLL()
+        {
+            var container = (HttpContext.RequestServices as HotUpdateServiceProvider).Container;
+            var basePath = Microsoft.DotNet.PlatformAbstractions.ApplicationEnvironment.ApplicationBasePath;
+            basePath = Path.Combine(basePath, "Services.dll");
+
+            //反射获取父类
+
+
+
+            //assemblyPaths = assemblyPaths ?? AssemblyPath.ToArray();
+            //foreach (var assemblyPath in assemblyPaths)
+            //{
+            //    byte[] bt = File.ReadAllBytes(assemblyPath);
+            //    var assembly = Assembly.Load(bt);
+            //    var types = assembly.GetTypes();
+            //    foreach (var objType in types)
+            //    {
+            //        var interfaces = objType.GetInterfaces();
+            //        foreach (var item in interfaces)
+            //        {
+            //            //重新擦除所以IService
+            //            if (isUpdate)
+            //            {
+            //                //AppDomain.CurrentDomain.SetData(item.Assembly.GetName().Name, null);
+            //            }
+
+            //            HotUpdateServiceDescriptor model = new HotUpdateServiceDescriptor();
+            //            model.ImplementationType = objType;
+            //            model.ServiceType = item;
+            //            model.AssemblyObj = assembly;
+            //            model.AssemblyPath = assemblyPath;
+            //            CheckExistAndInsert(model);
+            //        }
+            //    }
+            //}
+            //
+            AppDomain.CurrentDomain.SetData("IServices", null);
+            container.Update(basePath);
+            return "ok";
         }
     }
 }

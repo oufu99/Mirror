@@ -134,17 +134,6 @@ namespace UnitTest
 
             #endregion
 
-            double gs = 150;
-            double jg = 1.5;
-            var result = ((100 + gs) * 0.01) / jg;
-            Console.WriteLine(result);
-
-            var gs = (result * jg) * 100 - 100;
-            //计算
-
-            //0  0.58  100  1.17  200  1.76  300 2.35  400 2.94
-            //0  0.66  100  1.5     400 3.33
-            //计算出要达到那个每秒攻击次数需要的攻速
 
             Console.ReadLine();
         }

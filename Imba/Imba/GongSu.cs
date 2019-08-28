@@ -15,7 +15,12 @@ namespace WindowsFormsApp1
         public GongSu()
         {
             InitializeComponent();
+
         }
+
+
+       
+
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -23,8 +28,6 @@ namespace WindowsFormsApp1
             double jg = double.Parse(textBox2.Text);
             var result = ((100 + gs) * 0.01) / jg;
             textBox3.Text = result.ToString();
-
-
         }
 
         private void button2_Click(object sender, EventArgs e)

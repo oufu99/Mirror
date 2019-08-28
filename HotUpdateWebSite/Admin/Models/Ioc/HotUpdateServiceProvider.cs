@@ -23,27 +23,11 @@ namespace Admin.Models
             }
         }
 
-        public HotUpdateServiceProvider(IServiceScope innserServiceScope, HotUpdateContainer container)
-        {
-            if (_DefaultServiceProvider == null)
-                _DefaultServiceProvider = innserServiceScope.ServiceProvider;
-            if (Container == null)
-            {
-                Container = container;
-            }
-        }
-
-        public void Dispose()
-        {
-            GC.SuppressFinalize(this);
-        }
-
-        public object GetRequiredService(Type serviceType)
-        {
-            var instance = _DefaultServiceProvider.GetRequiredService(serviceType);
-            return instance;
-        }
-
+        /// <summary>
+        /// 生成具体对象的方法 如果我们的容器没有,就调用微软的默认工厂去生成
+        /// </summary>
+        /// <param name="serviceType"></param>
+        /// <returns></returns>
         public object GetService(Type serviceType)
         {
 
@@ -53,6 +37,10 @@ namespace Admin.Models
                 return instance;
             }
             var assModel = Container.GetHotUpdateList().FirstOrDefault(c => c.ServiceType == serviceType);
+            if (serviceType.Name == "IProductService")
+            {
+                var mode = Container.GetHotUpdateList()[0].ServiceType;
+            }
             if (assModel != null)
             {
                 var type = assModel.ImplementationType;
@@ -114,6 +102,29 @@ namespace Admin.Models
                 return _DefaultServiceProvider.GetService(type);
             }
         }
+
+
+        public HotUpdateServiceProvider(IServiceScope innserServiceScope, HotUpdateContainer container)
+        {
+            if (_DefaultServiceProvider == null)
+                _DefaultServiceProvider = innserServiceScope.ServiceProvider;
+            if (Container == null)
+            {
+                Container = container;
+            }
+        }
+
+        public void Dispose()
+        {
+            GC.SuppressFinalize(this);
+        }
+
+        public object GetRequiredService(Type serviceType)
+        {
+            var instance = _DefaultServiceProvider.GetRequiredService(serviceType);
+            return instance;
+        }
+
 
         public object GetIServiceScopeFactory(Type serviceType)
         {

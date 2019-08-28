@@ -17,7 +17,7 @@ namespace Admin.Models
     {
         private List<string> AssemblyPath { get; set; } = new List<string>();
         private List<HotUpdateServiceDescriptor> HotUpdateList { get; set; } = new List<HotUpdateServiceDescriptor>();
-        
+
         public HotUpdateContainer()
         {
         }
@@ -33,9 +33,9 @@ namespace Admin.Models
         /// <param name="model"></param>
         internal void Update(params string[] path)
         {
-            Build(path);
+            Build(path, true);
         }
-        
+
         internal HotUpdateServiceDescriptor[] GetHotUpdateList()
         {
             return HotUpdateList.ToArray();
@@ -44,7 +44,7 @@ namespace Admin.Models
         /// <summary>
         /// 加载dll的所有类
         /// </summary>[] 
-        public void Build(string[] assemblyPaths = null)
+        public void Build(string[] assemblyPaths = null, bool isUpdate = false)
         {
             assemblyPaths = assemblyPaths ?? AssemblyPath.ToArray();
             foreach (var assemblyPath in assemblyPaths)
@@ -63,6 +63,11 @@ namespace Admin.Models
                         model.AssemblyObj = assembly;
                         model.AssemblyPath = assemblyPath;
                         CheckExistAndInsert(model);
+                        //重新擦除所以IService
+                        if (isUpdate)
+                        {
+                            AppDomain.CurrentDomain.SetData(item.Assembly.GetName().Name, null);
+                        }
                     }
                 }
             }
@@ -71,7 +76,7 @@ namespace Admin.Models
         private void CheckExistAndInsert(HotUpdateServiceDescriptor model)
         {
 
-            var old = HotUpdateList.FirstOrDefault(c => c.AssemblyObj.GetName().Name == model.AssemblyObj.GetName().Name &&  c.ServiceType.Name == model.ServiceType.Name);
+            var old = HotUpdateList.FirstOrDefault(c => c.AssemblyObj.GetName().Name == model.AssemblyObj.GetName().Name && c.ServiceType.Name == model.ServiceType.Name);
             if (old != null)
             {
                 HotUpdateList.Remove(old);

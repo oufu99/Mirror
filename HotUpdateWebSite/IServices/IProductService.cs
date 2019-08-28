@@ -7,5 +7,6 @@ namespace IServices
         string Name { get; set; }
         string Introduce();
         void Test();
+        string Test2();
     }
 }

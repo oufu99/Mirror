@@ -4,4 +4,8 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="cd..&#xD;&#xA;xcopy $(TargetDir)$(ProjectName).dll Admin\bin\Debug\netcoreapp2.1  /y" />
+  </Target>
+
 </Project>

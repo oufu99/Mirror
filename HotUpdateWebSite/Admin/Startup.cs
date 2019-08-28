@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Admin.Models;
 using Microsoft.AspNetCore.Builder;
@@ -17,9 +18,33 @@ namespace Admin
 {
     public class Startup
     {
+        public HotUpdateContainer Container { get; private set; }
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
+        }
+
+        private static Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
+        {
+            AssemblyName assemblyName = new AssemblyName(args.Name);
+            var obj = AppDomain.CurrentDomain.GetData(assemblyName.Name);
+            if (obj != null) return (Assembly)obj;
+
+          
+            var path = Path.Combine(AppContext.BaseDirectory, $"{assemblyName.Name}.dll");
+            if (File.Exists(path))
+            {
+                byte[] data = File.ReadAllBytes(path);
+                var assembly = Assembly.Load(data);
+                AppDomain.CurrentDomain.SetData(assemblyName.Name, assembly);
+                return assembly;
+            }
+            return null;
+            //return args.RequestingAssembly;
+            //throw new NotImplementedException();
+
+
         }
 
         public IConfiguration Configuration { get; }
@@ -31,7 +56,7 @@ namespace Admin
         /// </summary>
         /// <param name="services"></param>
         //public IServiceProvider ConfigureServices(IServiceCollection services)
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
 
         {
             services.AddMvc().ConfigureApplicationPartManager(manager =>
@@ -53,10 +78,10 @@ namespace Admin
             });
 
             services.AddMvc();
-            //var hotUpdateContainer = new HotUpdateContainer();
-            //var basePath = Microsoft.DotNet.PlatformAbstractions.ApplicationEnvironment.ApplicationBasePath;
-            //hotUpdateContainer.RegisterAssemblyPaths(Path.Combine(basePath, "Services.dll"));
-            //return new HotUpdateServiceProvider(services, hotUpdateContainer);
+            var hotUpdateContainer = new HotUpdateContainer();
+            var basePath = Microsoft.DotNet.PlatformAbstractions.ApplicationEnvironment.ApplicationBasePath;
+            hotUpdateContainer.RegisterAssemblyPaths(Path.Combine(basePath, "Services.dll"));
+            return new HotUpdateServiceProvider(services, hotUpdateContainer);
         }
 
         /// <summary>

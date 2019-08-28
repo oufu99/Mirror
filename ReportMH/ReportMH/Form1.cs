@@ -125,7 +125,7 @@ namespace ReportMH
             var smtpCode = "shouquan163";
             //string toEmail = "chinaimba1314@163.com";
             var fromEmail = "q51758018@163.com";
-            var subject = "举报图b";
+            var subject = "举报一下图b --Imba";
             var toEmail = "a543935284@163.com";
 
             //var smtpCode = "qweasd123";
@@ -141,6 +141,7 @@ namespace ReportMH
             string toQQEmail = "410567409@qq.com";
 
             string fromQQEmail = "51758018@qq.com";
+
 
             var emailContent = "";
             foreach (var item in sumList)
@@ -165,16 +166,38 @@ namespace ReportMH
                     }
                 }
             }
+
+
             //EmailHelper.Send163Email(smtpCode, toEmail, fromEmail, subject, emailContent);
             //给米米亚的邮箱也发一份
-            EmailHelper.SendQQEmail(qqSmtpCode, toQQEmail, fromQQEmail, subject, emailContent);
+            //EmailHelper.SendQQEmail(qqSmtpCode, toQQEmail, fromQQEmail, subject, GetContent(emailContent, false));
             //给自己的邮箱也发一份,用来查询
-            EmailHelper.Send163Email(smtpCode, toEmail, fromEmail, subject, emailContent);
+            EmailHelper.Send163Email(smtpCode, toEmail, fromEmail, subject, GetContent(emailContent, true));
             sumList = new List<string>();
             this.txtName.Text = "";
             isFirst = false;
         }
 
+        private string GetContent(string content, bool is163)
+        {
+            var title163 = "东哥,图b举报一下:\n\n";
+            var ending163 = "\n \n \n \n \n \t\t东哥威武霸气,举报图b人人有责";
+
+
+            var titileQQ = " 米米  举报图b:\n\n";
+            var endingQQ = "\n \n \n \n \n \t\t米米千秋万代 一统江湖,举报图b人人有责";
+
+            string res = string.Empty;
+            if (is163)
+            {
+                res = title163 + content + ending163;
+            }
+            else
+            {
+                res = titileQQ + content + endingQQ;
+            }
+            return res;
+        }
 
         private void OpenTxtFile(object sender, EventArgs e)
         {

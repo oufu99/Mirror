@@ -2,23 +2,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using IServices;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Admin.Controllers
 {
-    //public class TestController : Controller
-    //{
-    //    public IActionResult Index()
-    //    {
-    //        return View();
-    //    }
-    //}
     public class TestController : Controller
     {
+        IProductService _service;
+        public TestController(IProductService service)
+        {
+            _service = service;
+        }
         public IActionResult Index()
         {
-
-            return Content("哈哈哈");
+            var name = _service.Test2();
+            return Content(name);
         }
 
     }
