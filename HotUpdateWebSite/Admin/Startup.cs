@@ -42,10 +42,6 @@ namespace Admin
                 return assembly;
             }
             return null;
-            //return args.RequestingAssembly;
-            //throw new NotImplementedException();
-
-
         }
 
         public IConfiguration Configuration { get; }
