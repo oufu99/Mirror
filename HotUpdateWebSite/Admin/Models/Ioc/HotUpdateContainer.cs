@@ -15,16 +15,21 @@ namespace Admin.Models
 {
     public class HotUpdateContainer
     {
-        private List<string> AssemblyPath { get; set; } = new List<string>();
+        private Dictionary<string, string> AssemblyDic { get; set; } = new Dictionary<string, string>();
         private List<HotUpdateServiceDescriptor> HotUpdateList { get; set; } = new List<HotUpdateServiceDescriptor>();
 
         public HotUpdateContainer()
         {
         }
 
-        public void RegisterAssemblyPaths(string assemblyPath)
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <param name="assemblyPath"></param>
+        /// <param name="interfacesName">接口名称 用,分隔 用来在热更新的时候把他的类型清空好重新赋值</param>
+        public void RegisterAssemblyPaths(string assemblyPath, string interfacesName)
         {
-            AssemblyPath.Add(assemblyPath);
+            AssemblyDic.Add(assemblyPath, interfacesName);
         }
 
         /// <summary>
@@ -34,6 +39,11 @@ namespace Admin.Models
         internal void Update(params string[] path)
         {
             Build(path, true);
+        }
+
+        internal Dictionary<string, string> GetAssemblyDic()
+        {
+            return AssemblyDic;
         }
 
         internal HotUpdateServiceDescriptor[] GetHotUpdateList()
@@ -46,7 +56,12 @@ namespace Admin.Models
         /// </summary>[] 
         public void Build(string[] assemblyPaths = null, bool isUpdate = false)
         {
-            assemblyPaths = assemblyPaths ?? AssemblyPath.ToArray();
+            var dicList = new List<string>();
+            foreach (var item in AssemblyDic)
+            {
+                dicList.Add(item.Key);
+            }
+            assemblyPaths = assemblyPaths ?? dicList.ToArray();
             ////重新擦除所以IService
             //AppDomain.CurrentDomain.SetData("IService", null);
             foreach (var assemblyPath in assemblyPaths)

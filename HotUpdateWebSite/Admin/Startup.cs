@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Admin.Models;
+using Admin.Models.Ioc;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -31,7 +32,7 @@ namespace Admin
             var obj = AppDomain.CurrentDomain.GetData(assemblyName.Name);
             if (obj != null) return (Assembly)obj;
 
-          
+
             var path = Path.Combine(AppContext.BaseDirectory, $"{assemblyName.Name}.dll");
             if (File.Exists(path))
             {
@@ -79,10 +80,11 @@ namespace Admin
 
             services.AddMvc();
             var hotUpdateContainer = new HotUpdateContainer();
-            var basePath = Microsoft.DotNet.PlatformAbstractions.ApplicationEnvironment.ApplicationBasePath;
-            hotUpdateContainer.RegisterAssemblyPaths(Path.Combine(basePath, "Services.dll"));
+            hotUpdateContainer.RegisterAssemblyPaths(HotUpdateHelper.GetAssemblyFullPath("Services.dll"), "IServices");
             return new HotUpdateServiceProvider(services, hotUpdateContainer);
         }
+
+
 
         /// <summary>
         /// 添加管道事件  中间件

@@ -63,11 +63,18 @@ namespace Admin.Controllers
         {
             var container = (HttpContext.RequestServices as HotUpdateServiceProvider).Container;
             var basePath = Microsoft.DotNet.PlatformAbstractions.ApplicationEnvironment.ApplicationBasePath;
-            basePath = Path.Combine(basePath, "Services.dll");
+            var dllPath = Path.Combine(basePath, "Services.dll");
 
-          
-            AppDomain.CurrentDomain.SetData("IServices", null);
-            container.Update(basePath);
+            //拿到容器维护的那个字典对象
+            var dic = container.GetAssemblyDic();
+            var interfaces = dic[dllPath];
+            var interfaceNames = interfaces.Split(new string[] { @"," }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (var item in interfaceNames)
+            {
+                //防止更新IService和原程序不一样 直接删除当前程序域的IService让系统重新获取
+                AppDomain.CurrentDomain.SetData(item, null);
+            }
+            container.Update(dllPath);
             return "ok";
         }
 
