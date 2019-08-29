@@ -65,39 +65,15 @@ namespace Admin.Controllers
             var basePath = Microsoft.DotNet.PlatformAbstractions.ApplicationEnvironment.ApplicationBasePath;
             basePath = Path.Combine(basePath, "Services.dll");
 
-            //反射获取父类
-
-
-
-            //assemblyPaths = assemblyPaths ?? AssemblyPath.ToArray();
-            //foreach (var assemblyPath in assemblyPaths)
-            //{
-            //    byte[] bt = File.ReadAllBytes(assemblyPath);
-            //    var assembly = Assembly.Load(bt);
-            //    var types = assembly.GetTypes();
-            //    foreach (var objType in types)
-            //    {
-            //        var interfaces = objType.GetInterfaces();
-            //        foreach (var item in interfaces)
-            //        {
-            //            //重新擦除所以IService
-            //            if (isUpdate)
-            //            {
-            //                //AppDomain.CurrentDomain.SetData(item.Assembly.GetName().Name, null);
-            //            }
-
-            //            HotUpdateServiceDescriptor model = new HotUpdateServiceDescriptor();
-            //            model.ImplementationType = objType;
-            //            model.ServiceType = item;
-            //            model.AssemblyObj = assembly;
-            //            model.AssemblyPath = assemblyPath;
-            //            CheckExistAndInsert(model);
-            //        }
-            //    }
-            //}
-            //
+          
             AppDomain.CurrentDomain.SetData("IServices", null);
             container.Update(basePath);
+            return "ok";
+        }
+
+        [HttpPost]
+        public string TestDll(string[] arr)
+        {
             return "ok";
         }
     }

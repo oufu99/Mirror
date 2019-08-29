@@ -37,9 +37,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Moudle", "Moudle", "{C021B7
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVC", "MVC\MVC.csproj", "{54FCB945-0CD3-4CB5-9C03-3763838C2720}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "AaronModel\Services.csproj", "{9DB74FE5-AB63-4C94-950A-6BFF1C4F44DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services", "AaronModel\Services.csproj", "{9DB74FE5-AB63-4C94-950A-6BFF1C4F44DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IServices", "IService\IServices.csproj", "{5E14370E-F15F-46D5-B9DB-74F8D70BE0F5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IServices", "IService\IServices.csproj", "{5E14370E-F15F-46D5-B9DB-74F8D70BE0F5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aaron.Common", "..\..\Aaron.Common\Aaron.Common\Aaron.Common.csproj", "{E69C1078-89C4-49D9-A64C-7BC8E9415A33}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -79,6 +81,10 @@ Global
 		{5E14370E-F15F-46D5-B9DB-74F8D70BE0F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5E14370E-F15F-46D5-B9DB-74F8D70BE0F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5E14370E-F15F-46D5-B9DB-74F8D70BE0F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E69C1078-89C4-49D9-A64C-7BC8E9415A33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E69C1078-89C4-49D9-A64C-7BC8E9415A33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E69C1078-89C4-49D9-A64C-7BC8E9415A33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E69C1078-89C4-49D9-A64C-7BC8E9415A33}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

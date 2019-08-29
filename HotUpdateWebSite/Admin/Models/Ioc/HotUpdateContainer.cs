@@ -47,6 +47,8 @@ namespace Admin.Models
         public void Build(string[] assemblyPaths = null, bool isUpdate = false)
         {
             assemblyPaths = assemblyPaths ?? AssemblyPath.ToArray();
+            ////重新擦除所以IService
+            //AppDomain.CurrentDomain.SetData("IService", null);
             foreach (var assemblyPath in assemblyPaths)
             {
                 byte[] bt = File.ReadAllBytes(assemblyPath);
@@ -63,11 +65,6 @@ namespace Admin.Models
                         model.AssemblyObj = assembly;
                         model.AssemblyPath = assemblyPath;
                         CheckExistAndInsert(model);
-                        //重新擦除所以IService
-                        if (isUpdate)
-                        {
-                            AppDomain.CurrentDomain.SetData(item.Assembly.GetName().Name, null);
-                        }
                     }
                 }
             }
