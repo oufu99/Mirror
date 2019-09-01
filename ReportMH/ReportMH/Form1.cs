@@ -35,7 +35,7 @@ namespace ReportMH
         bool isFirst = false;
         bool isEnd = false;
 
-
+        DateTime finallyDate = DateTime.Now.AddDays(-7);
 
         List<string> sumList = new List<string>();
 
@@ -55,13 +55,13 @@ namespace ReportMH
             if (File.Exists(configFilePath) == false)
             {
                 //从4月一号开始  之前无效
-                configModel = new DataConfig() { FinallyTime = DateTime.Parse("2019-04-01") };
+                configModel = new DataConfig() { FinallyTime = "2019-04-01" };
                 File.AppendAllText(configFilePath, JsonConvert.SerializeObject(configModel));
             }
             else
             {
                 //获取上一次查询的时间 用来避免无谓查询
-                string configJson = File.ReadAllText(configFilePath);
+                string configJson = File.ReadAllText(configFilePath, Encoding.UTF8);
                 configModel = JsonConvert.DeserializeObject<DataConfig>(configJson);
             }
             if (File.Exists(filePath) == false)
@@ -69,6 +69,7 @@ namespace ReportMH
                 isFirst = true;
                 return;
             }
+            finallyDate = DateTime.Parse(configModel.FinallyTime);
             //初始化举报名单
             InitText();
         }
@@ -109,32 +110,13 @@ namespace ReportMH
                         return;
                     }
                 }
-                //在本地生成一个文件,用来查看自己举报的
-                //检查文件夹是否存在
-                if (isFirst)
-                {
-                    File.AppendAllText(filePath, content);
-                }
-                else
-                {
-                    //避免第一行是空行,代码洁癖啊
-                    string text = File.ReadAllText(filePath);
-                    if (string.IsNullOrEmpty(text))
-                    {
-                        File.AppendAllText(filePath, content);
-                    }
-                    else
-                    {
-                        File.AppendAllText(filePath, "\r\n" + content);
-                    }
-                }
+              
             }
             else
             {
                 MessageBox.Show("添加成功,等会累计一起发送!");
                 return;
             }
-
             MessageBox.Show("发送成功");
         }
 
@@ -155,13 +137,33 @@ namespace ReportMH
             {
                 emailContent += item + "\n";
             }
-            MessageBox.Show(emailContent);
+
+            //在本地生成一个文件,用来查看自己举报的
+            //检查文件夹是否存在
+            if (isFirst)
+            {
+                File.AppendAllText(filePath, emailContent);
+            }
+            else
+            {
+                //避免第一行是空行,代码洁癖啊
+                string text = File.ReadAllText(filePath);
+                if (string.IsNullOrEmpty(text))
+                {
+                    File.AppendAllText(filePath, emailContent);
+                }
+                else
+                {
+                    File.AppendAllText(filePath, "\r\n" + emailContent);
+                }
+            }
             EmailHelper.Send163Email(smtpCode, toEmail, fromEmail, subject, emailContent);
             //给米米亚的邮箱也发一份
             EmailHelper.SendQQEmail(qqSmtpCode, toQQEmail, fromQQEmail, subject, emailContent);
             //给自己的邮箱也发一份,用来查询
             EmailHelper.Send163Email(smtpCode, fromEmail, fromEmail, subject, emailContent);
             sumList = new List<string>();
+
             this.txtName.Text = "";
         }
 
@@ -190,6 +192,7 @@ namespace ReportMH
                 MessageBox.Show("您还没有进行过举报");
                 return;
             }
+
             //防止这次举报的名单丢失
             InitText();
             this.btnReport.Text = "查询中...";
@@ -211,22 +214,33 @@ namespace ReportMH
         /// </summary>
         private void CheckNoticeMain()
         {
-            //把结果存在电脑上   
-            string mainUrl = "https://cmsapi.5211game.com/NewsService/YYService/YYNews.ashx?op=NewsListByPage&PageSize=10&PageIndex=1&CategoryIds=2&itemIds=4,12,71";
-            string htmlStr = HttpHelper.GetHttpResponse(mainUrl);
-            HtmlDocument doc = new HtmlDocument();
-            doc.LoadHtml(htmlStr);
-            List<string> urlList = new List<string>();
-            JObject obj = JObject.Parse(htmlStr);
-            var newsCount = int.Parse(obj["NewsCount"].ToString());
-            //每次会返回10条信息,遍历他
-            for (int i = 1; (i < newsCount / 10) && !isEnd; i++)
+            try
             {
-                var pageUrl = "https://cmsapi.5211game.com/NewsService/YYService/YYNews.ashx?op=NewsListByPage&PageSize=10&PageIndex=" + i + "&CategoryIds=2&itemIds=4,12,71";
-                GetPageData(pageUrl);
+
+                //把结果存在电脑上   
+                string mainUrl = "https://cmsapi.5211game.com/NewsService/YYService/YYNews.ashx?op=NewsListByPage&PageSize=10&PageIndex=1&CategoryIds=2&itemIds=4,12,71";
+                string htmlStr = HttpHelper.GetHttpResponse(mainUrl);
+                HtmlDocument doc = new HtmlDocument();
+                doc.LoadHtml(htmlStr);
+
+                List<string> urlList = new List<string>();
+                JObject obj = JObject.Parse(htmlStr);
+                var newsCount = int.Parse(obj["NewsCount"].ToString());
+                //每次会返回10条信息,遍历他
+                for (int i = 1; (i < newsCount / 10) && !isEnd; i++)
+                {
+                    var pageUrl = "https://cmsapi.5211game.com/NewsService/YYService/YYNews.ashx?op=NewsListByPage&PageSize=10&PageIndex=" + i + "&CategoryIds=2&itemIds=4,12,71";
+                    GetPageData(pageUrl);
+                }
+                GetFinallyData();
             }
             //最后处理所有符合条件的url
-            GetFinallyData();
+            catch (Exception ex)
+            {
+                System.IO.File.AppendAllText(System.AppDomain.CurrentDomain.BaseDirectory + "错误信息.txt", ex.Message + "===" + ex.StackTrace);
+
+                throw;
+            }
         }
 
         /// <summary>
@@ -250,10 +264,11 @@ namespace ReportMH
                         if (title.Contains("反外挂公会"))
                         {
                             urlList.Add(mainItem.Value[i]["News_URL"].ToString());
+
                             string dateStr = mainItem.Value[i]["AddDate"].ToString();
                             var date = DateTime.Parse(dateStr);
                             //添加一个最后访问时间,如果时间小于这个就不用查了
-                            if (configModel.FinallyTime > date)
+                            if (finallyDate > date)
                             {
                                 isEnd = true;
                                 return;
@@ -292,6 +307,7 @@ namespace ReportMH
                     }
                 }
             }
+
             //更新举报名单  后面加上封禁标志
             File.WriteAllText(filePath, myReportList[0]);
             for (int i = 1; i < myReportList.Count; i++)
@@ -300,9 +316,10 @@ namespace ReportMH
             }
 
             //更新时间
-            configModel.FinallyTime = beginDate;
+            configModel.FinallyTime = beginDate.ToString("yyyy-MM-dd");
+
             var json = JsonConvert.SerializeObject(configModel);
-            File.WriteAllText(configFilePath, json);
+            File.WriteAllText(configFilePath, json, Encoding.UTF8);
         }
 
         private void OpenUrl(object sender, EventArgs e)
@@ -327,6 +344,7 @@ namespace ReportMH
                 sumList.Add(lastName);
             }
             SumSendEmail();
+            MessageBox.Show("举报成功");
         }
     }
 }

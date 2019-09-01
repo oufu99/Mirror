@@ -12,7 +12,7 @@ namespace ReportMH
 {
     public class DataConfig
     {
-        public DateTime FinallyTime { get; set; }
+        public string FinallyTime { get; set; }
 
     }
 }
