@@ -12,10 +12,12 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            var url = "http://localhost:61404/HotUpdate/TestDll";
-            string[] arr = new string[] { "123", "346" };
-            HttpHelper.PostHttpResponse(url, arr);
 
+            Person p = new Person();
+            p.JiSuan();
+            //var res =  p.JiSuan();
+            //Console.WriteLine(res);
+            Console.WriteLine("haha");
             Console.ReadLine();
         }
 

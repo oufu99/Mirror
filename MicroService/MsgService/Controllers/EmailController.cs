@@ -10,6 +10,16 @@ namespace MsgService.Controllers
     [ApiController]
     public class EmailController : ControllerBase
     {
+
+
+        [HttpGet(nameof(Send))]
+        public void Send(string msg)
+        {
+            Console.WriteLine("测试邮件发送成功!");
+        }
+
+
+
         [HttpPost(nameof(Send_QQ))]
         public void Send_QQ(SendEmailRequest model)
         {
