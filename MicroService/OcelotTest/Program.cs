@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace AaronOcelot
+namespace OcelotTest
 {
     public class Program
     {
@@ -16,13 +16,14 @@ namespace AaronOcelot
         {
             CreateWebHostBuilder(args).Build().Run();
         }
+
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-                    WebHost.CreateDefaultBuilder(args)
-                        .UseStartup<Startup>()
-                    .UseUrls("http://127.0.0.1:8888")
-                    .ConfigureAppConfiguration((hostingContext, builder) =>
-                    {
-                        builder.AddJsonFile("configuration.json", false, true);
-                    });
+            WebHost.CreateDefaultBuilder(args)
+                .UseStartup<Startup>()
+            .UseUrls("http://127.0.0.1:5201")
+            .ConfigureAppConfiguration((hostingContext, builder) => {
+                builder.AddJsonFile("configuration.json", false, true);
+            })
+;
     }
 }

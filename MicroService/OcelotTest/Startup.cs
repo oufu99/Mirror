@@ -4,31 +4,27 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 
-namespace AaronOcelot
+namespace OcelotTest
 {
     public class Startup
     {
-        private IConfiguration _configuration;
-        public Startup(IConfiguration configuration)
+        private IConfiguration Configuration;
+
+        public Startup(IConfiguration Configuration)
         {
-            Configuration = configuration;
-            _configuration = configuration;
+            this.Configuration = Configuration;
         }
 
-        public IConfiguration Configuration { get; }
-
         // This method gets called by the runtime. Use this method to add services to the container.
+        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddOcelot(Configuration);
         }
 
@@ -39,8 +35,8 @@ namespace AaronOcelot
             {
                 app.UseDeveloperExceptionPage();
             }
+
             app.UseOcelot().Wait();//不要忘了写Wait
-            app.UseMvc();
         }
     }
 }

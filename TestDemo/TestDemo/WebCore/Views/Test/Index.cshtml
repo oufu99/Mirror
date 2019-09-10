@@ -11,40 +11,16 @@
     <title>Index1</title>
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <script>
-        $(function () {
-            $("#txt1").val("倚天剑");
-        })
-
+       
     </script>
 </head>
 <body>
     <div id="pageApp">
-        <div v-for="item in pageSource.Arr">
-            父类1111111111
-            <br/>
-            {{item}}
-            @{
-                Html.RenderPartial("Index1");
-            }
-        </div>
+        <input type="radio" onclick="alert('点我')" value="" />
     </div>
     <script src="~/lib/Vue-min.js"></script>
     <script>
-        var pageSource = {
-            Id: 199,
-            Name: "测试",
-            Arr: [1, 2, 3]
-        }
-        var appNew = new Vue({
-            el: '#pageApp',
-            data: pageSource,
-            mounted: function () {
-                //加载页面数据
-                var obj = JSON.parse(json);
-            },
-            methods: {}
-        })
-
+      
 
 
     </script>

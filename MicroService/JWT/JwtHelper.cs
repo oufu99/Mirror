@@ -32,7 +32,7 @@ namespace JWT
                 new Claim(JwtRegisteredClaimNames.Nbf,$"{new DateTimeOffset(DateTime.Now).ToUnixTimeSeconds()}") ,
                 // 这个就是过期时间，目前是过期 100 秒，可自定义，注意 JWT 有自己的缓冲过期时间
                  new Claim (JwtRegisteredClaimNames.Exp,$"{new DateTimeOffset(DateTime.Now.AddSeconds(100)).ToUnixTimeSeconds()}"),
-                new Claim(JwtRegisteredClaimNames.Iss,"ZP.YMT.Api"),
+                new Claim(JwtRegisteredClaimNames.Iss,"Aaron.Service"),
                 new Claim(JwtRegisteredClaimNames.Aud,"wr"),
                 // 这个 Role 是官方 UseAuthentication 要要验证的 Role，我们就不用手动设置 Role 这个属性了
                  new Claim(ClaimTypes.Role,tokenModel.Role),
