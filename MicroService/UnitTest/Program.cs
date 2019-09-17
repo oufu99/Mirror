@@ -1,9 +1,13 @@
 ﻿using AspectCore.DynamicProxy;
 using Consul;
 using Hystrix;
+using JWT;
+using JWT.Algorithms;
+using JWT.Serializers;
 using Polly;
 using RestTemplateCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading;
@@ -137,12 +141,48 @@ namespace UnitTest
             #endregion
 
 
-            ProxyGeneratorBuilder proxyGeneratorBuilder = new ProxyGeneratorBuilder();
-            using (IProxyGenerator proxyGenerator = proxyGeneratorBuilder.Build())
+            //ProxyGeneratorBuilder proxyGeneratorBuilder = new ProxyGeneratorBuilder();
+            //using (IProxyGenerator proxyGenerator = proxyGeneratorBuilder.Build())
+            //{
+            //    Person p = proxyGenerator.CreateClassProxy<Person>();
+            //    Console.WriteLine(p.HelloAsync("yzk").Result);
+            //    Console.WriteLine(p.Add(1, 2));
+            //}
+
+
+            //            var payload = new Dictionary<string, object>
+            //{
+            //{ "UserId", 123 },
+            //{ "UserName", "admin" }
+            //        };
+            //            var secret = "GQDstcKsx0NHjPOuXOYg5MbeJ1XT0uFiwDVvVBrk";//不要泄露
+            //            IJwtAlgorithm algorithm = new HMACSHA256Algorithm();
+            //            IJsonSerializer serializer = new JsonNetSerializer();
+            //            IBase64UrlEncoder urlEncoder = new JwtBase64UrlEncoder();
+            //            IJwtEncoder encoder = new JwtEncoder(algorithm, serializer, urlEncoder);
+            //            var token = encoder.Encode(payload, secret);
+
+
+            //            Console.WriteLine(token);
+            var token =
+  "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJVc2VySWQiOjEyMywiVXNlck5hbWUiOiJhZG1pbiJ9.Qjw1epD5P6p4Yy2yju3-fkq28PddznqRj3ESfALQy_U";
+            try
             {
-                Person p = proxyGenerator.CreateClassProxy<Person>();
-                Console.WriteLine(p.HelloAsync("yzk").Result);
-                Console.WriteLine(p.Add(1, 2));
+                IJsonSerializer serializer = new JsonNetSerializer();
+                IDateTimeProvider provider = new UtcDateTimeProvider();
+                IJwtValidator validator = new JwtValidator(serializer, provider);
+                IBase64UrlEncoder urlEncoder = new JwtBase64UrlEncoder();
+                IJwtDecoder decoder = new JwtDecoder(serializer, validator, urlEncoder);
+                var json = decoder.Decode(token);
+                Console.WriteLine(json);
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Token format invalid");
+            }
+            catch (TokenExpiredException)
+            {
+                Console.WriteLine("Token has expired");
             }
             Console.ReadLine();
         }

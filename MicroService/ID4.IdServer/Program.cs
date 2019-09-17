@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace OcelotTest
+namespace ID4.IdServer
 {
     public class Program
     {
@@ -19,11 +19,6 @@ namespace OcelotTest
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>()
-            .UseUrls("http://127.0.0.1:8888")
-            .ConfigureAppConfiguration((hostingContext, builder) => {
-                builder.AddJsonFile("configuration.json", false, true);
-            })
-;
+                .UseStartup<Startup>();
     }
 }

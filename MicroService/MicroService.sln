@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestTemplateCore", "RestTem
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hystrix", "AaronHystrix\Hystrix.csproj", "{F0BAE628-2620-4BD4-B70A-3FF26E2D7415}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OcelotTest", "OcelotTest\OcelotTest.csproj", "{456835E3-0147-4063-8225-ED64C120363A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OcelotTest", "OcelotTest\OcelotTest.csproj", "{456835E3-0147-4063-8225-ED64C120363A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ID4.IdServer", "ID4.IdServer\ID4.IdServer.csproj", "{D649EEBB-4FA2-4C97-88BB-05FAA9C5BE19}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{456835E3-0147-4063-8225-ED64C120363A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{456835E3-0147-4063-8225-ED64C120363A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{456835E3-0147-4063-8225-ED64C120363A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D649EEBB-4FA2-4C97-88BB-05FAA9C5BE19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D649EEBB-4FA2-4C97-88BB-05FAA9C5BE19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D649EEBB-4FA2-4C97-88BB-05FAA9C5BE19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D649EEBB-4FA2-4C97-88BB-05FAA9C5BE19}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

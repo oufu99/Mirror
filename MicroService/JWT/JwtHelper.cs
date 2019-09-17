@@ -22,8 +22,6 @@ namespace JWT
         public static string IssueJWT(TokenModelJWT tokenModel)
         {
             var dateTime = DateTime.UtcNow;
-
-
             var claims = new Claim[]
                 {
                     // 下边为 Claim 的默认配置

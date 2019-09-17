@@ -3,26 +3,49 @@
     {
       "DownstreamPathTemplate": "/api/{url}",
       "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5001
-        }
-      ],
       "UpstreamPathTemplate": "/MsgService/{url}",
-      "UpstreamHttpMethod": [ "Get", "Post" ]
-    },
-    {
-      "DownstreamPathTemplate": "/api/{url}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5003
-        }
-      ],
-      "UpstreamPathTemplate": "/ProductService/{url}",
-      "UpstreamHttpMethod": [ "Get", "Post" ]
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "ServiceName": "MsgService",
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin"
+      },
+      "UseServiceDiscovery": true
     }
-  ]
+  ],
+  "GlobalConfiguration": {
+    "ServiceDiscoveryProvider": {
+      "Host": "localhost",
+      "Port": 8500
+    }
+  }
 }
+
+//直接指向ip的版本
+//{
+//"ReRoutes": [
+//{
+//"DownstreamPathTemplate": "/api/{url}",
+//"DownstreamScheme": "http",
+//"DownstreamHostAndPorts": [
+//{
+//"Host": "localhost",
+//"Port": 5001
+//}
+//],
+//"UpstreamPathTemplate": "/MsgService/{url}",
+//"UpstreamHttpMethod": [ "Get", "Post" ]
+//},
+//{
+//"DownstreamPathTemplate": "/api/{url}",
+//"DownstreamScheme": "http",
+//"DownstreamHostAndPorts": [
+//{
+//"Host": "localhost",
+//"Port": 5003
+//}
+//],
+//"UpstreamPathTemplate": "/ProductService/{url}",
+//"UpstreamHttpMethod": [ "Get","Post" ]
+//}
+//]
+//}
