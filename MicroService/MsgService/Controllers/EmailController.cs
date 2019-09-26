@@ -13,9 +13,10 @@ namespace MsgService.Controllers
 
 
         [HttpGet(nameof(Send))]
-        public void Send(string msg)
+        public string Send(string msg)
         {
             Console.WriteLine("测试邮件发送成功!");
+            return msg;
         }
 
 

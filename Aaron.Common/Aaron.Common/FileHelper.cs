@@ -34,6 +34,12 @@ namespace Aaron.Common
             fInfo.MoveTo(Path.Combine(newFileName));
         }
 
+        public static void CopyFile(string srcPath, string targetPath, bool isCover = true)
+        {
+            File.Copy(srcPath, targetPath, isCover);
+            //不是文件夹即复制文件，true表示可以覆盖同名文件
+        }
+
         /// <summary>
         /// 文件移动  传入全路径
         /// </summary>
@@ -58,6 +64,21 @@ namespace Aaron.Common
                     File.Move(sourcPath, targetPath);
                 }
             }
+        }
+
+        /// <summary>
+        /// 创建文本文件,js等文字类的方法
+        /// </summary>
+        /// <param name="sourcPath"></param>
+        /// <param name="targetPath"></param>
+        /// <param name="isForce"></param>
+        public static void CreateText(string filePath, string content)
+        {
+            FileStream fs = new FileStream(filePath, FileMode.Create);
+            StreamWriter wr = null;
+            wr = new StreamWriter(fs);
+            wr.WriteLine(content);
+            wr.Close();
         }
 
         /// <summary>
@@ -175,12 +196,7 @@ namespace Aaron.Common
                 }
             }
         }
-        public static void CopyFile(string srcPath, string targetPath, bool isCover = true)
-        {
-            File.Copy(srcPath, targetPath, isCover);
-            //不是文件夹即复制文件，true表示可以覆盖同名文件
-        }
-
+      
         public static void CreateDirectory(string dirPath)
         {
             if (!CheckDirIsExist(dirPath))

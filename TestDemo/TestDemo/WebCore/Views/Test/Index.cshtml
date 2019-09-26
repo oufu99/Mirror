@@ -11,18 +11,24 @@
     <title>Index1</title>
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <script>
-       
+        function Func() {
+            //var text = "43\"45".replace(/4/g,"8");
+            //$("#source").val(text);
+            var res = '123'; alert(res);
+        }
+        function Func2(msg) {
+            alert(msg);
+
+        }
     </script>
 </head>
 <body>
-    <div id="pageApp">
-        <input type="radio" onclick="alert('点我')" value="" />
-    </div>
-    <script src="~/lib/Vue-min.js"></script>
-    <script>
-      
 
+    <textarea style="resize: none;height: 240px;" id="source">
 
-    </script>
+</textarea>
+    
+    
+    <input type="button" value="点我" onclick="Func2('111')" />
 </body>
 </html>

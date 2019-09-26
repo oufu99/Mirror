@@ -21,63 +21,40 @@ namespace ConsoleApp1
         static void Main(string[] args)
         {
 
-            //SmtpClient client = new System.Net.Imap4.Imap4Client("ExampleHost", port, ssl);
-            //client.DefaultMailbox = "[Gmail]/Sent Mail";
-            //try
-            //{
-            //    client.Login("ExampleEmail", "ExamplePass", AuthMethod.Login);
-            //    IEnumerable<uint> units = client.Search(SearchCondition.Seen());
-            //    DataTable TempTaskTable = new DataTable();
-            //    TempTaskTable.Columns.Add("FromEmail", typeof(string));
-            //    TempTaskTable.Columns.Add("ToEmail", typeof(string));
-            //    TempTaskTable.Columns.Add("Subject", typeof(string));
-            //    foreach (var uid in units)
-            //    {
-            //        System.Net.Mail.MailMessage email = client.GetMessage(uid, true, "[Gmail]/Sent Mail");
-            //        DataRow TempTaskRow2 = TempTaskTable.NewRow();
-            //        TempTaskRow2["FromEmail"] = email.Sender;
-            //        TempTaskRow2["ToEmail"] = email.From;
-            //        TempTaskRow2["Subject"] = email.Subject;
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    string exceptionCheck = ex.Message;
-            //}
-
+            
             #region 暂时注释
-            //FactoryPop3 factory = new FactoryPop3();
-            //Pop3 pop = factory.CreatePop3();
-            //pop.Pop3Port = 110;
-            //pop.Pop3Address = "pop3.163.com";
-            //pop.EmailAddress = "q51758018@163.com";
-            ////pop.EmailPassword = "ou7225822";
-            //pop.EmailPassword = "shouquan163";
+            FactoryPop3 factory = new FactoryPop3();
+            Pop3 pop = factory.CreatePop3();
+            pop.Pop3Port = 110;
+            pop.Pop3Address = "pop3.163.com";
+            pop.EmailAddress = "q51758018@163.com";
+            //pop.EmailPassword = "ou7225822";
+            pop.EmailPassword = "shouquan163";
 
-            //pop.Authenticate();
-            //if (pop.ExitsError)
-            //{
-            //    List<string> nameList = new List<string>();
-            //    var emailCount = pop.GetMailCount();
+            pop.Authenticate();
+            if (pop.ExitsError)
+            {
+                List<string> nameList = new List<string>();
+                var emailCount = pop.GetMailCount();
 
-            //    //获取第一行
-            //    for (int i = 1; i <= emailCount; i++)
-            //    {
-            //        var content = pop.GetMailBodyAsText(i);
-            //    }
+                //获取第一行
+                for (int i = 1; i <= emailCount; i++)
+                {
+                    var content = pop.GetMailBodyAsText(i);
+                }
 
 
-            //    //备用的方法
-            //    //MessageBox.Show(pop.GetMailCount().Tostring());
-            //    //MessageBox.Show(pop.GetSendMialAddress(1).Tostring());
-            //    //MessageBox.Show(pop.GetMailUID(1).Tostring());
-            //    //MessageBox.Show(pop.GetMailSubject(2).Tostring());
-            //    //MessageBox.Show(pop.GetMailBodyAsText(1).Tostring());
-            //}
-            //else
-            //{
-            //    //MessageBox.Show(pop.ErrorMessage);
-            //} 
+                //备用的方法
+                //MessageBox.Show(pop.GetMailCount().Tostring());
+                //MessageBox.Show(pop.GetSendMialAddress(1).Tostring());
+                //MessageBox.Show(pop.GetMailUID(1).Tostring());
+                //MessageBox.Show(pop.GetMailSubject(2).Tostring());
+                //MessageBox.Show(pop.GetMailBodyAsText(1).Tostring());
+            }
+            else
+            {
+                //MessageBox.Show(pop.ErrorMessage);
+            }
             #endregion
 
 
