@@ -21,3 +21,5 @@ EFAndVue/EFAndVue/Video
 /*.suo
 [Pp]ackages/
 /lib/Aaron.Common.dll
+/EncryptionJs/CefSharp51_x64
+/EncryptionJs/packages

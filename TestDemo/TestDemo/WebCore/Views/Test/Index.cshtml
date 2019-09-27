@@ -17,7 +17,16 @@
             var res = '123'; alert(res);
         }
         function Func2(msg) {
-            alert(msg);
+            var timer = setInterval(function () {
+                var text = $("#source").val().trim();
+                if (text == "") {
+
+                }
+                else {
+                    alert("有值了");
+                    clearInterval(timer);
+                }
+            }, 1000);
 
         }
     </script>
@@ -27,8 +36,8 @@
     <textarea style="resize: none;height: 240px;" id="source">
 
 </textarea>
-    
-    
+
+
     <input type="button" value="点我" onclick="Func2('111')" />
 </body>
 </html>
