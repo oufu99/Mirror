@@ -37,9 +37,6 @@ namespace EncryptionJs
 
         public void InitBrowser()
         {
-            //var dirPath = @"D:\js\Test";
-            var dirPath = @"D:\js";
-            fileNameList = Common.GetDirectorAllFile(dirPath, fileNameList);
 
             var setting = new CefSharp.CefSettings();
             setting.CefCommandLineArgs.Add("disable-gpu", "1"); // 禁用gpu
@@ -48,7 +45,7 @@ namespace EncryptionJs
             this.Controls.Add(browser);
             browser.Dock = DockStyle.Fill;
 
-            obj = new BoundObject(fileNameList, browser);
+            obj = new BoundObject(browser);
             browser.RegisterJsObject("bound", obj);
             d1 = DateTime.Now;
 
@@ -56,6 +53,12 @@ namespace EncryptionJs
 
         private void button1_Click(object sender, EventArgs e)
         {
+            if (obj.fileNameList.Count == 0)
+            {
+                MessageBox.Show("请先设置含有js文件的路径");
+                return;
+            }
+
             if (fileNameList.Count > 0)
             {
                 var jsPath = fileNameList.First();
@@ -77,7 +80,6 @@ namespace EncryptionJs
             }
         }
 
-
         public string GetAllText(string jsPath)
         {
             //var text = File.ReadAllText(jsPath);
@@ -96,9 +98,6 @@ namespace EncryptionJs
             return text;
         }
 
-
-
-
         /// <summary>
         /// 设置路径
         /// </summary>
@@ -106,9 +105,11 @@ namespace EncryptionJs
         /// <param name="e"></param>
         private void button2_Click(object sender, EventArgs e)
         {
+
             var dirPath = txtPathInput.Text;
             if (!string.IsNullOrEmpty(dirPath))
             {
+                fileNameList = new List<string>();
                 fileNameList = Common.GetDirectorAllFile(dirPath, fileNameList);
                 obj.UpdatePath(fileNameList);
             }
@@ -123,14 +124,13 @@ namespace EncryptionJs
 
     public class BoundObject
     {
-        List<string> fileNameList = new List<string>();
-        List<string> failList = new List<string>();
+        public List<string> fileNameList = new List<string>();
+        public List<string> failList = new List<string>();
         public ChromiumWebBrowser browser;
         public string OutputPath { get; set; }
 
-        public BoundObject(List<string> _fileNameList, ChromiumWebBrowser _browser)
+        public BoundObject(ChromiumWebBrowser _browser)
         {
-            fileNameList = _fileNameList;
             browser = _browser;
             OutputPath = @"D:\转换后的js\";
         }
@@ -142,6 +142,7 @@ namespace EncryptionJs
             }
             if (resultJSStr == "脚本错误：Error: Line 1: Unexpected end of input")
             {
+
                 failList.Add(fileName);
             }
             else
