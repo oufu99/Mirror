@@ -26,6 +26,8 @@ namespace EncryptionJs
 
         List<string> fileNameList = new List<string>();
         DateTime d1 = DateTime.Now;
+
+        BoundObject obj;
         private void Form1_Load(object sender, EventArgs e)
         {
 
@@ -35,8 +37,9 @@ namespace EncryptionJs
 
         public void InitBrowser()
         {
+            //var dirPath = @"D:\js\Test";
             var dirPath = @"D:\js";
-            fileNameList = GetDirectorAllFile(dirPath, fileNameList);
+            fileNameList = Common.GetDirectorAllFile(dirPath, fileNameList);
 
             var setting = new CefSharp.CefSettings();
             setting.CefCommandLineArgs.Add("disable-gpu", "1"); // 禁用gpu
@@ -44,7 +47,9 @@ namespace EncryptionJs
             browser = new ChromiumWebBrowser("https://www.sojson.com/jsobfuscator.html");
             this.Controls.Add(browser);
             browser.Dock = DockStyle.Fill;
-            browser.RegisterJsObject("bound", new BoundObject(fileNameList, browser));
+
+            obj = new BoundObject(fileNameList, browser);
+            browser.RegisterJsObject("bound", obj);
             d1 = DateTime.Now;
 
         }
@@ -54,6 +59,7 @@ namespace EncryptionJs
             if (fileNameList.Count > 0)
             {
                 var jsPath = fileNameList.First();
+                fileNameList.Remove(jsPath);
                 ////判断文件大于200Kb就不压缩
                 FileInfo info = new FileInfo(jsPath);
                 //字节为单位  大于200k
@@ -64,7 +70,7 @@ namespace EncryptionJs
                 else
                 {
                     var name = jsPath.Split(new string[] { @"\" }, StringSplitOptions.RemoveEmptyEntries).Last();
-                    var jsText = File.ReadAllText(jsPath);
+                    var jsText = GetAllText(jsPath);
                     var text = Common.FormaterJS(jsText, name);
                     browser.GetMainFrame().Browser.MainFrame.ExecuteJavaScriptAsync(text);
                 }
@@ -72,72 +78,84 @@ namespace EncryptionJs
         }
 
 
-        public List<string> GetDirectorAllFile(string dirs, List<string> list)
+        public string GetAllText(string jsPath)
         {
-            //绑定到指定的文件夹目录
-            DirectoryInfo dir = new DirectoryInfo(dirs);
-            //检索表示当前目录的文件和子目录
-            FileSystemInfo[] fsinfos = dir.GetFileSystemInfos();
-            //遍历检索的文件和子目录
-            foreach (FileSystemInfo fileInfo in fsinfos)
+            //var text = File.ReadAllText(jsPath);
+
+            StreamReader reader = new StreamReader(jsPath);
+            //string text = reader.ReadToEnd();
+
+            string text = "";
+            string textLine = "";
+            while (!string.IsNullOrEmpty(textLine = reader.ReadLine()))
             {
-                //判断是否为空文件夹　　
-                if (fileInfo is DirectoryInfo)
-                {
-                    //递归调用
-                    GetDirectorAllFile(fileInfo.FullName, list);
-                }
-                else
-                {
-                    Console.WriteLine(fileInfo.FullName);
-                    //将得到的文件名称全路径放入到集合中
-                    list.Add(fileInfo.FullName);
-                }
+                text += textLine;
             }
-            return list;
+            reader.Close();
+
+            return text;
         }
 
 
+
+
         /// <summary>
-        /// 测试方法
+        /// 设置路径
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void button2_Click(object sender, EventArgs e)
         {
-            var text = "bound.myMethod('111','222');";
-            browser.GetMainFrame().Browser.MainFrame.ExecuteJavaScriptAsync(text);
+            var dirPath = txtPathInput.Text;
+            if (!string.IsNullOrEmpty(dirPath))
+            {
+                fileNameList = Common.GetDirectorAllFile(dirPath, fileNameList);
+                obj.UpdatePath(fileNameList);
+            }
+            var outPath = txtPathOutput.Text;
+            if (!string.IsNullOrEmpty(outPath))
+            {
+                obj.UpdateOutputPath(outPath);
+            }
+            MessageBox.Show("设置成功");
         }
     }
 
     public class BoundObject
     {
         List<string> fileNameList = new List<string>();
+        List<string> failList = new List<string>();
         public ChromiumWebBrowser browser;
+        public string OutputPath { get; set; }
 
         public BoundObject(List<string> _fileNameList, ChromiumWebBrowser _browser)
         {
             fileNameList = _fileNameList;
             browser = _browser;
+            OutputPath = @"D:\转换后的js\";
         }
-        public bool Success { get; set; }
-        public string MyProperty { get; set; }
-        public void MyMethod(string fileName, string str)
+        public void HandlerJs(string fileName, string resultJSStr)
         {
-
-            string dirPath = @"E:\转换后的js\";
-            if (!Directory.Exists(dirPath))
+            if (!Directory.Exists(OutputPath))
             {
-                Directory.CreateDirectory(dirPath);   //目标目录下不存在此文件夹即创建子文件夹
+                Directory.CreateDirectory(OutputPath);   //目标目录下不存在此文件夹即创建子文件夹
             }
-            FileStream fs = new FileStream(Path.Combine(dirPath, fileName), FileMode.Create);
-            StreamWriter wr = null;
-            wr = new StreamWriter(fs);
-            wr.WriteLine(str);
-            wr.Close();
+            if (resultJSStr == "脚本错误：Error: Line 1: Unexpected end of input")
+            {
+                failList.Add(fileName);
+            }
+            else
+            {
+                FileStream fs = new FileStream(Path.Combine(OutputPath, fileName), FileMode.Create);
+                StreamWriter wr = null;
+                wr = new StreamWriter(fs);
+                wr.WriteLine(resultJSStr);
+                wr.Close();
+            }
             if (fileNameList.Count > 0)
             {
                 var jsPath = fileNameList.First();
+                fileNameList.Remove(jsPath);
                 ////判断文件大于200Kb就不压缩
                 FileInfo info = new FileInfo(jsPath);
                 //字节为单位  大于200k
@@ -153,6 +171,23 @@ namespace EncryptionJs
                     browser.GetMainFrame().Browser.MainFrame.ExecuteJavaScriptAsync(text);
                 }
             }
+            else
+            {
+                MessageBox.Show("加载完毕,加密失败的文件有" + string.Join(",", failList) + " 请手动加密");
+            }
+
+        }
+
+        public bool UpdatePath(List<string> _fileNameList)
+        {
+            fileNameList = _fileNameList;
+            return true;
+        }
+
+        public bool UpdateOutputPath(string _outputPaht)
+        {
+            OutputPath = _outputPaht;
+            return true;
         }
     }
 }
