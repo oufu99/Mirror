@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ID4.IdServer", "ID4.IdServe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ID4.Ocelot", "ID4.Ocelo\ID4.Ocelot.csproj", "{78D809CE-2950-4E79-B17C-D00B0C072FA4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication1", "WebApplication1\WebApplication1.csproj", "{AB1C2895-282C-4EA5-BDCA-EFD941346182}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoginAdmin", "LoginAdmin\LoginAdmin.csproj", "{8D1B3C43-339A-40E5-A209-2FE145083169}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -65,10 +65,10 @@ Global
 		{78D809CE-2950-4E79-B17C-D00B0C072FA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{78D809CE-2950-4E79-B17C-D00B0C072FA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{78D809CE-2950-4E79-B17C-D00B0C072FA4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AB1C2895-282C-4EA5-BDCA-EFD941346182}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AB1C2895-282C-4EA5-BDCA-EFD941346182}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AB1C2895-282C-4EA5-BDCA-EFD941346182}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AB1C2895-282C-4EA5-BDCA-EFD941346182}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D1B3C43-339A-40E5-A209-2FE145083169}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D1B3C43-339A-40E5-A209-2FE145083169}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D1B3C43-339A-40E5-A209-2FE145083169}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D1B3C43-339A-40E5-A209-2FE145083169}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

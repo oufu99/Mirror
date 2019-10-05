@@ -24,7 +24,14 @@ namespace ProductService
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthentication("Bearer")
+.AddIdentityServerAuthentication(options =>
+{
+    options.Authority = "http://localhost:9500";//identity server 地址
+    options.RequireHttpsMetadata = false;
+});
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, IApplicationLifetime
@@ -34,6 +41,7 @@ applicationLifetime)
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseAuthentication();
             app.UseMvc();
             //这里的ip 和 端口 是注册到Consul中的,让他去调度
             string ip = Configuration["ip"];
