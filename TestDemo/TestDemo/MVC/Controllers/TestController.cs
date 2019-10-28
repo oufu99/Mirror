@@ -15,8 +15,16 @@ namespace MVC.Controllers
         {
 
             Person p = new Person();
-            p.SayHi();
             return View();
+
+        }
+
+        
+        public ActionResult Index2(Person list)
+        {
+
+            Person p = new Person();
+            return Content("suc");
 
         }
     }

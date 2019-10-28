@@ -1,0 +1,43 @@
+﻿
+@{
+    
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+
+    <script src="~/Scripts/js/jquery-2.1.4.js"></script>
+    <script src="~/Scripts/js/vue-min.js"></script>
+</head>
+<body>
+    <div>
+
+        <input type="button" value="点我" onclick="TestFun()" />
+    </div>
+    <script>
+        var model = {
+            Name: "Aaron",
+            Age: 18,
+            MySon: { Name: "aSon" }
+        };
+
+        function TestFun() {
+            $.ajax({
+                url: '/HotUpdate/Bind',
+                type: 'post',
+                contentType: "application/json",
+                data: JSON.stringify({
+                    model: model
+                }),
+                success: function (data) {
+                }
+            });
+
+        }
+
+
+    </script>
+</body>
+</html>

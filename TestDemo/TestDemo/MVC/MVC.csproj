@@ -148,10 +148,13 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\HotUpdateController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AaronBinder.cs" />
+    <Compile Include="Models\AaronProviderFactory.cs" />
     <Compile Include="Models\ActionTrackAttribute.cs" />
     <Compile Include="Models\Person.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -180,6 +183,8 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\js\jquery-2.1.4.js" />
+    <Content Include="Scripts\js\vue-min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -196,6 +201,7 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Test\Index.cshtml" />
+    <Content Include="Views\HotUpdate\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

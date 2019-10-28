@@ -3,16 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace MVC.Models
+namespace MVC 
 {
+
     public class Person
     {
+        public string Name { get; set; }
+        public int Age { get; set; }
+        public Son MySon { get; set; }
 
-        [ActionTrack]
-        public void SayHi()
-        {
-            Console.WriteLine("11");
+    }
 
-        }
+    public class Son
+    {
+        public string Name { get; set; }
+        public int Age { get; set; }
     }
 }

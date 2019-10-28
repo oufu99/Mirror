@@ -88,6 +88,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\x64\Debug\CefSharp.dll</HintPath>
     </Reference>
+    <Reference Include="CefSharp.BrowserSubprocess.Core, Version=51.0.0.0, Culture=neutral, PublicKeyToken=40c4b6fc221f4138, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\CefSharp.BrowserSubprocess.Core.dll</HintPath>
+    </Reference>
     <Reference Include="CefSharp.Core, Version=51.0.0.0, Culture=neutral, PublicKeyToken=40c4b6fc221f4138, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\x64\Debug\CefSharp.Core.dll</HintPath>
@@ -132,7 +136,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <None Include="EncryptionJs_TemporaryKey.pfx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
