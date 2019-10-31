@@ -7,9 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IServices", "IServices\ISer
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services", "Service\Services.csproj", "{9A4E35E8-E331-45D4-A52E-3A46C6C03BF8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewWeb", "NewWeb\NewWeb.csproj", "{4D76B9B8-EB7B-4876-A031-0D6058242156}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewWeb", "NewWeb\NewWeb.csproj", "{4D76B9B8-EB7B-4876-A031-0D6058242156}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Admin", "Admin\Admin.csproj", "{25327969-FB71-4E9B-91A0-A0A9619CF898}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Admin", "Admin\Admin.csproj", "{25327969-FB71-4E9B-91A0-A0A9619CF898}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aaron.HotUpdate", "Aaron.HotUpdate\Aaron.HotUpdate.csproj", "{A7CC6BFA-BD44-4760-8ED8-A83BA392AF2E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{25327969-FB71-4E9B-91A0-A0A9619CF898}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{25327969-FB71-4E9B-91A0-A0A9619CF898}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{25327969-FB71-4E9B-91A0-A0A9619CF898}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7CC6BFA-BD44-4760-8ED8-A83BA392AF2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7CC6BFA-BD44-4760-8ED8-A83BA392AF2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7CC6BFA-BD44-4760-8ED8-A83BA392AF2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7CC6BFA-BD44-4760-8ED8-A83BA392AF2E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

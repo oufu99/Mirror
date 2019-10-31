@@ -18,7 +18,10 @@ namespace MVC
             //stream.Position = 0;
             //StreamReader reader = new StreamReader(stream);
             //string text = reader.ReadToEnd();
+            //if (bindingContext.)
+            //{
 
+            //}
 
             string msgBody = string.Empty;
             using (var ms = new MemoryStream())

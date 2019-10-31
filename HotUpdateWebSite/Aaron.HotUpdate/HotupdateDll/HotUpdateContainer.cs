@@ -11,12 +11,12 @@ using System.Web;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
-namespace Admin.Models
+namespace Aaron.HotUpdate
 {
     public class HotUpdateContainer
     {
-        private Dictionary<string, string> AssemblyDic { get; set; } = new Dictionary<string, string>();
-        private List<HotUpdateServiceDescriptor> HotUpdateList { get; set; } = new List<HotUpdateServiceDescriptor>();
+        public Dictionary<string, string> AssemblyDic { get; set; } = new Dictionary<string, string>();
+        public List<HotUpdateServiceDescriptor> HotUpdateList { get; set; } = new List<HotUpdateServiceDescriptor>();
 
         public HotUpdateContainer()
         {
@@ -36,17 +36,17 @@ namespace Admin.Models
         /// 修改逻辑
         /// </summary>
         /// <param name="model"></param>
-        internal void Update(params string[] path)
+        public void Update(params string[] path)
         {
             Build(path, true);
         }
 
-        internal Dictionary<string, string> GetAssemblyDic()
+        public Dictionary<string, string> GetAssemblyDic()
         {
             return AssemblyDic;
         }
 
-        internal HotUpdateServiceDescriptor[] GetHotUpdateList()
+        public HotUpdateServiceDescriptor[] GetHotUpdateList()
         {
             return HotUpdateList.ToArray();
         }
@@ -61,9 +61,10 @@ namespace Admin.Models
             {
                 dicList.Add(item.Key);
             }
-            assemblyPaths = assemblyPaths ?? dicList.ToArray();
-            ////重新擦除所以IService
-            //AppDomain.CurrentDomain.SetData("IService", null);
+            if (assemblyPaths == null || assemblyPaths.Length == 0)
+            {
+                assemblyPaths = dicList.ToArray();
+            }
             foreach (var assemblyPath in assemblyPaths)
             {
                 byte[] bt = File.ReadAllBytes(assemblyPath);
@@ -100,10 +101,9 @@ namespace Admin.Models
                 HotUpdateList.Add(model);
             }
         }
-
     }
 
-    internal class HotUpdateServiceDescriptor
+    public class HotUpdateServiceDescriptor
     {
         /// <summary>
         /// 实现类的Type
@@ -125,6 +125,11 @@ namespace Admin.Models
         ///  assembly对象
         /// </summary>
         public Assembly AssemblyObj { get; set; }
+
+        /// <summary>
+        /// 实现对象(目前只有IServiceProvider这个对象使用)
+        /// </summary>
+        public object ImplementationObject { get; set; }
 
     }
 }

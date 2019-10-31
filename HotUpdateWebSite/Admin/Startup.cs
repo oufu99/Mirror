@@ -4,8 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using Admin.Models;
-using Admin.Models.Ioc;
+using Aaron.HotUpdate;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -23,26 +22,10 @@ namespace Admin
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
+            AppDomain.CurrentDomain.AssemblyResolve += UrlStarupHelper.CurrentDomain_AssemblyResolve;
         }
 
-        private static Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
-        {
-            AssemblyName assemblyName = new AssemblyName(args.Name);
-            var obj = AppDomain.CurrentDomain.GetData(assemblyName.Name);
-            if (obj != null) return (Assembly)obj;
 
-
-            var path = Path.Combine(AppContext.BaseDirectory, $"{assemblyName.Name}.dll");
-            if (File.Exists(path))
-            {
-                byte[] data = File.ReadAllBytes(path);
-                var assembly = Assembly.Load(data);
-                AppDomain.CurrentDomain.SetData(assemblyName.Name, assembly);
-                return assembly;
-            }
-            return null;
-        }
 
         public IConfiguration Configuration { get; }
 
@@ -56,17 +39,7 @@ namespace Admin
         public IServiceProvider ConfigureServices(IServiceCollection services)
 
         {
-            services.AddMvc().ConfigureApplicationPartManager(manager =>
-            {
-                //移除ASP.NET CORE MVC管理器中默认内置的MetadataReferenceFeatureProvider，该Provider如果不移除，还是会引发InvalidOperationException: Cannot find compilation library location for package 'MyNetCoreLib'这个错误
-                manager.FeatureProviders.Remove(manager.FeatureProviders.First(f => f is MetadataReferenceFeatureProvider));
-                //注册我们定义的ReferencesMetadataReferenceFeatureProvider到ASP.NET CORE MVC管理器来代替上面移除的MetadataReferenceFeatureProvider
-                manager.FeatureProviders.Add(new HotUpdateMetadataReferenceFeatureProvider());
-            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-
-            //像容器中添加全局实例Provider对象 以便后面调用
-            services.AddSingleton<IActionDescriptorChangeProvider>(HotUpdateActionDescriptorChangeProvider.Instance);
-            services.AddSingleton(HotUpdateActionDescriptorChangeProvider.Instance);
+            UrlStarupHelper.InitStartup(services);
 
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -75,8 +48,7 @@ namespace Admin
             });
 
             services.AddMvc();
-            var hotUpdateContainer = new HotUpdateContainer();
-            hotUpdateContainer.RegisterAssemblyPaths(HotUpdateHelper.GetAssemblyFullPath("Services.dll"), "IServices");
+            var hotUpdateContainer = new HotUpdateContainer();            
             return new HotUpdateServiceProvider(services, hotUpdateContainer);
         }
 
