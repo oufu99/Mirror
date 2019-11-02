@@ -1,31 +1,98 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿
+@{
+    Layout = null;
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+<!DOCTYPE html>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link href="https://cdn.bootcss.com/extjs/6.0.0/classic/theme-classic/resources/theme-classic-all.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/extjs/6.0.0/ext-all.js"></script>
+
+    <script type="text/javascript">
+
+        Ext.onReady(function () {
+            Ext.onReady(function () {
+                Ext.create('Ext.form.Panel', {
+                    id: 'newForm',
+                    renderTo: 'formId',
+                    border: true,
+                    width: 600,
+                    items: [  {
+                        xtype: 'button',
+                        text: 'Button',
+                            id: 'ABtn',
+                            handler: function () {
+                                Ext.Ajax.request({
+                                    url: '/Home/Test',
+                                    headers: {
+                                        'userHeader': 'userMsg'
+                                    },
+                                    params: { a: 10, b: 20 },
+                                    method: 'GET',
+                                    success: function (response, options) {
+                                        Ext.MessageBox.alert('成功', '从服务端获取结果: ' + response.responseText);
+                                    },
+                                    failure: function (response, options) {
+                                        Ext.MessageBox.alert('失败', '请求超时或网络故障,错误编号：' + response.status);
+                                    }
+                                });
+                            }
+                    }, {
+                        xtype: 'fieldcontainer',
+                        fieldLabel: 'Radio field',
+                        defaultType: 'radiofield',
+                        defaults: {
+                            flex: 1
+                        },
+                        layout: 'hbox',
+                        items: [{
+                            boxLabel: 'A',
+                            inputValue: 'a',
+                            id: 'radio1'
+                        }, {
+                            boxLabel: 'B',
+                            inputValue: 'b',
+                            id: 'radio2'
+                        }, {
+                            boxLabel: 'C',
+                            inputValue: 'c',
+                            id: 'radio3'
+                        }]
+                    } ]
+                });
+            });
+
+            //new Ext.Button({
+            //    renderTo: "ABtn",
+            //    text: "后台Ajax提交",
+            //    handler: function () {
+            //        Ext.Ajax.request({
+            //            url: '/Home/Test',
+            //            headers: {
+            //                'userHeader': 'userMsg'
+            //            },
+            //            params: { a: 10, b: 20 },
+            //            method: 'GET',
+            //            success: function (response, options) {
+            //                Ext.MessageBox.alert('成功', '从服务端获取结果: ' + response.responseText);
+            //            },
+            //            failure: function (response, options) {
+            //                Ext.MessageBox.alert('失败', '请求超时或网络故障,错误编号：' + response.status);
+            //            }
+            //        });
+            //    },
+            //    id: "bt1"
+            //});
+
+        });
+    </script>
+
+</head>
+<body>
+    <div id="formId"></div>
+</body>
+</html>
