@@ -2,27 +2,27 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="/asset/jquery-2.1.4.js"></script>
+    <script src="/asset/vue-min.js"></script>
 
-
-    <script src="~/Scripts/js/jquery-2.1.4.js"></script>
-    <script src="~/Scripts/js/vue-min.js"></script>
 </head>
 <body>
-    <div id="app">
-        <div v-for="item in pageModel.OrderNoSends">
-            <input type="checkbox" value="" />{{item}}
-        </div>
+    Hello World!
+
+    <div v-for="item in pageModel.OrderNoSends">
+        <input type="checkbox" value="" />{{item}}
     </div>
     <script>
         var pageSource = {
             UrlDllList: ["ZP.YMT.Admin", "ZP.YMT.ActivityAdmin", "ZP.YMT.ActivityAdmin.Basics", "ZP.YMT.ActivityAdmin.LuckDraw"]
         };
         var appNew = new Vue({
-            el: '#app',
+            el: '#pageApp',
             data: pageSource,
             mounted: function () {
 
-            } 
+            },
+            methods: pageMethods
         })
     </script>
 </body>

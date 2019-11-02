@@ -3,7 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+<<<<<<< HEAD
 using Admin.Models;
+=======
+using Aaron.HotUpdate;
+>>>>>>> 2be2ee204853a3a09080b4ca48e0c680fdc4c4f7
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -20,8 +24,16 @@ namespace Admin
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+<<<<<<< HEAD
         }
 
+=======
+            AppDomain.CurrentDomain.AssemblyResolve += UrlStarupHelper.CurrentDomain_AssemblyResolve;
+        }
+
+
+
+>>>>>>> 2be2ee204853a3a09080b4ca48e0c680fdc4c4f7
         public IConfiguration Configuration { get; }
 
 
@@ -34,17 +46,7 @@ namespace Admin
         public void ConfigureServices(IServiceCollection services)
 
         {
-            services.AddMvc().ConfigureApplicationPartManager(manager =>
-            {
-                //移除ASP.NET CORE MVC管理器中默认内置的MetadataReferenceFeatureProvider，该Provider如果不移除，还是会引发InvalidOperationException: Cannot find compilation library location for package 'MyNetCoreLib'这个错误
-                manager.FeatureProviders.Remove(manager.FeatureProviders.First(f => f is MetadataReferenceFeatureProvider));
-                //注册我们定义的ReferencesMetadataReferenceFeatureProvider到ASP.NET CORE MVC管理器来代替上面移除的MetadataReferenceFeatureProvider
-                manager.FeatureProviders.Add(new HotUpdateMetadataReferenceFeatureProvider());
-            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-
-            //像容器中添加全局实例Provider对象 以便后面调用
-            services.AddSingleton<IActionDescriptorChangeProvider>(HotUpdateActionDescriptorChangeProvider.Instance);
-            services.AddSingleton(HotUpdateActionDescriptorChangeProvider.Instance);
+            UrlStarupHelper.InitStartup(services);
 
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -53,10 +55,15 @@ namespace Admin
             });
 
             services.AddMvc();
+<<<<<<< HEAD
             //var hotUpdateContainer = new HotUpdateContainer();
             //var basePath = Microsoft.DotNet.PlatformAbstractions.ApplicationEnvironment.ApplicationBasePath;
             //hotUpdateContainer.RegisterAssemblyPaths(Path.Combine(basePath, "Services.dll"));
             //return new HotUpdateServiceProvider(services, hotUpdateContainer);
+=======
+            var hotUpdateContainer = new HotUpdateContainer();            
+            return new HotUpdateServiceProvider(services, hotUpdateContainer);
+>>>>>>> 2be2ee204853a3a09080b4ca48e0c680fdc4c4f7
         }
 
         /// <summary>

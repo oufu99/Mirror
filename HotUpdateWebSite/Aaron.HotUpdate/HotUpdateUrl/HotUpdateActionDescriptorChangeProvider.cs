@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Admin.Models
+namespace Aaron.HotUpdate
 {
     public class HotUpdateActionDescriptorChangeProvider : IActionDescriptorChangeProvider
     {

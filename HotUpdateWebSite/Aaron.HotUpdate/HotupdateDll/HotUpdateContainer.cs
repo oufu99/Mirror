@@ -11,13 +11,19 @@ using System.Web;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
-namespace Admin.Models
+namespace Aaron.HotUpdate
 {
     public class HotUpdateContainer
     {
+<<<<<<< HEAD:HotUpdateWebSite/Admin/Models/Ioc/HotUpdateContainer.cs
         private List<string> AssemblyPath { get; set; } = new List<string>();
         private List<HotUpdateServiceDescriptor> HotUpdateList { get; set; } = new List<HotUpdateServiceDescriptor>();
         
+=======
+        public Dictionary<string, string> AssemblyDic { get; set; } = new Dictionary<string, string>();
+        public List<HotUpdateServiceDescriptor> HotUpdateList { get; set; } = new List<HotUpdateServiceDescriptor>();
+
+>>>>>>> 2be2ee204853a3a09080b4ca48e0c680fdc4c4f7:HotUpdateWebSite/Aaron.HotUpdate/HotupdateDll/HotUpdateContainer.cs
         public HotUpdateContainer()
         {
         }
@@ -31,12 +37,22 @@ namespace Admin.Models
         /// 修改逻辑
         /// </summary>
         /// <param name="model"></param>
-        internal void Update(params string[] path)
+        public void Update(params string[] path)
         {
             Build(path);
         }
+<<<<<<< HEAD:HotUpdateWebSite/Admin/Models/Ioc/HotUpdateContainer.cs
         
         internal HotUpdateServiceDescriptor[] GetHotUpdateList()
+=======
+
+        public Dictionary<string, string> GetAssemblyDic()
+        {
+            return AssemblyDic;
+        }
+
+        public HotUpdateServiceDescriptor[] GetHotUpdateList()
+>>>>>>> 2be2ee204853a3a09080b4ca48e0c680fdc4c4f7:HotUpdateWebSite/Aaron.HotUpdate/HotupdateDll/HotUpdateContainer.cs
         {
             return HotUpdateList.ToArray();
         }
@@ -46,7 +62,19 @@ namespace Admin.Models
         /// </summary>[] 
         public void Build(string[] assemblyPaths = null)
         {
+<<<<<<< HEAD:HotUpdateWebSite/Admin/Models/Ioc/HotUpdateContainer.cs
             assemblyPaths = assemblyPaths ?? AssemblyPath.ToArray();
+=======
+            var dicList = new List<string>();
+            foreach (var item in AssemblyDic)
+            {
+                dicList.Add(item.Key);
+            }
+            if (assemblyPaths == null || assemblyPaths.Length == 0)
+            {
+                assemblyPaths = dicList.ToArray();
+            }
+>>>>>>> 2be2ee204853a3a09080b4ca48e0c680fdc4c4f7:HotUpdateWebSite/Aaron.HotUpdate/HotupdateDll/HotUpdateContainer.cs
             foreach (var assemblyPath in assemblyPaths)
             {
                 byte[] bt = File.ReadAllBytes(assemblyPath);
@@ -83,10 +111,9 @@ namespace Admin.Models
                 HotUpdateList.Add(model);
             }
         }
-
     }
 
-    internal class HotUpdateServiceDescriptor
+    public class HotUpdateServiceDescriptor
     {
         /// <summary>
         /// 实现类的Type
@@ -108,6 +135,11 @@ namespace Admin.Models
         ///  assembly对象
         /// </summary>
         public Assembly AssemblyObj { get; set; }
+
+        /// <summary>
+        /// 实现对象(目前只有IServiceProvider这个对象使用)
+        /// </summary>
+        public object ImplementationObject { get; set; }
 
     }
 }

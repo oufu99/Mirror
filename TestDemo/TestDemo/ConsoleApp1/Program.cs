@@ -9,6 +9,7 @@ namespace ConsoleApp1
 {
     class Program
     {
+<<<<<<< HEAD
         #region 加了await
         //delegate string test();
         //static void Main(string[] args)
@@ -79,6 +80,16 @@ namespace ConsoleApp1
     {
         Yes = 1,
         No = 2
+=======
+        static void Main(string[] args)
+        {
+            var id = 2;
+            var obj = new[] { "Apple", "Orange", "Peach" }[id > 2 ? 0 : id];
+            Console.WriteLine();
+        }
+
+
+>>>>>>> 2be2ee204853a3a09080b4ca48e0c680fdc4c4f7
 
     }
 }

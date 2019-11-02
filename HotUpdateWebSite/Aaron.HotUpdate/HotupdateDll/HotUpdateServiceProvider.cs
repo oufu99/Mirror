@@ -2,11 +2,12 @@
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace Admin.Models
+namespace Aaron.HotUpdate
 {
     public class HotUpdateServiceProvider : IServiceProvider, ISupportRequiredService, IDisposable
     {
@@ -24,6 +25,7 @@ namespace Admin.Models
         }
 
         public HotUpdateServiceProvider(IServiceScope innserServiceScope, HotUpdateContainer container)
+<<<<<<< HEAD:HotUpdateWebSite/Admin/Models/Ioc/HotUpdateServiceProvider.cs
         {
             if (_DefaultServiceProvider == null)
                 _DefaultServiceProvider = innserServiceScope.ServiceProvider;
@@ -45,8 +47,31 @@ namespace Admin.Models
         }
 
         public object GetService(Type serviceType)
+=======
+>>>>>>> 2be2ee204853a3a09080b4ca48e0c680fdc4c4f7:HotUpdateWebSite/Aaron.HotUpdate/HotupdateDll/HotUpdateServiceProvider.cs
         {
+            if (_DefaultServiceProvider == null)
+                _DefaultServiceProvider = innserServiceScope.ServiceProvider;
+            if (Container == null)
+            {
+                Container = container;
+                //Container.RegisterHotUpdateServiceProvider(this);
+            }
+        }
 
+        public void Dispose()
+        {
+            GC.SuppressFinalize(this);
+        }
+
+        public object GetRequiredService(Type serviceType)
+        {
+            var instance = _DefaultServiceProvider.GetRequiredService(serviceType);
+            return instance;
+        }
+
+        public object GetService(Type serviceType)
+        {
             var instance = GetIServiceScopeFactory(serviceType);
             if (instance != null)
             {
@@ -74,8 +99,43 @@ namespace Admin.Models
             {
                 //加载mvc自带实例
                 instance = _DefaultServiceProvider.GetService(serviceType);
-            }
 
+                ////单独处理BaseModel等需要注入的,后面如果有新的,直接在这里加类名就可以了(仅限于Model.dll中的类)
+                //var modelDllList = new List<string>() { "BaseModel", "BaseMappingTable" };
+
+                //if (modelDllList.Contains(serviceType.Name))
+                //{
+                //    //反射出一个BaseModel出去
+                //    Assembly assembly = (Assembly)AppDomain.CurrentDomain.GetData("ZP.YMT.Model");
+                //    if (assembly == null)
+                //    {
+                //        byte[] bt = File.ReadAllBytes(HotUpdateHelper.GetAssemblyFullPath("ZP.YMT.Model.dll"));
+                //        assembly = Assembly.Load(bt);
+                //        AppDomain.CurrentDomain.SetData("ZP.YMT.Model", assembly);
+                //    }
+                //    //兼容多个Model.dll中的类型 只要加判断就够了
+                //    var baseModelType = assembly.GetType("ZP.YMT.Model." + serviceType.Name);
+                //    var objs = new List<object>();
+                //    //我们的类,创建一个对应的实例回去
+                //    //如果有构造函数
+                //    var ctors = baseModelType.GetConstructors();
+                //    //约定构造第一个构造函数
+                //    var ctor = ctors.First();
+                //    var parms = ctor.GetParameters();
+                //    foreach (var item in parms)
+                //    {
+                //        //递归调用
+                //        objs.Add(GetInstanceParams(item));
+                //    }
+                //    instance = Activator.CreateInstance(baseModelType, objs.ToArray());
+
+                //}
+                //else
+                //{
+                //    //加载mvc自带实例
+                //    instance = _DefaultServiceProvider.GetService(serviceType);
+                //}
+            }
             return instance;
         }
 
@@ -93,6 +153,9 @@ namespace Admin.Models
             var assModel = assModellist.FirstOrDefault(c => c.ServiceType == type);
             if (assModel != null)
             {
+                if (assModel.ImplementationObject != null)
+                    return assModel.ImplementationObject;
+
                 var ctors = assModel.ImplementationType.GetConstructors();
                 var parames = ctors.FirstOrDefault().GetParameters();
                 if (parames.Count() == 0)
@@ -103,7 +166,15 @@ namespace Admin.Models
                 {
                     foreach (var item in parames)
                     {
-                        list.Add(GetInstanceParams(item));
+                        try
+                        {
+                            list.Add(GetInstanceParams(item));
+                        }
+                        catch (Exception ex)
+                        {
+
+                            throw;
+                        }
                     }
                     return Activator.CreateInstance(assModel.ImplementationType, list.ToArray());
                 }
@@ -127,62 +198,5 @@ namespace Admin.Models
             return instance;
         }
 
-        //public object GetService(Type serviceType)
-        //{
-        //    var descriptor = serviceDescriptors.FirstOrDefault(t => t.ServiceType == serviceType);
-        //    if (serviceType.Name == "ILogger`1")
-        //    {
-        //        //ILogger<Microsoft.AspNetCore.Hosting.Internal.web>
-        //        descriptor = serviceDescriptors.Where(p => p.ServiceType.Name.IndexOf("ILogger") >= 0).ToArray()[1];
-        //        return descriptor.ImplementationInstance;
-        //    }
-
-        //    if (descriptor == null)
-        //    {
-        //        throw new Exception($"服务‘{serviceType.Name}’未注册");
-        //    }
-        //    else
-        //    {
-        //        switch (descriptor.Lifetime)
-        //        {
-        //            case ServiceLifetime.Singleton:
-        //                if (SingletonServices.TryGetValue(descriptor.ServiceType, out var obj))
-        //                {
-        //                    return obj;
-        //                }
-        //                else
-        //                {
-        //                    if (descriptor.ImplementationType != null)
-        //                    {
-        //                        var singletonObject = Activator.CreateInstance(descriptor.ImplementationType);
-        //                        SingletonServices.Add(descriptor.ServiceType, singletonObject);
-        //                        return singletonObject;
-        //                    }
-        //                    else if (descriptor.ImplementationInstance != null)
-        //                    {
-        //                        SingletonServices.Add(descriptor.ServiceType, descriptor.ImplementationInstance);
-        //                        return descriptor.ImplementationInstance;
-        //                    }
-        //                    else if (descriptor.ImplementationFactory != null)
-        //                    {
-        //                        var singletonObject = descriptor.ImplementationFactory.Invoke(this);
-        //                        SingletonServices.Add(descriptor.ServiceType, singletonObject);
-        //                        return singletonObject;
-        //                    }
-        //                    else
-        //                    {
-        //                        throw new Exception("创建服务失败，无法找到实例类型或实例");
-        //                    }
-        //                }
-        //            case ServiceLifetime.Scoped:
-        //                throw new NotSupportedException($"创建失败，暂时不支持 Scoped");
-        //            case ServiceLifetime.Transient:
-        //                var transientObject = Activator.CreateInstance(descriptor.ImplementationType);
-        //                return transientObject;
-        //            default:
-        //                throw new NotSupportedException("创建失败，不能识别的 LifeTime");
-        //        }
-        //    }
-        //}
     }
 }
