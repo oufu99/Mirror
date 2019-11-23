@@ -25,7 +25,6 @@ namespace Aaron.HotUpdate
         }
 
         public HotUpdateServiceProvider(IServiceScope innserServiceScope, HotUpdateContainer container)
-<<<<<<< HEAD:HotUpdateWebSite/Admin/Models/Ioc/HotUpdateServiceProvider.cs
         {
             if (_DefaultServiceProvider == null)
                 _DefaultServiceProvider = innserServiceScope.ServiceProvider;
@@ -47,8 +46,6 @@ namespace Aaron.HotUpdate
         }
 
         public object GetService(Type serviceType)
-=======
->>>>>>> 2be2ee204853a3a09080b4ca48e0c680fdc4c4f7:HotUpdateWebSite/Aaron.HotUpdate/HotupdateDll/HotUpdateServiceProvider.cs
         {
             if (_DefaultServiceProvider == null)
                 _DefaultServiceProvider = innserServiceScope.ServiceProvider;

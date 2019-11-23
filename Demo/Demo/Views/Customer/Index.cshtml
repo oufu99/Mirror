@@ -1,0 +1,66 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <script src="~/Js/ext-all-debug.js"></script>
+
+    <script src="~/Js/ext-theme-crisp-debug.js"></script>
+
+    <link href="~/css/ext-theme-crisp-all-debug.css" rel="stylesheet" />
+    <link href="~/css/ext-theme-crisp-all-debug_01.css" rel="stylesheet" />
+    <link href="~/css/ext-theme-crisp-all-debug_02.css" rel="stylesheet" />
+
+    <script>
+        Ext.onReady(function () {
+            Ext.create('Ext.data.Store', {
+                storeId: 'simpsonsStore',
+                fields: ['name', 'email', 'phone'],
+                data: [
+                    { name: 'Lisa', email: 'lisa@simpsons.com', phone: '555-111-1224' },
+                    { name: 'Bart', email: 'bart@simpsons.com', phone: '555-222-1234' },
+                    { name: 'Homer', email: 'homer@simpsons.com', phone: '555-222-1244' },
+                    { name: 'Marge', email: 'marge@simpsons.com', phone: '555-222-1254' }
+                ]
+            });
+
+            Ext.create('Ext.grid.Panel', {
+                title: 'Simpsons',
+                store: Ext.data.StoreManager.lookup('simpsonsStore'),
+                columns: [
+                    { text: 'Name', dataIndex: 'name' },
+                    { text: 'Email', dataIndex: 'email', flex: 1 },
+                    { text: 'Phone', dataIndex: 'phone' }
+                ],
+                height: 200,
+                width: 400,
+                renderTo: Ext.get("extDiv")
+            });
+
+            Ext.create('Ext.grid.Panel', {
+                store: userStore,
+                columns: ...,
+                dockedItems: [{
+                    xtype: 'pagingtoolbar',
+                    store: userStore,   // same store GridPanel is using
+                    dock: 'bottom',
+                    displayInfo: true
+                }]
+            });
+        })
+    </script>
+</head>
+<body>
+    <div id="extDiv">
+
+
+
+    </div>
+</body>
+</html>

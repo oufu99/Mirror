@@ -92,6 +92,23 @@ namespace Aaron.Common
             return filePath.Substring(lastIndex, filePath.Length - lastIndex);
         }
 
+        /// <summary>
+        /// 根据全路径获取文件路径(除了文件名的其他信息)
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
+        public static string GetFilePathByFullPath(string filePath)
+        {
+            //替换所有/ 为\
+            filePath = filePath.Replace(@"/", @"\");
+            var lastIndex = filePath.LastIndexOf(@"\") + 1;
+            if (lastIndex <= 0)
+            {
+                return "";
+            }
+            return filePath.Substring(0, lastIndex);
+        }
+
         public static bool CheckFileIsExist(string path)
         {
             return File.Exists(path);

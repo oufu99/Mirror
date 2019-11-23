@@ -15,15 +15,15 @@ namespace Aaron.HotUpdate
 {
     public class HotUpdateContainer
     {
-<<<<<<< HEAD:HotUpdateWebSite/Admin/Models/Ioc/HotUpdateContainer.cs
+
         private List<string> AssemblyPath { get; set; } = new List<string>();
         private List<HotUpdateServiceDescriptor> HotUpdateList { get; set; } = new List<HotUpdateServiceDescriptor>();
         
-=======
-        public Dictionary<string, string> AssemblyDic { get; set; } = new Dictionary<string, string>();
-        public List<HotUpdateServiceDescriptor> HotUpdateList { get; set; } = new List<HotUpdateServiceDescriptor>();
 
->>>>>>> 2be2ee204853a3a09080b4ca48e0c680fdc4c4f7:HotUpdateWebSite/Aaron.HotUpdate/HotupdateDll/HotUpdateContainer.cs
+        public Dictionary<string, string> AssemblyDic { get; set; } = new Dictionary<string, string>();
+    
+
+
         public HotUpdateContainer()
         {
         }
@@ -41,10 +41,10 @@ namespace Aaron.HotUpdate
         {
             Build(path);
         }
-<<<<<<< HEAD:HotUpdateWebSite/Admin/Models/Ioc/HotUpdateContainer.cs
+
         
-        internal HotUpdateServiceDescriptor[] GetHotUpdateList()
-=======
+        
+
 
         public Dictionary<string, string> GetAssemblyDic()
         {
@@ -52,7 +52,6 @@ namespace Aaron.HotUpdate
         }
 
         public HotUpdateServiceDescriptor[] GetHotUpdateList()
->>>>>>> 2be2ee204853a3a09080b4ca48e0c680fdc4c4f7:HotUpdateWebSite/Aaron.HotUpdate/HotupdateDll/HotUpdateContainer.cs
         {
             return HotUpdateList.ToArray();
         }
@@ -62,9 +61,7 @@ namespace Aaron.HotUpdate
         /// </summary>[] 
         public void Build(string[] assemblyPaths = null)
         {
-<<<<<<< HEAD:HotUpdateWebSite/Admin/Models/Ioc/HotUpdateContainer.cs
             assemblyPaths = assemblyPaths ?? AssemblyPath.ToArray();
-=======
             var dicList = new List<string>();
             foreach (var item in AssemblyDic)
             {
@@ -74,7 +71,6 @@ namespace Aaron.HotUpdate
             {
                 assemblyPaths = dicList.ToArray();
             }
->>>>>>> 2be2ee204853a3a09080b4ca48e0c680fdc4c4f7:HotUpdateWebSite/Aaron.HotUpdate/HotupdateDll/HotUpdateContainer.cs
             foreach (var assemblyPath in assemblyPaths)
             {
                 byte[] bt = File.ReadAllBytes(assemblyPath);

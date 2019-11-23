@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using IService;
 using Microsoft.AspNetCore.Mvc;
 using WebCore.Model;
 
@@ -10,10 +9,10 @@ namespace WebCore.Controllers
 {
     public class TestController : Controller
     {
-        public IProductService _service;
-        public TestController(IProductService service)
+        
+        public TestController()
         {
-            _service = service;
+          
 
         }
         public IActionResult Index()
@@ -22,11 +21,5 @@ namespace WebCore.Controllers
         }
 
 
-        public IActionResult Index1()
-        {
-            _service.Test();
-            return Content("123木头人");
-
-        }
     }
 }
