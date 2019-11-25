@@ -81,24 +81,24 @@
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CefSharp, Version=51.0.0.0, Culture=neutral, PublicKeyToken=40c4b6fc221f4138, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\x64\Debug\CefSharp.dll</HintPath>
+      <HintPath>..\..\Mirror2\AutoInternet\lib\CefSharp.dll</HintPath>
     </Reference>
     <Reference Include="CefSharp.BrowserSubprocess.Core, Version=51.0.0.0, Culture=neutral, PublicKeyToken=40c4b6fc221f4138, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>lib\CefSharp.BrowserSubprocess.Core.dll</HintPath>
+      <HintPath>..\..\Mirror2\AutoInternet\lib\CefSharp.BrowserSubprocess.Core.dll</HintPath>
     </Reference>
     <Reference Include="CefSharp.Core, Version=51.0.0.0, Culture=neutral, PublicKeyToken=40c4b6fc221f4138, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\x64\Debug\CefSharp.Core.dll</HintPath>
+      <HintPath>..\..\Mirror2\AutoInternet\lib\CefSharp.Core.dll</HintPath>
     </Reference>
     <Reference Include="CefSharp.WinForms, Version=51.0.0.0, Culture=neutral, PublicKeyToken=40c4b6fc221f4138, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\x64\Debug\CefSharp.WinForms.dll</HintPath>
+      <HintPath>..\..\Mirror2\AutoInternet\lib\CefSharp.WinForms.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
