@@ -140,6 +140,7 @@
     <Compile Include="Extends\StringExtends.cs" />
     <Compile Include="IIS和Host\HostHelper.cs" />
     <Compile Include="IIS和Host\IISHelp.cs" />
+    <Compile Include="ProcessHelper.cs" />
     <Compile Include="SQLHelper.cs" />
     <Compile Include="StringHelper.cs" />
     <Compile Include="AudioHelper.cs" />
