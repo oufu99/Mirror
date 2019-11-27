@@ -10,7 +10,7 @@ namespace Aaron.Common
     public class ProcessHelper
     {
         /// <summary>
-        /// 根据传入Name杀死进程
+        /// 根据传入Name  Kill进程
         /// </summary>
         /// <param name="killName"></param>
         public static void KillProgramByName(string killName)
@@ -19,6 +19,7 @@ namespace Aaron.Common
             var ps = Process.GetProcesses();
             foreach (Process p in ps)
             {
+                System.IO.File.AppendAllText(@"d:\jialin.txt", p.ProcessName);
                 if (killName.ToLower().Contains(p.ProcessName.ToLower()))
                 {
                     p.Kill();
@@ -28,7 +29,7 @@ namespace Aaron.Common
         }
 
         /// <summary>
-        /// 根据传入数组杀死进程
+        /// 根据传入数组Kill进程
         /// </summary>
         /// <param name="killList"></param>
         public static void KillProgramByList(List<string> killList)
