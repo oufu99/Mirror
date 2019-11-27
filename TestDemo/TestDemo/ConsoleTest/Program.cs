@@ -1,5 +1,7 @@
-﻿using System;
+﻿using IModels;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,9 +12,14 @@ namespace ConsoleTest
     {
         static void Main(string[] args)
         {
-            int num = 779;
-            Console.WriteLine(num % 90);
+            var list = Process.GetProcesses();
+            var name = list.First(c => c.ProcessName.Contains("AutoHotkey"));
+
             Console.ReadLine();
         }
     }
+
+
+
+
 }

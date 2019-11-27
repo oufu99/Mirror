@@ -19,7 +19,6 @@ namespace Aaron.Common
             var ps = Process.GetProcesses();
             foreach (Process p in ps)
             {
-                System.IO.File.AppendAllText(@"d:\jialin.txt", p.ProcessName);
                 if (killName.ToLower().Contains(p.ProcessName.ToLower()))
                 {
                     p.Kill();

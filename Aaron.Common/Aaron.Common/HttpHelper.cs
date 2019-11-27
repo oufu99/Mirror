@@ -73,8 +73,7 @@ namespace Aaron.Common
                 }
             }
             catch (Exception ex)
-            {
-                System.IO.File.AppendAllText(@"d:\jialin.txt", ex.StackTrace + "=====" + ex.Message);
+            {                
                 throw;
             }
         }
@@ -140,8 +139,7 @@ namespace Aaron.Common
                 }
             }
             catch (Exception ex)
-            {
-                System.IO.File.AppendAllText(@"d:\jialin.txt", ex.StackTrace + "=====" + ex.Message);
+            {                
                 throw;
             }
         }
