@@ -54,7 +54,8 @@ namespace Aaron.Common
         public const string OpenBatchSoftwareExe = "configuration/OpenBatchSoftwareExe";
         public const string CopyViewExe = "configuration/CopyViewExe";
         public const string CreateSQLExe = "configuration/CreateSQLExe";
-        public const string CopyGitItemExe = "configuration/CopyGitItemExe";
+        public const string CopyGitItemExe = "configuration/CopyGitItemExe";        
+        public const string RestartAhkExe = "configuration/RestartAhkExe";
         //所有程序路径结束
 
         public const string OldPwdQuery = "configuration/OldPwdQuery";
@@ -65,7 +66,6 @@ namespace Aaron.Common
         public const string CopyViewExeCheckBox = "configuration/CopyViewExeCheckBox";
 
         public const string NavicatExe = "configuration/NavicatExe";
-
 
     }
 }

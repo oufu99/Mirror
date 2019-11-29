@@ -12,14 +12,33 @@ namespace ConsoleTest
     {
         static void Main(string[] args)
         {
-            var list = Process.GetProcesses();
-            var name = list.First(c => c.ProcessName.Contains("AutoHotkey"));
+            IStudent s = new Student();
+            s.Say();
 
             Console.ReadLine();
         }
     }
 
+    public interface IStudent
+    {
+        void Say();
+    }
 
 
+    public abstract class StudentBase : IStudent
+    {
+        public void Say()
+        {
+            Console.WriteLine("我是base");
+        }
+    }
+
+    public class Student : StudentBase
+    {
+        public void Say()
+        {
+            Console.WriteLine("我是Student");
+        }
+    }
 
 }

@@ -9,6 +9,12 @@ namespace Aaron.Common
 {
     public class ProcessHelper
     {
+        public static List<Process> GetAllProcess()
+        {
+
+            return Process.GetProcesses().ToList();
+
+        }
         /// <summary>
         /// 根据传入Name  Kill进程
         /// </summary>
