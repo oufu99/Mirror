@@ -1,4 +1,5 @@
-﻿using IModels;
+﻿using CommonServiceLocator;
+using IModels;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,9 +13,17 @@ namespace ConsoleTest
     {
         static void Main(string[] args)
         {
-            IStudent s = new Student();
-            s.Say();
+            IServiceLocator locator = new MockServiceLocator(new object[] { new Student(),
+                                             new NullReferenceException() });
 
+            //IStudent instance = locator.GetInstance<IStudent>();
+            //instance.Say();
+
+            ServiceLocatorProvider provider = new ServiceLocatorProvider(() => locator);
+
+            ServiceLocator.SetLocatorProvider(provider);
+            var student = ServiceLocator.Current.GetInstance<IStudent>();
+            student.Say();
             Console.ReadLine();
         }
     }
@@ -25,15 +34,8 @@ namespace ConsoleTest
     }
 
 
-    public abstract class StudentBase : IStudent
-    {
-        public void Say()
-        {
-            Console.WriteLine("我是base");
-        }
-    }
 
-    public class Student : StudentBase
+    public class Student : IStudent
     {
         public void Say()
         {
