@@ -19,13 +19,13 @@ namespace MVC.Controllers
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public string Bind(Person model)
+        public string BindString()
         {
 
             return "ok";
         }
 
-     
+       
 
 
     }

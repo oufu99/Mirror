@@ -27,7 +27,7 @@ namespace Aaron.Common
             p.StartInfo.RedirectStandardOutput = true;
             // 输出错误
             p.StartInfo.RedirectStandardError = true;
-            //不显示程序窗口
+            //是否在新窗口执行
             p.StartInfo.CreateNoWindow = true;
             p.StartInfo.Verb = "runas";
 
