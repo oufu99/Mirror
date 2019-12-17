@@ -21,13 +21,14 @@ namespace ConsoleTest
     {
         static void Main(string[] args)
         {
+             
 
-            Person p1 = new Person() { Name = "111", Age = 18 };
-            Person p2 = new Person() { Name = "222", Age = 18 };
-            Person p3 = new Person() { Name = "333", Age = 18 };
+            //Person p1 = new Person() { Name = "111", Age = 18 };
+            //Person p2 = new Person() { Name = "222", Age = 18 };
+            //Person p3 = new Person() { Name = "333", Age = 18 };
 
-            var list = new List<Person>() { p1, p2, p3 };
-            var res = list.Distinct<Person, int>(b => b.Age).ToList();
+            //var list = new List<Person>() { p1, p2, p3 };
+            //var res = list.Distinct<Person, int>(b => b.Age).ToList();
             Console.ReadLine();
         }
 
@@ -38,7 +39,10 @@ namespace ConsoleTest
 
     public class Person
     {
+        public Person(string name)
+        {
 
+        }
         public string Name { get; set; }
         public int Age { get; set; }
     }
