@@ -9,9 +9,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Aaron.Common</RootNamespace>
     <AssemblyName>Aaron.Common</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -72,7 +73,6 @@
     <Compile Include="IIS和Host\IISHelp.cs" />
     <Compile Include="ProcessHelper.cs" />
     <Compile Include="StringHelper.cs" />
-    <Compile Include="ConvertHelper.cs" />
     <Compile Include="XML和配置文件\XMLHelper.cs" />
     <Compile Include="XML和配置文件\XMLPath.cs" />
     <Compile Include="自动编译项目\AutoBuildHelper.cs" />
