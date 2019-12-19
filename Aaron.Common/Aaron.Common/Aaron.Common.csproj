@@ -72,7 +72,6 @@
     <Compile Include="IIS和Host\HostHelper.cs" />
     <Compile Include="IIS和Host\IISHelp.cs" />
     <Compile Include="ProcessHelper.cs" />
-    <Compile Include="StringHelper.cs" />
     <Compile Include="XML和配置文件\XMLHelper.cs" />
     <Compile Include="XML和配置文件\XMLPath.cs" />
     <Compile Include="自动编译项目\AutoBuildHelper.cs" />

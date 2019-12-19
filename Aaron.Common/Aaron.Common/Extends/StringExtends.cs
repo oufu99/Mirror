@@ -32,5 +32,14 @@ namespace Aaron.Common
             }
             return str.Substring(index);
         }
+
+        public static string RemoveLastChar(this string str)
+        {
+            if (str.Length > 0)
+            {
+                return str.Remove(str.Length - 1, 1);
+            }
+            return "";
+        }
     }
 }

@@ -21,7 +21,8 @@ namespace UnitUser
             //var subject = "举报";
 
             //EmailHelper.SendQQEmail(smtpCode, toEmail, toEmail, subject, "测试1\n测试2\n测试3\n测试4\n");
-            BrowserHelper.OpenBrowserUrl("http://www.baidu.com");
+            var t="test11".RemoveLastChar();
+            Console.WriteLine(t);
             Console.ReadLine();
 
 
