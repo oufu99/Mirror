@@ -16,8 +16,8 @@ namespace DirFileSortAndRename
 
             FileHelper.DifferentFileSortOrderby(dirPath);
             var targetFile = Path.Combine(dirPath, SortDirType.音频);
-            BaseRename model = new BaseRename();
-            model.Rename(dirPath);
+            //BaseRename model = new BaseRename();
+            //model.Rename(dirPath);
         }
     }
 

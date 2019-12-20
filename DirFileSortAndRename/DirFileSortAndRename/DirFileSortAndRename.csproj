@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{D90EF7BB-D8A7-493D-A2AE-978B57CCB41C}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>EveryDayEveryBookSort</RootNamespace>
-    <AssemblyName>EveryDayEveryBookSort</AssemblyName>
+    <RootNamespace>DirFileSortAndRename</RootNamespace>
+    <AssemblyName>DirFileSortAndRename</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
