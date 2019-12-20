@@ -76,7 +76,7 @@
     <Compile Include="XML和配置文件\XMLPath.cs" />
     <Compile Include="自动编译项目\AutoBuildHelper.cs" />
     <Compile Include="FileHelper.cs" />
-    <Compile Include="EveryDayBookAndZhiXuanCangShuHelper.cs" />
+    <Compile Include="BigFileHelper.cs" />
     <Compile Include="BrowserHelper.cs" />
     <Compile Include="ConfigHelper.cs" />
     <Compile Include="EmailHelper.cs" />

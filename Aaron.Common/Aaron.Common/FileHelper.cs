@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Aaron.Common
 {
-    public class FileHelper
+    public partial class FileHelper
     {
         #region 文件相关
         /// <summary>

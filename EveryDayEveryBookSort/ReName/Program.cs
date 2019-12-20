@@ -6,131 +6,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ReName
+namespace DirFileSortAndRename
 {
     class Program
     {
-        static void Main1(string[] args)
-        {
-            //重命名
-
-            //bf0410   开始  每次循环12 *  31次
-            //定义一个001的种子开始
-
-            var index = 1;
-            var month = 4;
-
-            var path = @"D:\每天听本书-图片\";
-            var list = new List<string>();
-            var files = IOHelper.GetDirectorAllFile(path, list);
-
-            for (int j = 0; j < 12; j++)
-            {
-                for (int i = 0; i < 31; i++)
-                {
-                    var str = $"bf{FormatterMonth(month)}{FormatterMonth(i)}";
-                    //替换掉前面几个字
-                    var oldNames = list.Where(c => c.Contains(str));
-                    if (oldNames.Count() > 0)
-                    {
-                        if (oldNames.Count() > 1)
-                        {
-                            var oldList = oldNames.ToList();
-
-                            //整一个标识用来对应修改前和修改后的
-
-                            //把广告词替换掉
-                            //排序
-                            oldList.Sort((x, y) => x.Length.CompareTo(y.Length));
-                            for (int z = 0; z < oldList.Count; z++)
-                            {
-                                var oldName = oldList[z];
-                                var newName = oldList[z].Replace(str, FormatterString(index)).Replace("更多课程微信know811", ""); ;
-                                var oldPath = Path.Combine(path, oldName);
-                                IOHelper.ReNameFileByNewPath(oldPath, newName);
-
-                                index++;
-                            }
-                        }
-                        else
-                        {
-                            var oldName = oldNames.First();
-                            //测试代码
-                            if (oldName.Contains("0101"))
-                            {
-
-                            }
-                            var newName = oldName.Replace(str, FormatterString(index)).Replace("更多课程微信know811", "");
-                            var oldPath = Path.Combine(path, oldName);
-                            IOHelper.ReNameFileByNewPath(oldPath, newName);
-                            index++;
-                        }
-
-                    }
-                }
-                if (month == 12)
-                {
-                    month = 0;
-                }
-                month++;
-            }
-            Console.ReadLine();
-        }
-        static string FormatterMonth(int index)
-        {
-            if (index < 10)
-            {
-                return $"0{index}";
-            }
-            return index.ToString();
-
-        }
-
-        static string FormatterString(int index)
-        {
-            if (index < 10)
-            {
-                return $"00{index}";
-            }
-            if (index < 100)
-            {
-                return $"0{index}";
-            }
-            return index.ToString();
-
-        }
-
-
-
         static void Main(string[] args)
         {
-            Person p1 = new Person() { Name = "张三", YuWen = 60, ShuXue = 66 };
-            Person p2 = new Person() { Name = "张三", YuWen = 60, ShuXue = 66 };
-            Person p3 = new Person() { Name = "张三", YuWen = 60, ShuXue = 66 };
-            Person p4 = new Person() { Name = "李四", YuWen = 60, ShuXue = 66 };
-            Person p5 = new Person() { Name = "李四", YuWen = 60, ShuXue = 66 };
-            Person p6 = new Person() { Name = "王五", YuWen = 60, ShuXue = 66 };
+            var dirPath = @"F:\认知方法论";
 
-            var list = new List<Person>() { p1, p2, p3, p4, p5, p6 };
-
-
-            var group = list.GroupBy(c => c.Name).ToList();
-            foreach (var item in group)
-            {
-                var li = item.ToList();
-                var sum = li.Sum(c => c.ShuXue + c.YuWen);
-            }
-            Console.ReadLine();
-
+            FileHelper.DifferentFileSortOrderby(dirPath);
+            var targetFile = Path.Combine(dirPath, SortDirType.音频);
+            BaseRename model = new BaseRename();
+            model.Rename(dirPath);
         }
     }
 
 
-    public class Person
-    {
-        public string Name { get; set; }
-        public int YuWen { get; set; }
 
-        public int ShuXue { get; set; }
-    }
 }
