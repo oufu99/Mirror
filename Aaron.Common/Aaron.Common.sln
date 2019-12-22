@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aaron.Common", "Aaron.Commo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitUser", "UnitUser\UnitUser.csproj", "{3E0B20B6-3954-496A-A04E-054254889922}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aaron.DataHelper", "Aaron.DataHelper\Aaron.DataHelper.csproj", "{2350D6E3-836F-42B6-A307-DFEF14F2DD4A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{3E0B20B6-3954-496A-A04E-054254889922}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3E0B20B6-3954-496A-A04E-054254889922}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3E0B20B6-3954-496A-A04E-054254889922}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2350D6E3-836F-42B6-A307-DFEF14F2DD4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2350D6E3-836F-42B6-A307-DFEF14F2DD4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2350D6E3-836F-42B6-A307-DFEF14F2DD4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2350D6E3-836F-42B6-A307-DFEF14F2DD4A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

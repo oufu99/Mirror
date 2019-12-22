@@ -15,14 +15,10 @@ namespace UnitUser
 
         static void Main(string[] args)
         {
-            //var smtpCode = "ldbwpluuzhmsbjbj";
-            //string toEmail = "51758018@qq.com";
-            //var fromEmail = "q51758018@163.com";
-            //var subject = "举报";
 
-            //EmailHelper.SendQQEmail(smtpCode, toEmail, toEmail, subject, "测试1\n测试2\n测试3\n测试4\n");
-            var t="test11".RemoveLastChar();
-            Console.WriteLine(t);
+             
+
+
             Console.ReadLine();
 
 

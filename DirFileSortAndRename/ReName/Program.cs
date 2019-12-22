@@ -12,12 +12,12 @@ namespace DirFileSortAndRename
     {
         static void Main(string[] args)
         {
-            var dirPath = @"F:\认知方法论";
+            //var dirPath = @"E:\认知方法论\";
 
-            FileHelper.DifferentFileSortOrderby(dirPath);
-            var targetFile = Path.Combine(dirPath, SortDirType.音频);
-            //BaseRename model = new BaseRename();
-            //model.Rename(dirPath);
+            //FileHelper.DifferentFileSortOrderby(dirPath);
+            var targetFile = @"E:\认知方法论\图片归类\";
+            BaseRename model = new BaseRename();
+            model.Rename(targetFile);
         }
     }
 
