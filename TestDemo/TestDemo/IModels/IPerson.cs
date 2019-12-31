@@ -11,20 +11,7 @@ namespace IModels
         void Say();
     }
 
-    public class Person
-    {
-        public string Name { get; set; }
-        public void Say()
-        {
-            Console.WriteLine("Person1");
-        }
-    }
+   
 
-    public class Person2 : IPerson
-    {
-        public void Say()
-        {
-            Console.WriteLine("Person2");
-        }
-    }
+   
 }

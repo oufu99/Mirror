@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Models
 {
-    public class Person3 : IPerson
+    internal class Person
     {
-        public void Say()
+        protected void Say()
         {
             Console.WriteLine("Person3");
         }

@@ -23,9 +23,10 @@ namespace ConsoleTest
     {
         static void Main(string[] args)
         {
-            Perosn p = new Student();
 
-            p.wanju.Introduce();
+
+            Person p = new Person();
+
 
             Console.ReadLine();
         }
@@ -35,42 +36,7 @@ namespace ConsoleTest
 
     }
 
-    public abstract class Perosn
-    {
-        internal Wanju wanju;
-        public Perosn(string str)
-        {
-            Console.WriteLine("11111");
-            wanju = new Wanju();
-            wanju.Name = "玩具1";
-        }
-
-        public Perosn()
-        {
-            Console.WriteLine("333");
-            wanju = new Wanju();
-            wanju.Name = "玩具1";
-        }
-    }
-
-    public class Wanju
-    {
-        public string Name { get; set; }
-        public void Introduce()
-        {
-            Console.WriteLine(Name);
-        }
-    }
-
-    public class Student : Perosn
-    {
-        public Student()
-        {
-            Console.WriteLine("222");
-
-            wanju.Name = "玩具2";
-        }
-        public string Name { get; set; }
-    }
+    
+   
 
 }
