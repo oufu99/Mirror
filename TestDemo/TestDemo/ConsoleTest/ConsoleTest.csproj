@@ -112,6 +112,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Aaron.Common\Aaron.Common\Aaron.Common.csproj">
+      <Project>{e69c1078-89c4-49d9-a64c-7bc8e9415a33}</Project>
+      <Name>Aaron.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\IModels\IModels.csproj">
       <Project>{63492992-1fcc-494e-82a0-4958c41db48e}</Project>
       <Name>IModels</Name>

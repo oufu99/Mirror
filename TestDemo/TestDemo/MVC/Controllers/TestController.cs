@@ -1,4 +1,5 @@
-﻿using MVC.Models;
+﻿using Aaron.Common;
+using MVC.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,12 +15,12 @@ namespace MVC.Controllers
         public ActionResult Index()
         {
 
-            Person p = new Person();
-            return View();
+            var te = ConfigHelper.GetAppConfig("test");
+            return Content(te);
 
         }
 
-        
+
         public ActionResult Index2(Person list)
         {
 

@@ -1,4 +1,5 @@
 ﻿
+using Aaron.Common;
 using ConsoleTest.Models;
 using IModels;
 using Microsoft.Practices.ServiceLocation;
@@ -22,27 +23,8 @@ namespace ConsoleTest
     {
         static void Main(string[] args)
         {
-            var total = 120000000;
-            //Action action = new Action(Test);
-            //Task.Run(action);
+            var te = ConfigHelper.GetAppConfig("test");
 
-            Console.WriteLine("主线程执行！");
-            ThreadPool.SetMinThreads(1, 5);
-            ThreadPool.SetMaxThreads(5, 5);
-            for (int i = 1; i <= total; i++)
-            {
-                ThreadPool.QueueUserWorkItem(new WaitCallback(Test), i.ToString());
-            }
-
-            //var i = 0;
-            //while (true)
-            //{
-            //    i++;
-            //    ThreadPool.QueueUserWorkItem(new WaitCallback(Test), i.ToString());
-            //}
-            Console.WriteLine("主线程结束！");
-
-            
             Console.ReadLine();
         }
 
