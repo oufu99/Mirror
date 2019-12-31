@@ -5,6 +5,7 @@ using IModels;
 using Microsoft.Practices.ServiceLocation;
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.Configuration;
+using Models;
 using Newtonsoft.Json;
 using SendLib;
 using System;
@@ -25,7 +26,7 @@ namespace ConsoleTest
         {
 
 
-            Person p = new Person();
+            Person p = new Person("11");
 
 
             Console.ReadLine();
@@ -36,7 +37,7 @@ namespace ConsoleTest
 
     }
 
-    
-   
+
+
 
 }

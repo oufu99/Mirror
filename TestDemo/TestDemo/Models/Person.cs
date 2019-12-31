@@ -7,9 +7,18 @@ using System.Threading.Tasks;
 
 namespace Models
 {
-    internal class Person
+    public class Person
     {
-        protected void Say()
+        private Person()
+        {
+
+        }
+
+        public Person(string str)
+        {
+
+        }
+        public void Say()
         {
             Console.WriteLine("Person3");
         }
