@@ -23,29 +23,54 @@ namespace ConsoleTest
     {
         static void Main(string[] args)
         {
-            var te = ConfigHelper.GetAppConfig("test");
+            Perosn p = new Student();
+
+            p.wanju.Introduce();
 
             Console.ReadLine();
         }
 
 
-        public static void Test(object obj)
-        {
 
-            var list = new List<Person>();
-            for (int i = 0; i < 100000; i++)
-            {
-
-                list.Add(new Person() { Name = "Test" });
-            }
-            Console.WriteLine("完成了" + obj.ToString());
-            //System.IO.File.AppendAllText(@"d:\jialin.txt", "完成了" + obj.ToString());
-
-
-
-        }
 
     }
 
+    public abstract class Perosn
+    {
+        internal Wanju wanju;
+        public Perosn(string str)
+        {
+            Console.WriteLine("11111");
+            wanju = new Wanju();
+            wanju.Name = "玩具1";
+        }
+
+        public Perosn()
+        {
+            Console.WriteLine("333");
+            wanju = new Wanju();
+            wanju.Name = "玩具1";
+        }
+    }
+
+    public class Wanju
+    {
+        public string Name { get; set; }
+        public void Introduce()
+        {
+            Console.WriteLine(Name);
+        }
+    }
+
+    public class Student : Perosn
+    {
+        public Student()
+        {
+            Console.WriteLine("222");
+
+            wanju.Name = "玩具2";
+        }
+        public string Name { get; set; }
+    }
 
 }
