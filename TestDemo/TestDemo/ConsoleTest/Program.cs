@@ -26,14 +26,51 @@ namespace ConsoleTest
         {
 
 
-            Person p = new Person("11");
 
+            Test1 t = new Test1();
+
+            var res = t?.Say2();
+
+            var x = nameof(Test1?.Say2);
 
             Console.ReadLine();
         }
 
 
 
+
+    }
+
+    interface ITest
+    {
+
+        string Name { get; set; }
+        void Say();
+        void Say1();
+    }
+
+    public abstract class Test : ITest
+    {
+        public string MyProperty { get; set; }
+        private string _name;
+        public string Name
+        { get => "33"; set => throw new NotImplementedException(); }
+
+
+        public abstract void Say();
+        public void Say1() { }
+    }
+
+    public class Test1 : Test
+    {
+        public override void Say()
+        {
+            Console.WriteLine(Name);
+        }
+        public string Say2()
+        {
+            return "333";
+        }
 
     }
 
