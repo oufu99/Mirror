@@ -30,15 +30,15 @@ namespace ConsoleTest
             Test1 t = new Test1();
 
             var res = t?.Say2();
+ 
 
-            var x = nameof(Test1?.Say2);
+
 
             Console.ReadLine();
         }
 
 
-
-
+         
     }
 
     interface ITest
@@ -61,7 +61,7 @@ namespace ConsoleTest
         public void Say1() { }
     }
 
-    public class Test1 : Test
+    public class Test1 : Test 
     {
         public override void Say()
         {
