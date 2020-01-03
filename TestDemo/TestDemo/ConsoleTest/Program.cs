@@ -2,11 +2,7 @@
 using Aaron.Common;
 using ConsoleTest.Models;
 using IModels;
-using Microsoft.Practices.ServiceLocation;
-using Microsoft.Practices.Unity;
-using Microsoft.Practices.Unity.Configuration;
-using Models;
-using Newtonsoft.Json;
+
 using SendLib;
 using System;
 using System.Collections.Generic;
@@ -18,6 +14,9 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
+using Models;
+using Newtonsoft.Json;
+
 namespace ConsoleTest
 {
     class Program
@@ -26,15 +25,21 @@ namespace ConsoleTest
         {
 
 
-            Person p = new Person("11");
-
-
+            Operate op = new Operate();
+            op.UpdatePersonName("haha");
+            op.PersonSay();
+             
             Console.ReadLine();
         }
 
 
 
+        public void TestFun()
+        {
+            int a = 1;
+            Console.WriteLine(a);
 
+        }
     }
 
 
