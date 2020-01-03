@@ -29,8 +29,8 @@ namespace ConsoleTest
 
             Test1 t = new Test1();
 
-            var res = t?.Say2();
- 
+          
+
 
 
 
@@ -38,7 +38,7 @@ namespace ConsoleTest
         }
 
 
-         
+
     }
 
     interface ITest
@@ -61,15 +61,19 @@ namespace ConsoleTest
         public void Say1() { }
     }
 
-    public class Test1 : Test 
+    public class Test1
     {
-        public override void Say()
+        static Test1()
         {
-            Console.WriteLine(Name);
+            Console.WriteLine("静态构造");
         }
-        public string Say2()
+
+        public Test1()
         {
-            return "333";
+            Console.WriteLine("普通构造");
+        }
+        public void Say2()
+        {
         }
 
     }
