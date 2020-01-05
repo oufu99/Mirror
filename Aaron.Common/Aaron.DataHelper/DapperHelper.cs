@@ -7,7 +7,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using Dapper;
 
-namespace Aaron.DataHelper
+namespace Aaron.DataCommon
 {
     public class DapperHelper<T>
     {

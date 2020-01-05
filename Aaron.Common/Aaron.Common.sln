@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aaron.Common", "Aaron.Commo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitUser", "UnitUser\UnitUser.csproj", "{3E0B20B6-3954-496A-A04E-054254889922}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aaron.DataHelper", "Aaron.DataHelper\Aaron.DataHelper.csproj", "{2350D6E3-836F-42B6-A307-DFEF14F2DD4A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aaron.DataCommon", "Aaron.DataHelper\Aaron.DataCommon.csproj", "{2350D6E3-836F-42B6-A307-DFEF14F2DD4A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
