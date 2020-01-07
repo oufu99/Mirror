@@ -9,147 +9,136 @@ using System.Threading.Tasks;
 
 namespace Aaron.DataCommon
 {
-    public class RedisHelper
+    public class RedisHelper : IDisposable
     {
-        int Default_Timeout = 600;//默认超时时间（单位秒）
-        string address;
-        JsonSerializerSettings jsonConfig = new JsonSerializerSettings() { ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore, NullValueHandling = NullValueHandling.Ignore };
-        ConnectionMultiplexer connectionMultiplexer;
-        IDatabase database;
 
-        class CacheObject<T>
-        {
-            public int ExpireTime { get; set; }
-            public bool ForceOutofDate { get; set; }
-            public T Value { get; set; }
-        }
-
-        public RedisHelper()
-        {
-            //暂时只有我一个人用,直接写死
-            //this.address = ConfigurationManager.AppSettings["RedisServer"];
-            this.address = "127.0.0.1:6379";
-
-
-            if (this.address == null || string.IsNullOrWhiteSpace(this.address.ToString()))
-                throw new ApplicationException("配置文件中未找到RedisServer的有效配置");
-            connectionMultiplexer = ConnectionMultiplexer.Connect(address);
-            database = connectionMultiplexer.GetDatabase();
-        }
-
-        /// <summary>
-        /// 连接超时设置
-        /// </summary>
-        public int TimeOut
+        private static ConnectionMultiplexer redis = null;
+        private static bool connected = false;
+        private IDatabase db = null;
+        private int current = 0;
+        public static bool IsConnected
         {
             get
             {
-                return Default_Timeout;
+                Open();
+                return redis.IsConnected;
             }
-            set
+        }
+        public static bool Test()
+        {
+            bool r = true;
+            try
             {
-                Default_Timeout = value;
+                RedisHelper.Using(rs => { rs.Use(0); });
             }
-        }
-
-        public object Get(string key)
-        {
-            return Get<object>(key);
-        }
-
-        public T Get<T>(string key)
-        {
-
-            DateTime begin = DateTime.Now;
-            var cacheValue = database.StringGet(key);
-            DateTime endCache = DateTime.Now;
-            var value = default(T);
-            if (!cacheValue.IsNull)
+            catch (Exception e)
             {
-                var cacheObject = JsonConvert.DeserializeObject<CacheObject<T>>(cacheValue, jsonConfig);
-                if (!cacheObject.ForceOutofDate)
-                    database.KeyExpire(key, new TimeSpan(0, 0, cacheObject.ExpireTime));
-                value = cacheObject.Value;
+                //记录日志
+                r = false;
             }
-            DateTime endJson = DateTime.Now;
-            return value;
-
+            return r;
         }
-
-        public void Set(string key, object data)
+        private static int Open()
         {
-            var jsonData = GetJsonData(data, TimeOut, false);
-            database.StringSet(key, jsonData);
+            if (connected) return 1;
+            redis = ConnectionMultiplexer.Connect("localhost:6379,password=123456,abortConnect = false");
+            //redis = ConnectionMultiplexer.Connect("127.0.0.1:6379");
+            connected = true;
+            return 1;
         }
-
-        public void Set(string key, object data, int cacheTime)
+        public static void Using(Action<RedisHelper> func)
         {
-            var timeSpan = TimeSpan.FromSeconds(cacheTime);
-            var jsonData = GetJsonData(data, TimeOut, true);
-            database.StringSet(key, jsonData, timeSpan);
+            using (var red = new RedisHelper())
+            {
+                func(red);
+            }
         }
-
-        public void Set(string key, object data, DateTime cacheTime)
+        public RedisHelper Use(int i)
         {
-            var timeSpan = cacheTime - DateTime.Now;
-            var jsonData = GetJsonData(data, TimeOut, true);
-            database.StringSet(key, jsonData, timeSpan);
+            Open();
+            current = i;
+            db = redis.GetDatabase(i);
+
+            //Log.Logs($"RedisDB Conntet State: {redis.IsConnected}");
+            var t = db.Ping();
+            //Log.Logs($"RedisDB Select {i}, Ping.{t.TotalMilliseconds}ms");
+            return this;
         }
 
-        public void Set<T>(string key, T data)
+        public void Set(string key, string val, TimeSpan? ts = null)
         {
-            var jsonData = GetJsonData<T>(data, TimeOut, false);
-            database.StringSet(key, jsonData);
+            db.StringSet(key, val, ts);
         }
 
-        public void Set<T>(string key, T data, int cacheTime)
+        public string Get(string key)
         {
-            var timeSpan = TimeSpan.FromSeconds(cacheTime);
-            var jsonData = GetJsonData<T>(data, TimeOut, true);
-            database.StringSet(key, jsonData, timeSpan);
+            return db.StringGet(key);
         }
 
-        public void Set<T>(string key, T data, DateTime cacheTime)
-        {
-            var timeSpan = cacheTime - DateTime.Now;
-            var jsonData = GetJsonData<T>(data, TimeOut, true);
-            database.StringSet(key, jsonData, timeSpan);
-        }
-
-
-        string GetJsonData(object data, int cacheTime, bool forceOutOfDate)
-        {
-            var cacheObject = new CacheObject<object>() { Value = data, ExpireTime = cacheTime, ForceOutofDate = forceOutOfDate };
-            return JsonConvert.SerializeObject(cacheObject, jsonConfig);//序列化对象
-        }
-
-        string GetJsonData<T>(T data, int cacheTime, bool forceOutOfDate)
-        {
-            var cacheObject = new CacheObject<T>() { Value = data, ExpireTime = cacheTime, ForceOutofDate = forceOutOfDate };
-            return JsonConvert.SerializeObject(cacheObject, jsonConfig);//序列化对象
-        }
-        /// <summary>
-        /// 删除
-        /// </summary>
-        /// <param name="key"></param>
         public void Remove(string key)
         {
-            database.KeyDelete(key, CommandFlags.HighPriority);
+            db.KeyDelete(key, CommandFlags.HighPriority);
+        }
+
+        public bool Exists(string key)
+        {
+            return db.KeyExists(key);
+        }
+
+        public void Dispose()
+        {
+            db = null;
+        }
+
+
+
+        public delegate void RedisDeletegate(string str);
+        public event RedisDeletegate RedisSubMessageEvent;
+
+        /// <summary>
+        /// 订阅
+        /// </summary>
+        /// <param name="subChannel"></param>
+        public void RedisSub(string subChannel)
+        {
+
+            redis.GetSubscriber().Subscribe(subChannel, (channel, message) =>
+            {
+                RedisSubMessageEvent?.Invoke(message); //触发事件
+
+            });
+
         }
 
         /// <summary>
-        /// 判断key是否存在
+        /// 发布
         /// </summary>
-        public bool Exists(string key)
+        /// <typeparam name="T"></typeparam>
+        /// <param name="channel"></param>
+        /// <param name="msg"></param>
+        /// <returns></returns>
+        public long RedisPub<T>(string channel, T msg)
         {
-            return database.KeyExists(key);
+
+            return redis.GetSubscriber().Publish(channel, JsonConvert.SerializeObject(msg));
         }
 
-
-        public IDatabase GetClient()
+        /// <summary>
+        /// 取消订阅
+        /// </summary>
+        /// <param name="channel"></param>
+        public void Unsubscribe(string channel)
         {
-            return database;
+            redis.GetSubscriber().Unsubscribe(channel);
         }
 
+        /// <summary>
+        /// 取消全部订阅
+        /// </summary>
+        public void UnsubscribeAll()
+        {
+            redis.GetSubscriber().UnsubscribeAll();
+
+        }
     }
 }
