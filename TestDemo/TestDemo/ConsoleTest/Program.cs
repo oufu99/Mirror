@@ -23,15 +23,15 @@ namespace ConsoleTest
     {
         static void Main(string[] args)
         {
+            Dictionary<string, List<string>> dic = new Dictionary<string, List<string>>();
+            dic.Add("1001", new List<string>() { "2020-01-18", "2020-01-19", "2020-01-20" });
+            dic.Add("1002", new List<string>() { "2020-01-18", "2020-01-20" });
 
-
+            var js = JsonConvert.SerializeObject(dic);
+            
+            Console.ReadLine();
 
         }
-
-
     }
-
-
-
-
 }
+
