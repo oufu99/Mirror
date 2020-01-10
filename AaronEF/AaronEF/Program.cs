@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,14 @@ namespace AaronEF
     {
         static void Main(string[] args)
         {
+            Person u = new Person() { Id = 3,
+                Age = 11, Name = "testEF616" };
+
+            //PersonRepository.Insert(u);
+            PersonRepository.Update(u);
+
+
+            Console.ReadLine();
         }
     }
 }

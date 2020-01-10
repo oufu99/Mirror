@@ -9,10 +9,15 @@ namespace Models
 {
     public class AaronContext : DbContext
     {
+        //试一下直接用conn不加name
         public AaronContext():base("name=connSqlServer")
         {
              
         }
         public DbSet<Users> Users { get; set; }
+        public DbSet<Person> Persons { get; set; }
+         
+
+
     }
 }
