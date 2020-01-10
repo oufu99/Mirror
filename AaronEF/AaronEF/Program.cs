@@ -25,9 +25,6 @@ namespace AaronEF
 
             Console.ReadLine();
         }
-        public void Func()
-        {
-
-        }
+         
     }
 }
