@@ -17,6 +17,7 @@ using System.Threading.Tasks;
 using Models;
 using Newtonsoft.Json;
 using System.Collections;
+using System.Globalization;
 
 namespace ConsoleTest
 {
@@ -24,8 +25,10 @@ namespace ConsoleTest
     {
         static void Main(string[] args)
         {
-            IList<string> list = new List<string>() { "123", "234" };
-            list.Count();
+            var time = DateTime.Now.ToString("r");
+
+            var time2 = DateTime.Parse(time);
+            Console.WriteLine(time);
             Console.ReadLine();
 
         }
