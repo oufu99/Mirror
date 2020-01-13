@@ -26,7 +26,6 @@ namespace ConsoleTest
         static void Main(string[] args)
         {
             var time = DateTime.Now.ToString("r");
-
             var time2 = DateTime.Parse(time);
             Console.WriteLine(time);
             Console.ReadLine();
