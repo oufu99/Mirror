@@ -25,17 +25,20 @@ namespace ConsoleTest
     {
         static void Main(string[] args)
         {
-            var p = new Person() { Name = "123" };
 
-
-
-            var p2 = JsonConvert.DeserializeObject<Person>(JsonConvert.SerializeObject(p));
-            Console.WriteLine(p2.Name);
-            p2.Name = "222";
-            Console.WriteLine(p.Name);
+            var t = (int)TestEnum.Vip;
             Console.ReadLine();
 
         }
+    }
+
+    public enum TestEnum
+    {
+        普通,
+        正常,
+        Vip,
+
+
     }
 }
 
