@@ -25,9 +25,14 @@ namespace ConsoleTest
     {
         static void Main(string[] args)
         {
-            var time = DateTime.Now.ToString("r");
-            var time2 = DateTime.Parse(time);
-            Console.WriteLine(time);
+            var p = new Person() { Name = "123" };
+
+
+
+            var p2 = JsonConvert.DeserializeObject<Person>(JsonConvert.SerializeObject(p));
+            Console.WriteLine(p2.Name);
+            p2.Name = "222";
+            Console.WriteLine(p.Name);
             Console.ReadLine();
 
         }
