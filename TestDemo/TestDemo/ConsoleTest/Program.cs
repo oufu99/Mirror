@@ -14,8 +14,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-using Models;
-using Newtonsoft.Json;
+
 using System.Collections;
 using System.Globalization;
 
@@ -25,20 +24,47 @@ namespace ConsoleTest
     {
         static void Main(string[] args)
         {
+            var p = new Person2();
+            Console.WriteLine(p.Name);
 
-            var t = (int)TestEnum.Vip;
+
             Console.ReadLine();
 
         }
     }
 
-    public enum TestEnum
+    public class Person
     {
-        普通,
-        正常,
-        Vip,
+        public Person()
+        {
+            this.Name = "Test";
+        }
+        public string Name { get; set; }
+        public int Age { get; set; }
+        public void Say()
+        {
+            Console.WriteLine(Name);
+        }
+    }
 
+    public class Person2 : Person
+    {
+        public new string Name { get; set; }
+    }
 
+    public class MyComparer<T> : IEqualityComparer<T>
+        where T : Person
+    {
+        public bool Equals(T x, T y)
+        {
+           return (x.Name == y.Name) && x.Name == "222";
+         
+        }
+
+        public int GetHashCode(T obj)
+        {
+            return obj.ToString().GetHashCode();
+        }
     }
 }
 
