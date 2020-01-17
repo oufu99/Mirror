@@ -24,41 +24,50 @@ namespace ConsoleTest
     {
         static void Main(string[] args)
         {
-            var p = new Person2();
-            Console.WriteLine(p.Name);
-
-
+            Person p = new Person2("aaa", "bbb");
+            p.Say("test");
+            p = new Person3();
+            p.Say("test");
             Console.ReadLine();
 
         }
     }
 
-    public class Doing<T>
-        where T : Person
+
+
+    public abstract class Person
     {
-        public void Say(T model)
-        {
-            model.Say();
-
-        }
-    }
-
-    public class Person
-    {
-
         public string Name { get; set; }
         public int Age { get; set; }
-        public void Say()
+        public abstract void Say(string str);
+
+        public void Func()
         {
-            Console.WriteLine("我是父类");
+            Console.WriteLine("哈哈");
         }
+
     }
 
     public class Person2 : Person
     {
-        public void Say()
+        string a;
+        string b;
+        public Person2(string s, string s2)
         {
-            Console.WriteLine("我是子类");
+            a = s;
+            b = s2;
+        }
+        public override void Say(string str)
+        {
+            Console.WriteLine(a + "===" + b);
+        }
+    }
+    public class Person3 : Person
+    {
+
+        public override void Say(string str)
+        {
+            Console.WriteLine("我只是一个弟弟");
         }
     }
 
