@@ -24,7 +24,15 @@ namespace Models
                 context.SaveChanges();
             }
         }
-
+        public static void InsertList<T>(List<T> list)
+         where T : class
+        {
+            using (AaronContext context = new AaronContext())
+            {
+                context.Set<T>().AddRange(list);
+                context.SaveChanges();
+            }
+        }
         /// <summary>
         /// 修改某一模型数据
         /// </summary>
