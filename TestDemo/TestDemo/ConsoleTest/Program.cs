@@ -33,23 +33,33 @@ namespace ConsoleTest
         }
     }
 
+    public class Doing<T>
+        where T : Person
+    {
+        public void Say(T model)
+        {
+            model.Say();
+
+        }
+    }
+
     public class Person
     {
-        public Person()
-        {
-            this.Name = "Test";
-        }
+
         public string Name { get; set; }
         public int Age { get; set; }
         public void Say()
         {
-            Console.WriteLine(Name);
+            Console.WriteLine("我是父类");
         }
     }
 
     public class Person2 : Person
     {
-        public new string Name { get; set; }
+        public void Say()
+        {
+            Console.WriteLine("我是子类");
+        }
     }
 
     public class MyComparer<T> : IEqualityComparer<T>
@@ -57,8 +67,8 @@ namespace ConsoleTest
     {
         public bool Equals(T x, T y)
         {
-           return (x.Name == y.Name) && x.Name == "222";
-         
+            return (x.Name == y.Name) && x.Name == "222";
+
         }
 
         public int GetHashCode(T obj)
