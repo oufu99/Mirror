@@ -23,73 +23,72 @@ namespace ConsoleTest
     {
         static void Main(string[] args)
         {
-            Person p = new Person();
+            IPerson p = new Person();
             Console.WriteLine(p.CHECK);
             Console.ReadLine();
 
-           
+        }
+
+
+        public class Person
+        {
+            public string Name { get; set; }
+            public bool CHECK { get; set; }
+
+        }
+
+
+        #region MyRegion
+        //public abstract class Person
+        //{
+        //    public string Name { get; set; }
+        //    public int Age { get; set; }
+        //    public abstract void Say(string str);
+
+        //    public void Func()
+        //    {
+        //        Console.WriteLine("哈哈");
+        //    }
+
+        //}
+
+        //public class Person2 : Person
+        //{
+        //    string a;
+        //    string b;
+        //    public Person2(string s, string s2)
+        //    {
+        //        a = s;
+        //        b = s2;
+        //    }
+        //    public override void Say(string str)
+        //    {
+        //        Console.WriteLine(a + "===" + b);
+        //    }
+        //}
+        //public class Person3 : Person
+        //{
+
+        //    public override void Say(string str)
+        //    {
+        //        Console.WriteLine("我只是一个弟弟");
+        //    }
+        //}
+
+        //public class MyComparer<T> : IEqualityComparer<T>
+        //    where T : Person
+        //{
+        //    public bool Equals(T x, T y)
+        //    {
+        //        return (x.Name == y.Name) && x.Name == "222";
+
+        //    }
+
+        //    public int GetHashCode(T obj)
+        //    {
+        //        return obj.ToString().GetHashCode();
+        //    }
+        //} 
+        #endregion
     }
-
-
-    public  class Person
-    {
-        public string Name { get; set; }
-        public bool CHECK { get; set; }
-        
-    }
-   
-
-    #region MyRegion
-    //public abstract class Person
-    //{
-    //    public string Name { get; set; }
-    //    public int Age { get; set; }
-    //    public abstract void Say(string str);
-
-    //    public void Func()
-    //    {
-    //        Console.WriteLine("哈哈");
-    //    }
-
-    //}
-
-    //public class Person2 : Person
-    //{
-    //    string a;
-    //    string b;
-    //    public Person2(string s, string s2)
-    //    {
-    //        a = s;
-    //        b = s2;
-    //    }
-    //    public override void Say(string str)
-    //    {
-    //        Console.WriteLine(a + "===" + b);
-    //    }
-    //}
-    //public class Person3 : Person
-    //{
-
-    //    public override void Say(string str)
-    //    {
-    //        Console.WriteLine("我只是一个弟弟");
-    //    }
-    //}
-
-    //public class MyComparer<T> : IEqualityComparer<T>
-    //    where T : Person
-    //{
-    //    public bool Equals(T x, T y)
-    //    {
-    //        return (x.Name == y.Name) && x.Name == "222";
-
-    //    }
-
-    //    public int GetHashCode(T obj)
-    //    {
-    //        return obj.ToString().GetHashCode();
-    //    }
-    //} 
-    #endregion
-}
 
