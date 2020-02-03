@@ -23,13 +23,9 @@ namespace ConsoleTest
     {
         static void Main(string[] args)
         {
-            IPerson p = new Person();
-            Console.WriteLine(p.CHECK);
-            Console.ReadLine();
+
 
         }
-
-
         public class Person
         {
             public string Name { get; set; }
