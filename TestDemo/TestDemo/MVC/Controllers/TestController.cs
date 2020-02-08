@@ -15,8 +15,7 @@ namespace MVC.Controllers
         public ActionResult Index()
         {
 
-            var te = ConfigHelper.GetAppConfig("test");
-            return Content(te);
+            return View();
 
         }
 
