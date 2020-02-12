@@ -25,7 +25,8 @@ namespace ConsoleTest
     {
         static void Main(string[] args)
         {
-            
+
+            string rs = JsonConvert.DeserializeObject<string>("111");
 
             
 
