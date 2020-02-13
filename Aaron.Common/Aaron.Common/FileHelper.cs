@@ -93,6 +93,18 @@ namespace Aaron.Common
         }
 
         /// <summary>
+        /// 根据全路径获取中间那一段  去掉盘符和后缀的
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
+        public static string GetMiddleNameByFullPath(string filePath)
+        {
+            filePath = GetFilePathByFullPath(filePath);
+            filePath = GetFullNamenNotDiskByFullPath(filePath);
+            return filePath;
+        }
+
+        /// <summary>
         /// 根据全路径获取文件路径(除了文件名的其他信息)
         /// </summary>
         /// <param name="fileName"></param>
@@ -125,6 +137,26 @@ namespace Aaron.Common
             }
             return filePath.Substring(0, lastIndex);
         }
+
+        /// <summary>
+        /// 根据全路径获取盘符
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
+        public static string GetFullNamenNotDiskByFullPath(string filePath)
+        {
+            //替换所有/ 为\
+            filePath = filePath.Replace(@"/", @"\");
+            var lastIndex = filePath.IndexOf(@"\");
+            if (lastIndex <= 0)
+            {
+                return "";
+            }
+            //去除c:/xx的/号
+            lastIndex = lastIndex + 1;
+            return filePath.Substring(lastIndex, filePath.Length - lastIndex);
+        }
+
         public static bool CheckFileIsExist(string path)
         {
             return File.Exists(path);
@@ -172,6 +204,11 @@ namespace Aaron.Common
             Process.Start(reloadProjectPath, parm);
         }
 
+        /// <summary>
+        /// 获取文件二进制数据
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
         public static byte[] GetFileData(string filePath)
         {
             using (FileStream fs = new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.ReadWrite))
@@ -188,6 +225,32 @@ namespace Aaron.Common
         #endregion
 
         #region 文件夹相关
+        /// <summary>
+        /// 判断路径是不是文件夹
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
+        public static bool CheckIsFolder(string fileName)
+        {
+            //如果不包含. 就视为文件夹
+            var res = !fileName.Contains(".");
+            if (res)
+            {
+                //如果不包含. 说明不是
+                return true;
+            }
+            var convertStr = fileName.Replace(@"/", @"\");
+
+            var pointIndex = fileName.LastIndexOf(".");
+            var lastIndex = fileName.LastIndexOf(@"\");
+            //最后一个.(后缀)如果大于了最后一个\ 肯定就不是文件夹
+            if (pointIndex > lastIndex)
+            {
+                return false;
+            }
+            return true;
+        }
+
         public static void CopyDirectory(string srcPath, string targetPath, bool isCover = true)
         {
             //先判断一下目标文件夹是否存在
@@ -214,6 +277,10 @@ namespace Aaron.Common
             //不是文件夹即复制文件，true表示可以覆盖同名文件
         }
 
+        /// <summary>
+        /// 会判断有没有,没有就创建,有就不做操作
+        /// </summary>
+        /// <param name="dirPath"></param>
         public static void CreateDirectory(string dirPath)
         {
             if (!CheckDirIsExist(dirPath))
@@ -290,7 +357,7 @@ namespace Aaron.Common
         }
 
         /// <summary>
-        /// 根据传入的路径 获取向前几层
+        /// 根据传入的路径 获取向前几层  获取上一级
         /// </summary>
         /// <param name="path"></param>
         /// <param name="dirCount"></param>
