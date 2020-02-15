@@ -3,6 +3,7 @@ using MVC.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 
@@ -12,10 +13,13 @@ namespace MVC.Controllers
     {
 
 
-        public ActionResult Index()
+        public ActionResult Index(string str)
         {
-
-            return View();
+            if (str=="111")
+            {
+                Thread.Sleep(3000);
+            }
+            return Content(str);
 
         }
 
