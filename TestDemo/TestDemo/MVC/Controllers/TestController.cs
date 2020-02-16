@@ -23,13 +23,6 @@ namespace MVC.Controllers
 
         }
 
-
-        public ActionResult Index2(Person list)
-        {
-
-            Person p = new Person();
-            return Content("suc");
-
-        }
+         
     }
 }
