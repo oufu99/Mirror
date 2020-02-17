@@ -15,12 +15,8 @@ namespace MVC.Controllers
 
         public ActionResult Index(string str)
         {
-            if (str=="111")
-            {
-                Thread.Sleep(3000);
-            }
+            
             return Content(str);
-
         }
 
          
