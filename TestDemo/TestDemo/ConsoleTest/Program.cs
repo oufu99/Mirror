@@ -18,6 +18,7 @@ using System.Collections;
 using System.Globalization;
 using Newtonsoft.Json;
 using System;
+using ConsoleTest.Models;
 
 namespace ConsoleTest
 {
@@ -28,7 +29,9 @@ namespace ConsoleTest
 
             try
             {
-                var res = HttpHelper.GetHttpResponse("http://localhost:8088/Test/Index?str=Test");
+                var list = new List<Person>();
+                list.Add(new Person() { Name = "Aaron" });
+                var res = list.Where(c => c.Name == "123").ToList();
                 Console.WriteLine(res);
 
             }
