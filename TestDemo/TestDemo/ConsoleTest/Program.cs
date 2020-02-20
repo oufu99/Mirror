@@ -22,24 +22,18 @@ using ConsoleTest.Models;
 
 namespace ConsoleTest
 {
+    delegate void WriteLineDelegate(string line);
+
     class Program
     {
         static void Main(string[] args)
         {
 
-            try
-            {
-                var list = new List<Person>();
-                list.Add(new Person() { Name = "Aaron" });
-                var res = list.Where(c => c.Name == "123").ToList();
-                Console.WriteLine(res);
 
-            }
-            catch (Exception ex)
-            {
 
-                throw;
-            }
+            WriteLineDelegate readLine = new WriteLineDelegate(Console.WriteLine);
+            readLine("Try!");
+
             Console.ReadLine();
 
 

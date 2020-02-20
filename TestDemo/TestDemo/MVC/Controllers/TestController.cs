@@ -15,20 +15,10 @@ namespace MVC.Controllers
 
         public ActionResult Index(string str)
         {
-            try
-            {
-                if (str == "Test")
-                {
-                    throw new Exception("服务器内部coco");
-                }
-                return Content(str);
-            }
-            catch (Exception ex)
-            {
+            FileHelper.OpenSoft(@"D:\Mirror2\UpdateAllGit\UpdateAllGit\bin\Debug\UpdateAllGit.exe");
 
-                return Content("我捕获到了");
-            }
-            
+            return Content("suc");
+
         }
 
 
