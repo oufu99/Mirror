@@ -28,14 +28,8 @@ namespace ConsoleTest
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("主线程1");
-            Console.WriteLine(Thread.CurrentThread.ManagedThreadId);
-            var task = Asy();
-            Console.WriteLine(Thread.CurrentThread.ManagedThreadId);
-            Console.WriteLine("主线程2");
-
-            Console.WriteLine("主线程3");
-
+           
+            Console.WriteLine(ConfigHelper.GetAppConfig("test"));
             Console.ReadLine();
 
 
@@ -46,9 +40,20 @@ namespace ConsoleTest
         {
             Console.WriteLine("内部1");
             Console.WriteLine(Thread.CurrentThread.ManagedThreadId);
-            await Task.Run(() => {
-                Console.WriteLine(Thread.CurrentThread.ManagedThreadId);
-                Thread.Sleep(5000); });
+            try
+            {
+                await Task.Run(() => {
+                    throw new Exception("发生错误");
+                    Console.WriteLine(Thread.CurrentThread.ManagedThreadId);
+                    Thread.Sleep(5000);
+                });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                 
+            }
+            
             Console.WriteLine("内部2");
             await Task.Run(() => {
                 Console.WriteLine(Thread.CurrentThread.ManagedThreadId);
