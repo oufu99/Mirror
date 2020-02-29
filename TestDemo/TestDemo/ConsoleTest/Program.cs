@@ -28,11 +28,10 @@ namespace ConsoleTest
     {
         static void Main(string[] args)
         {
-           
-            Console.WriteLine(ConfigHelper.GetAppConfig("test"));
+            var list = new List<Person>();
+            list = list.Where(c => c.Age == 1).ToList();
+
             Console.ReadLine();
-
-
         }
 
 
@@ -42,7 +41,8 @@ namespace ConsoleTest
             Console.WriteLine(Thread.CurrentThread.ManagedThreadId);
             try
             {
-                await Task.Run(() => {
+                await Task.Run(() =>
+                {
                     throw new Exception("发生错误");
                     Console.WriteLine(Thread.CurrentThread.ManagedThreadId);
                     Thread.Sleep(5000);
@@ -51,13 +51,15 @@ namespace ConsoleTest
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                 
+
             }
-            
+
             Console.WriteLine("内部2");
-            await Task.Run(() => {
+            await Task.Run(() =>
+            {
                 Console.WriteLine(Thread.CurrentThread.ManagedThreadId);
-                Thread.Sleep(5000); });
+                Thread.Sleep(5000);
+            });
             Console.WriteLine("内部3");
 
             return "99";
