@@ -19,6 +19,7 @@ using System.Globalization;
 using Newtonsoft.Json;
 using System;
 using ConsoleTest.Models;
+using System.IO;
 
 namespace ConsoleTest
 {
@@ -28,54 +29,20 @@ namespace ConsoleTest
     {
         static void Main(string[] args)
         {
-            var list = new List<Person>();
-            list = list.Where(c => c.Age == 1).ToList();
+            Console.WriteLine((int)RpType.普通房);
 
             Console.ReadLine();
         }
 
 
-        static async Task<string> Asy()
-        {
-            Console.WriteLine("内部1");
-            Console.WriteLine(Thread.CurrentThread.ManagedThreadId);
-            try
-            {
-                await Task.Run(() =>
-                {
-                    throw new Exception("发生错误");
-                    Console.WriteLine(Thread.CurrentThread.ManagedThreadId);
-                    Thread.Sleep(5000);
-                });
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
 
-            }
-
-            Console.WriteLine("内部2");
-            await Task.Run(() =>
-            {
-                Console.WriteLine(Thread.CurrentThread.ManagedThreadId);
-                Thread.Sleep(5000);
-            });
-            Console.WriteLine("内部3");
-
-            return "99";
-        }
+    }
 
 
-        static async Task<string> Asy2()
-        {
-            Console.WriteLine("内部11");
+    public enum RpType
+    {
 
-            await Task.Run(() => { Thread.Sleep(5000); });
-            Console.WriteLine("内部22");
-            return "99";
-        }
-
-
+        普通房 = 1
     }
 }
 
