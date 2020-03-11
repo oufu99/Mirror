@@ -29,8 +29,10 @@ namespace ConsoleTest
     {
         static void Main(string[] args)
         {
-            Console.WriteLine((int)RpType.普通房);
+            List<string> list = null;
+            Console.WriteLine(list.Any());
 
+       
             Console.ReadLine();
         }
 
@@ -38,11 +40,10 @@ namespace ConsoleTest
 
     }
 
-
-    public enum RpType
+    public class Person
     {
-
-        普通房 = 1
+        public int? MyProperty { get; set; }
     }
-}
+
+ }
 
