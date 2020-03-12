@@ -1,4 +1,5 @@
 ﻿using Models;
+using Services;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -12,18 +13,10 @@ namespace AaronEF
     {
         static void Main(string[] args)
         {
-
-
-
-            //var t = new Users() { Name = "测试添加", Age = 19 };
-
-            AaronContext context = new AaronContext();
-            //context.Set<Users>().Attach(t);
-            //context.Entry<Users>(t).State = EntityState.Added;
-            //context.SaveChanges();
-
-            var model = context.Users.FirstOrDefault(c => c.Name == "测试添加");
-            Console.WriteLine(model.Age);
+            var t = new Users() { Name = "测试添加", Age = 19 };
+            Service.Add(t);
+            var model = Service.Query<Users>(c => c.Name == "测试添加");
+            Console.WriteLine(model.Name + "=====" + model.Age);
 
             Console.ReadLine();
         }

@@ -21,7 +21,7 @@ namespace MVC.Controllers
             var json = JsonConvert.SerializeObject(t);
 
             HttpContext.Request.InputStream.Position = 0;
-            var stream =  HttpContext.Request.InputStream;
+            var stream = HttpContext.Request.InputStream;
             StreamReader reader = new StreamReader(stream);
             var test = reader.ReadToEnd();
             return Content(test);
@@ -45,4 +45,6 @@ namespace MVC.Controllers
             base.OnAuthorization(filterContext);
         }
     }
+
+
 }

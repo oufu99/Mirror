@@ -6,16 +6,16 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Models
+namespace Services
 {
-    public class PersonRepository
+    public class Repository
     {
         /// <summary>
         /// 添加
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="model"></param>
-        public static void Insert<T>(T model)
+        public static void Add<T>(T model)
             where T : class
         {
             using (AaronContext context = new AaronContext())
@@ -24,7 +24,7 @@ namespace Models
                 context.SaveChanges();
             }
         }
-        public static void InsertList<T>(List<T> list)
+        public static void AddList<T>(List<T> list)
          where T : class
         {
             using (AaronContext context = new AaronContext())
@@ -50,42 +50,29 @@ namespace Models
                 context.SaveChanges();
             }
         }
-       
-        public void Delete<T>(Expression<Func<T, bool>> express)
+
+        public static void Delete<T>(T model)
             where T : class
         {
+            //用循环,然后最后再SaveChange就可以了
             using (AaronContext context = new AaronContext())
             {
-                T v = context.Set<T>().SingleOrDefault(express);
-                if (v == null)
-                {
-                    return;
-                }
-                context.Set<T>().Remove(v);
+                context.Set<T>().Add(model);
+                context.Entry<T>(model).State = EntityState.Deleted;
                 context.SaveChanges();
             }
         }
-        public void DeleteList<T>(Expression<Func<T, bool>> express)
-            where T : class
-        {
-            //后面我来实现他
-            using (AaronContext context = new AaronContext())
-            {
-                var fun = new Func<Person, bool>(c => c.Age == 18);
-                //context.Set<T>().Delete(express);
-            }
-        }
 
 
-        public T Query<T>(Expression<Func<T, bool>> express) where T : class
+        public static T Query<T>(Expression<Func<T, bool>> express) where T : class
         {
             using (AaronContext context = new AaronContext())
             {
-                return context.Set<T>().SingleOrDefault(express);
+                return context.Set<T>().FirstOrDefault(express);
             }
         }
 
-        public IEnumerable<T> QueryList<T>(Expression<Func<T, bool>> express)
+        public static IEnumerable<T> QueryList<T>(Expression<Func<T, bool>> express)
             where T : class
         {
             using (AaronContext context = new AaronContext())

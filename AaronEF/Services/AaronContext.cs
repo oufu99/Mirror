@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Models;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Models
+namespace Services
 {
     public class AaronContext : DbContext
     {
@@ -16,8 +17,5 @@ namespace Models
         }
         public DbSet<Users> Users { get; set; }
         public DbSet<Person> Persons { get; set; }
-         
-
-
     }
 }
