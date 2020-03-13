@@ -30,9 +30,9 @@ namespace ConsoleTest
         static void Main(string[] args)
         {
             List<string> list = null;
-            Console.WriteLine(list.Any());
+            list = list.Where(c => c == "11").ToList();
+            Console.WriteLine("11");
 
-       
             Console.ReadLine();
         }
 
@@ -45,5 +45,5 @@ namespace ConsoleTest
         public int? MyProperty { get; set; }
     }
 
- }
+}
 

@@ -5,6 +5,7 @@ using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,16 +14,77 @@ namespace Aaron.Common
 {
     public static class HttpHelper
     {
-        #region Http请求
-        /// <summary>
-        /// get请求（拼接请求参数）
-        /// </summary>
-        /// <param name="url"></param>
-        /// <param name="param"></param>
-        /// <param name="timeout"></param>
-        /// <returns></returns>
+
+        public static async Task<string> PostHttpResponseAsync(string url, Dictionary<string, string> postDic, int timeout = 60000)
+        {
+            using (var client = new HttpClient())
+            {
+                var values = new List<KeyValuePair<string, string>>();
+                values.Add(new KeyValuePair<string, string>("thing1", "hello"));
+                values.Add(new KeyValuePair<string, string>("thing2 ", "world"));
+
+                var content = new FormUrlEncodedContent(values);
+                var response = await client.PostAsync("http://www.mydomain.com/recepticle.aspx", content);
+                var responseString = await response.Content.ReadAsStringAsync();
+                return responseString;
+            }
+        }
+
+        public static string PostHttpResponse(string url, object postData, int timeout = 60000)
+        {
+            HttpWebRequest request = null;
+            //HTTPSQ请求 
+            request = WebRequest.Create(url) as HttpWebRequest;
+            request.ProtocolVersion = HttpVersion.Version10;
+            request.Method = "POST";
+            request.ContentType = "application/json";
+            request.UserAgent = "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727)";
+            request.Timeout = timeout;
+
+            //如果需要POST数据     
+            string str = JsonConvert.SerializeObject(postData);
+            byte[] data = Encoding.GetEncoding("utf-8").GetBytes(str);
+            using (Stream stream = request.GetRequestStream())
+            {
+                stream.Write(data, 0, data.Length);
+            }
+
+            var resultStream = (request.GetResponse() as HttpWebResponse);
+            string result = "";
+            //获取响应内容  
+            using (StreamReader reader = new StreamReader(resultStream.GetResponseStream(), Encoding.UTF8))
+            {
+                result = reader.ReadToEnd();
+            }
+            return result;
+        }
+
+        public static T PostHttpResponse<T>(string url, object paramData, int timeout = 60000)
+        {
+            string retString = null;
+            try
+            {
+                retString = PostHttpResponse(url, paramData, timeout);
+                if (!string.IsNullOrWhiteSpace(retString))
+                {
+                    return JsonConvert.DeserializeObject<T>(retString);
+                }
+                else
+                {
+                    return default(T);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+
         public static string GetHttpResponse(string url, object paramData = null, int timeout = 60000)
         {
+            HttpClient client = new HttpClient();
+
             var param = GetQueryString(paramData);//拼get参数
             if (!string.IsNullOrWhiteSpace(param))
             {
@@ -42,14 +104,7 @@ namespace Aaron.Common
             return retString;
         }
 
-        /// <summary>
-        /// Get请求
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="url"></param>
-        /// <param name="paramData"></param>
-        /// <param name="timeout"></param>
-        /// <returns></returns>
+
         public static T GetHttpResponse<T>(string url, object paramData = null, int timeout = 60000)
         {
             string retString = null;
@@ -73,77 +128,15 @@ namespace Aaron.Common
                 }
             }
             catch (Exception ex)
-            {                
+            {
                 throw;
             }
         }
 
 
-        /// <summary>
-        /// post方法
-        /// </summary>
-        /// <param name="url">地址</param>
-        /// <param name="PostData">post数据对象</param>
-        /// <param name="timeout">超时时间，默认为6000毫秒（1分钟）</param>        
-        /// <returns></returns>
-        public static string PostHttpResponse(string url, Object PostData, int timeout = 60000)
-        {
-            HttpWebRequest request = null;
-            //HTTPSQ请求 
-            request = WebRequest.Create(url) as HttpWebRequest;
-            request.ProtocolVersion = HttpVersion.Version10;
-            request.Method = "POST";
-            request.ContentType = "application/json";
-            request.UserAgent = "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727)";
-            request.Timeout = timeout;
 
-            //如果需要POST数据     
-            string str = JsonConvert.SerializeObject(PostData);
-            byte[] data = Encoding.GetEncoding("utf-8").GetBytes(str);
-            using (Stream stream = request.GetRequestStream())
-            {
-                stream.Write(data, 0, data.Length);
-            }
 
-            var resultStream = (request.GetResponse() as HttpWebResponse);
-            string result = "";
-            //获取响应内容  
-            using (StreamReader reader = new StreamReader(resultStream.GetResponseStream(), Encoding.UTF8))
-            {
-                result = reader.ReadToEnd();
-            }
-            return result;
-        }
 
-        /// <summary>
-        /// Post请求
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="url"></param>
-        /// <param name="paramData"></param>
-        /// <param name="timeout"></param>
-        /// <returns></returns>
-        public static T PostHttpResponse<T>(string url, object paramData, int timeout = 60000)
-        {
-            string retString = null;
-            try
-            {
-                retString = PostHttpResponse(url, paramData, timeout);
-                if (!string.IsNullOrWhiteSpace(retString))
-                {
-                    return JsonConvert.DeserializeObject<T>(retString);
-                }
-                else
-                {
-                    return default(T);
-                }
-            }
-            catch (Exception ex)
-            {                
-                throw;
-            }
-        }
-        #endregion
 
 
         #region Http辅助方法
