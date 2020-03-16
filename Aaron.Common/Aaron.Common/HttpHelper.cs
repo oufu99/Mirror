@@ -14,8 +14,14 @@ namespace Aaron.Common
 {
     public static class HttpHelper
     {
-
-        public static async Task<string> PostDicionaryHttpResponseAsync(string url, Dictionary<string, string> postDic, int timeout = 60000)
+        /// <summary>
+        /// 字典类型参数请求
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="postDic"></param>
+        /// <param name="timeout"></param>
+        /// <returns></returns>
+        public static async Task<string> PostHttpResponseAsync(string url, Dictionary<string, string> postDic, int timeout = 60000)
         {
             using (var client = new HttpClient())
             {
@@ -26,6 +32,13 @@ namespace Aaron.Common
             }
         }
 
+        /// <summary>
+        /// json数据请求
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="postData"></param>
+        /// <param name="timeout"></param>
+        /// <returns></returns>
         public static string PostHttpResponse(string url, object postData, int timeout = 60000)
         {
             HttpWebRequest request = null;
