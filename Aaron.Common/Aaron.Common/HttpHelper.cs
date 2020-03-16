@@ -15,16 +15,12 @@ namespace Aaron.Common
     public static class HttpHelper
     {
 
-        public static async Task<string> PostHttpResponseAsync(string url, Dictionary<string, string> postDic, int timeout = 60000)
+        public static async Task<string> PostDicionaryHttpResponseAsync(string url, Dictionary<string, string> postDic, int timeout = 60000)
         {
             using (var client = new HttpClient())
             {
-                var values = new List<KeyValuePair<string, string>>();
-                values.Add(new KeyValuePair<string, string>("thing1", "hello"));
-                values.Add(new KeyValuePair<string, string>("thing2 ", "world"));
-
-                var content = new FormUrlEncodedContent(values);
-                var response = await client.PostAsync("http://www.mydomain.com/recepticle.aspx", content);
+                var formContent = new FormUrlEncodedContent(postDic);
+                var response = await client.PostAsync(url, formContent);
                 var responseString = await response.Content.ReadAsStringAsync();
                 return responseString;
             }

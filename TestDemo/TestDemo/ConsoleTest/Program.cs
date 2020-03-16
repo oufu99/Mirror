@@ -29,9 +29,9 @@ namespace ConsoleTest
     {
         static void Main(string[] args)
         {
-            List<string> list = null;
-            list = list.Where(c => c == "11").ToList();
-            Console.WriteLine("11");
+
+            var str = "";
+            var list = str.Split(new string[] { @";" }, StringSplitOptions.RemoveEmptyEntries);
 
             Console.ReadLine();
         }
