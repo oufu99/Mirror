@@ -67,6 +67,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CodeHelper.cs" />
     <Compile Include="Enum\IISEnums.cs" />
     <Compile Include="Extends\ListExtend.cs" />
     <Compile Include="Extends\StringExtends.cs" />
